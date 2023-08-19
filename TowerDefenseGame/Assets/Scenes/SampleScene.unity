@@ -218,6 +218,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Grid Manager
       objectReference: {fileID: 0}
+    - target: {fileID: 1699354150553313027, guid: 4a36403b5c9341846aaad37087e4ac9a, type: 3}
+      propertyPath: height
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1699354150553313027, guid: 4a36403b5c9341846aaad37087e4ac9a, type: 3}
+      propertyPath: weight
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 1699354150553313029, guid: 4a36403b5c9341846aaad37087e4ac9a, type: 3}
       propertyPath: m_RootOrder
       value: 1

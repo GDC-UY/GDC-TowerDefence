@@ -6,14 +6,15 @@ using UnityEngine;
 
 public class GridManager : MonoBehaviour
 {
-    [SerializeField] private int gridSize;
+    [SerializeField] private int weight;
+    [SerializeField] private int height;
     [SerializeField] private GameObject cellPrefab;
     public Graph graph;
     public Node[,] nodes;
     // Start is called before the first frame update
     void Start()
     {
-        nodes = new Node[gridSize, gridSize];
+        nodes = new Node[weight, height];
         GridCreate();
         CreateGraphConnections();
         PrintEdges();
@@ -28,9 +29,9 @@ public class GridManager : MonoBehaviour
     private void GridCreate()
     {
         graph = new Graph();
-        for (int row = 0; row < gridSize; row++)
+        for (int row = 0; row < weight; row++)
         {
-            for (int col = 0; col < gridSize; col++)
+            for (int col = 0; col < height; col++)
             {
                 GameObject cell = Instantiate(cellPrefab, new Vector3(transform.position.x + row, transform.position.y + col, 0 ), Quaternion.identity);
                 cell.name = $"{row}X{col}";
@@ -43,21 +44,21 @@ public class GridManager : MonoBehaviour
 
     private void CreateGraphConnections()
     {
-        for (int row = 0; row < gridSize; row++)
+        for (int row = 0; row < weight; row++)
         {
-            for (int col = 0; col < gridSize; col++)
+            for (int col = 0; col < height; col++)
             {
                 if (row > 0)
                 {
                     graph.AddEdge(nodes[row, col], nodes[row - 1, col]);
                 }
 
-                if (row < gridSize - 1)
+                if (row < weight - 1)
                 {
                     graph.AddEdge(nodes[row, col], nodes[row + 1, col]);
                 }
 
-                if (col < gridSize - 1)
+                if (col < height - 1)
                 {
                     graph.AddEdge(nodes[row, col], nodes[row, col + 1]);
                 }
@@ -71,9 +72,9 @@ public class GridManager : MonoBehaviour
     }
     private void PrintGrid()
     {
-        for (int row = 0; row < gridSize; row++)
+        for (int row = 0; row < weight; row++)
         {
-            for (int col = 0; col < gridSize; col++)
+            for (int col = 0; col < height; col++)
             {
                 Debug.Log(nodes[row,col].GetValue().name);
             }
@@ -82,9 +83,9 @@ public class GridManager : MonoBehaviour
 
     private void PrintEdges()
     {
-        for (int row = 0; row < gridSize; row++)
+        for (int row = 0; row < weight; row++)
         {
-            for (int col = 0; col < gridSize; col++)
+            for (int col = 0; col < height; col++)
             {
                 Node[] related = nodes[row, col].GetAdy().ToArray();
                 if (related.Length > 2 && related.Length <= 3)
