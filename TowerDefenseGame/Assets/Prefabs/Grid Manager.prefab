@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 1699354150553313029}
   - component: {fileID: 1699354150553313028}
   - component: {fileID: 1699354150553313027}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Grid Manager
-  m_TagString: Untagged
+  m_TagString: GridManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -97,5 +97,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da0f2c6ddd910984a88266959e55a9df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridSize: 5
+  weight: 0
+  height: 0
   cellPrefab: {fileID: 8103140524342113053, guid: 1008385f9083973489c83ecb6228b9ee, type: 3}

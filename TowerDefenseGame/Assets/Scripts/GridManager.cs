@@ -14,6 +14,7 @@ public class GridManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GridPosition();
         nodes = new Node[weight, height];
         GridCreate();
         CreateGraphConnections();
@@ -107,6 +108,11 @@ public class GridManager : MonoBehaviour
                 
             }
         }
+    }
+
+    private void GridPosition()
+    {
+        transform.position = new Vector3(transform.position.x - (weight/2), transform.position.y - (height/2), 0);
     }
 
 }
