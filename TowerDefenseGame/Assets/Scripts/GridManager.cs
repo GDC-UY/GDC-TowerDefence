@@ -6,14 +6,14 @@ using UnityEngine;
 
 public class GridManager : MonoBehaviour
 {
-    public LinkedList<Node> Path = new LinkedList<Node>();
-    
     [SerializeField] private int weight;
     [SerializeField] private int height;
     [SerializeField] private GameObject cellPrefab;
     [SerializeField] private GameObject container;
     public Graph graph;
     public Node[,] nodes;
+
+    [SerializeField] private GameObject Enemy;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +21,21 @@ public class GridManager : MonoBehaviour
         nodes = new Node[weight, height];
         GridCreate();
         CreateGraphConnections();
-        PrintEdges();
+        
+        Instantiate(Enemy, new Vector3(-10.5f, 4.5f, 0 ), Quaternion.identity);
+    }
+
+    private GameObject EnemySpawn;
+    private GameObject EnemyTarget;
+    
+    private LinkedList<Node> path = null;
+    
+    public LinkedList<Node> GetPath()
+    {
+        //Cache
+        if (this.path == null)
+            this.path = this.graph.EnemyPathFinding(EnemySpawn, EnemyTarget);
+        return this.path;
     }
 
     private void GridCreate()
@@ -33,10 +47,41 @@ public class GridManager : MonoBehaviour
             {
                 GameObject cell = Instantiate(cellPrefab, new Vector3(transform.position.x + row, transform.position.y + col, 0 ), Quaternion.identity);
                 cell.name = $"{row}x{col}";
+                
+                //TEMPORAL --------------------------------------------------
+                if (cell.name == "0x0")
+                {
+                    //INICIO
+                    cell.GetComponent<SpriteRenderer>().color = Color.red;
+                    EnemySpawn = cell;
+                }
+                else if (cell.name == "19x19")
+                {
+                    //FINAL
+                    cell.GetComponent<SpriteRenderer>().color = Color.green;
+                    EnemyTarget = cell;
+                } 
+                //TEMPORAL --------------------------------------------------
+                    
                 cell.transform.SetParent(container.transform);
                 Node node = new Node(cell);
                 nodes[row, col] = node; // Asignar el objeto a la matriz
                 graph.AddNode(node);
+                if (cell.name == "15x0")
+                {
+                    cell.GetComponent<SpriteRenderer>().color = Color.black;
+                    node.SetUsed(true);
+                }else if (cell.name == "19x16")
+                {
+                    cell.GetComponent<SpriteRenderer>().color = Color.black;
+                    node.SetUsed(true);
+                }else if (cell.name == "18x16")
+                {
+                    cell.GetComponent<SpriteRenderer>().color = Color.black;
+                    node.SetUsed(true);
+                }
+
+                cell.GetComponent<Cell>().node = node;
             }
         }
     }
@@ -112,5 +157,4 @@ public class GridManager : MonoBehaviour
     {
         transform.position = new Vector3(transform.position.x - (weight/2) + 0.5f, transform.position.y - (height/2) + 0.5f, 0);
     }
-
 }

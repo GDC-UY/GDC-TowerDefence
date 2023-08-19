@@ -32,16 +32,26 @@ namespace Scenes
         }
         public LinkedList<Node> EnemyPathFinding(Node initial, Node destiny){
             ClearVisitedNodes();
-            return initial.EnemyPathFinding(initial.GetValue(), destiny.GetValue());
+            return initial.EnemyPathFinding(destiny);
         }
         public LinkedList<Node> EnemyPathFinding(GameObject initial, GameObject destiny){
             ClearVisitedNodes();
-            foreach (Node node in nodes){
-                if (node.GetValue().Equals(initial)){
-                    return node.EnemyPathFinding(initial, destiny);
+            Node Start = null;
+            Node End = null;
+            foreach (Node node in nodes)
+            {
+                if (node.GetValue().Equals(initial))
+                {
+                    Start = node;
+                    
+                }else if (node.GetValue().Equals(destiny))
+                {
+                    End = node;
                 }
             }
-
+            if(Start != null && End != null)
+                return Start.EnemyPathFinding(End);
+            
             return null;
         }
 

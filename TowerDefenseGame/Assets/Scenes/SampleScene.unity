@@ -238,6 +238,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1841683542
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1841683543}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1841683543
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1841683542}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.9185131, y: -3.8742478, z: -0.0729821}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1699354149909219816
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -250,12 +281,16 @@ PrefabInstance:
       value: Grid Manager
       objectReference: {fileID: 0}
     - target: {fileID: 1699354150553313027, guid: 4a36403b5c9341846aaad37087e4ac9a, type: 3}
+      propertyPath: Enemy
+      value: 
+      objectReference: {fileID: 104020759841555626, guid: d9c20aa723c58b14aba1bdfbbdfb0b40, type: 3}
+    - target: {fileID: 1699354150553313027, guid: 4a36403b5c9341846aaad37087e4ac9a, type: 3}
       propertyPath: height
-      value: 10
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1699354150553313027, guid: 4a36403b5c9341846aaad37087e4ac9a, type: 3}
       propertyPath: weight
-      value: 10
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1699354150553313027, guid: 4a36403b5c9341846aaad37087e4ac9a, type: 3}
       propertyPath: container
