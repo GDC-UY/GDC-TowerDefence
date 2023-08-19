@@ -6,9 +6,12 @@ using UnityEngine;
 
 public class GridManager : MonoBehaviour
 {
+    public LinkedList<Node> Path = new LinkedList<Node>();
+    
     [SerializeField] private int weight;
     [SerializeField] private int height;
     [SerializeField] private GameObject cellPrefab;
+    [SerializeField] private GameObject container;
     public Graph graph;
     public Node[,] nodes;
     // Start is called before the first frame update
@@ -21,12 +24,6 @@ public class GridManager : MonoBehaviour
         PrintEdges();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void GridCreate()
     {
         graph = new Graph();
@@ -35,7 +32,8 @@ public class GridManager : MonoBehaviour
             for (int col = 0; col < height; col++)
             {
                 GameObject cell = Instantiate(cellPrefab, new Vector3(transform.position.x + row, transform.position.y + col, 0 ), Quaternion.identity);
-                cell.name = $"{row}X{col}";
+                cell.name = $"{row}x{col}";
+                cell.transform.SetParent(container.transform);
                 Node node = new Node(cell);
                 nodes[row, col] = node; // Asignar el objeto a la matriz
                 graph.AddNode(node);
@@ -91,19 +89,19 @@ public class GridManager : MonoBehaviour
                 Node[] related = nodes[row, col].GetAdy().ToArray();
                 if (related.Length > 2 && related.Length <= 3)
                 {
-                    Debug.Log(nodes[row,col].GetValue().name + "esta relacionado con " + related[0].GetValue().name);
-                    Debug.Log(nodes[row,col].GetValue().name + "esta relacionado con " + related[1].GetValue().name);
-                    Debug.Log(nodes[row,col].GetValue().name + "esta relacionado con " + related[2].GetValue().name);
+                    Debug.Log(nodes[row,col].GetValue().name + " esta relacionado con " + related[0].GetValue().name);
+                    Debug.Log(nodes[row,col].GetValue().name + " esta relacionado con " + related[1].GetValue().name);
+                    Debug.Log(nodes[row,col].GetValue().name + " esta relacionado con " + related[2].GetValue().name);
                 }else if (related.Length > 3)
                 {
-                    Debug.Log(nodes[row,col].GetValue().name + "esta relacionado con " + related[0].GetValue().name);
-                    Debug.Log(nodes[row,col].GetValue().name + "esta relacionado con " + related[1].GetValue().name);
-                    Debug.Log(nodes[row,col].GetValue().name + "esta relacionado con " + related[2].GetValue().name);
-                    Debug.Log(nodes[row,col].GetValue().name + "esta relacionado con " + related[3].GetValue().name);
+                    Debug.Log(nodes[row,col].GetValue().name + " esta relacionado con " + related[0].GetValue().name);
+                    Debug.Log(nodes[row,col].GetValue().name + " esta relacionado con " + related[1].GetValue().name);
+                    Debug.Log(nodes[row,col].GetValue().name + " esta relacionado con " + related[2].GetValue().name);
+                    Debug.Log(nodes[row,col].GetValue().name + " esta relacionado con " + related[3].GetValue().name);
                 }else
                 {
-                    Debug.Log(nodes[row,col].GetValue().name + "esta relacionado con " + related[0].GetValue().name);
-                    Debug.Log(nodes[row,col].GetValue().name + "esta relacionado con " + related[1].GetValue().name);
+                    Debug.Log(nodes[row,col].GetValue().name + " esta relacionado con " + related[0].GetValue().name);
+                    Debug.Log(nodes[row,col].GetValue().name + " esta relacionado con " + related[1].GetValue().name);
                 }
                 
             }
@@ -112,7 +110,7 @@ public class GridManager : MonoBehaviour
 
     private void GridPosition()
     {
-        transform.position = new Vector3(transform.position.x - (weight/2), transform.position.y - (height/2), 0);
+        transform.position = new Vector3(transform.position.x - (weight/2) + 0.5f, transform.position.y - (height/2) + 0.5f, 0);
     }
 
 }

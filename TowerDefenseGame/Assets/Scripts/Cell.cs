@@ -1,19 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Scenes;
 using UnityEngine;
 
 public class Cell : MonoBehaviour
 {
-    public string name;
     
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
