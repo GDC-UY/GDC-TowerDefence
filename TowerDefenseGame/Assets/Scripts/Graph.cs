@@ -30,27 +30,19 @@ namespace Scenes
                 node.SetVisited(false);
             }
         }
-        public LinkedList<Node> EnemyPathFinding(Node cell){
+        public LinkedList<Node> EnemyPathFinding(Node initial, Node destiny){
             ClearVisitedNodes();
-            LinkedList<Node> bfsList = new LinkedList<Node>();
-            foreach (Node node in nodes){
-                if (node.Equals(cell)){
-                    node.GetUnusedNodes(bfsList);
-                    break;
-                }
-            }
-            return bfsList;
+            return initial.EnemyPathFinding(initial.GetValue(), destiny.GetValue());
         }
-        public LinkedList<Node> EnemyPathFinding(GameObject cell){
+        public LinkedList<Node> EnemyPathFinding(GameObject initial, GameObject destiny){
             ClearVisitedNodes();
-            LinkedList<Node> bfsList = new LinkedList<Node>();
             foreach (Node node in nodes){
-                if (node.GetValue().Equals(cell)){
-                    node.GetUnusedNodes(bfsList);
-                    break;
+                if (node.GetValue().Equals(initial)){
+                    return node.EnemyPathFinding(initial, destiny);
                 }
             }
-            return bfsList;
+
+            return null;
         }
 
         public LinkedList<Node> GetUnusedNodes()
