@@ -5,40 +5,44 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    // Start is called before the first frame update
     private GridManager manager;
     private LinkedList<Node> enemyPath;
-    
     private LinkedListNode<Node> next;
-    [SerializeField] private float enemySpeed = 0.01f;
-    [SerializeField] private bool Walk = false;
-    void Start()
+    private GameObject nextGO;
+    [SerializeField] private float enemySpeed = 2f; // Ajusta la velocidad según lo necesario
+    [SerializeField] private bool isWalking = false; // Cambia "Walk" a "isWalking"
+
+    private void Start()
     {
         manager = GameObject.FindGameObjectWithTag("GridManager").GetComponent<GridManager>();
         enemyPath = manager.GetPath();
-
         next = enemyPath.First;
+        if (next != null)
+            nextGO = next.Value.GetValue();
     }
 
-    // Update is called once per frame
-    float threshold = 0.01f;
-    void Update()
+    private float deltaX;
+    private float deltaY;
+    private void Update()
     {
-        if (Walk && next != null)
+        if (isWalking && next != null)
         {
-            Vector3 targetPosition = next.Value.GetValue().transform.position;
+            Vector3 targetPosition = nextGO.transform.position;
             Vector3 currentPosition = transform.position;
 
-            float deltaX = targetPosition.x - currentPosition.x;
-            float deltaY = targetPosition.y - currentPosition.y;
+            deltaX = targetPosition.x - currentPosition.x;
+            deltaY = targetPosition.y - currentPosition.y;
 
-            if (Mathf.Abs(deltaX) < threshold && Mathf.Abs(deltaY) < threshold)
+            if (Mathf.Abs(deltaX) < enemySpeed * Time.deltaTime && Mathf.Abs(deltaY) < enemySpeed * Time.deltaTime)
             {
-                transform.position = new Vector3(targetPosition.x, targetPosition.y, currentPosition.z);
+                transform.position = new Vector2(targetPosition.x, targetPosition.y);
                 next.Value.GetValue().GetComponent<SpriteRenderer>().color = Color.blue;
                 next = next.Next;
-                if(next != null)
+                if (next != null)
+                {
+                    nextGO = next.Value.GetValue();
                     next.Value.GetValue().GetComponent<SpriteRenderer>().color = Color.yellow;
+                }
                 else
                 {
                     next = enemyPath.First;
@@ -47,15 +51,28 @@ public class Enemy : MonoBehaviour
             else
             {
                 Vector3 moveDirection = new Vector3(Mathf.Sign(deltaX), Mathf.Sign(deltaY), 0);
-
-                MoveAdd(moveDirection.x * enemySpeed, moveDirection.y * enemySpeed);
+                if (Mathf.Abs(deltaY) >= enemySpeed * Time.deltaTime)
+                {
+                    moveDirection.x = 0;
+                }
+                else
+                {
+                    moveDirection.y = 0;
+                }
+                MoveAdd(moveDirection.x * enemySpeed * Time.deltaTime, moveDirection.y * enemySpeed * Time.deltaTime);
             }
         }
     }
 
-    void MoveAdd(float x, float y)
+    private void MoveAdd(float x, float y)
     {
         Vector3 pos = transform.position;
-        transform.position = pos +  new Vector3(x, y, 0);
+        transform.position = pos + new Vector3(x, y, 0);
+    }
+
+    // Agrega un método para iniciar el movimiento del enemigo
+    public void StartWalking()
+    {
+        isWalking = true;
     }
 }

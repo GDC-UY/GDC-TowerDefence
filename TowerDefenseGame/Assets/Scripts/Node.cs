@@ -75,7 +75,7 @@ namespace Scenes
                     }
                 }
             }
-
+            Debug.LogError("NO HAY CAMINO!");
             return null; // No se encontró un camino
         }
 

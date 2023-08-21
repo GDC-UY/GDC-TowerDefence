@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using Scenes;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class GridManager : MonoBehaviour
 {
-    [SerializeField] private int weight;
-    [SerializeField] private int height;
+    public int Width;
+    public int Height;
     [SerializeField] private GameObject cellPrefab;
     [SerializeField] private GameObject container;
     public Graph graph;
@@ -18,7 +19,7 @@ public class GridManager : MonoBehaviour
     void Start()
     {
         GridPosition();
-        nodes = new Node[weight, height];
+        nodes = new Node[Width, Height];
         GridCreate();
         CreateGraphConnections();
         
@@ -41,9 +42,9 @@ public class GridManager : MonoBehaviour
     private void GridCreate()
     {
         graph = new Graph();
-        for (int row = 0; row < weight; row++)
+        for (int row = 0; row < Width; row++)
         {
-            for (int col = 0; col < height; col++)
+            for (int col = 0; col < Height; col++)
             {
                 GameObject cell = Instantiate(cellPrefab, new Vector3(transform.position.x + row, transform.position.y + col, 0 ), Quaternion.identity);
                 cell.name = $"{row}x{col}";
@@ -67,15 +68,7 @@ public class GridManager : MonoBehaviour
                 Node node = new Node(cell);
                 nodes[row, col] = node; // Asignar el objeto a la matriz
                 graph.AddNode(node);
-                if (cell.name == "15x0")
-                {
-                    cell.GetComponent<SpriteRenderer>().color = Color.black;
-                    node.SetUsed(true);
-                }else if (cell.name == "19x16")
-                {
-                    cell.GetComponent<SpriteRenderer>().color = Color.black;
-                    node.SetUsed(true);
-                }else if (cell.name == "18x16")
+                if (cell.name == "15x0" || cell.name == "1x0" || cell.name == "3x5" || cell.name == "3x1" || cell.name == "3x2" || cell.name == "3x3" || cell.name == "19x18" || cell.name == "18x18" || cell.name == "17x18" || cell.name == "17x17" || cell.name == "10x10")
                 {
                     cell.GetComponent<SpriteRenderer>().color = Color.black;
                     node.SetUsed(true);
@@ -88,21 +81,21 @@ public class GridManager : MonoBehaviour
 
     private void CreateGraphConnections()
     {
-        for (int row = 0; row < weight; row++)
+        for (int row = 0; row < Width; row++)
         {
-            for (int col = 0; col < height; col++)
+            for (int col = 0; col < Height; col++)
             {
                 if (row > 0)
                 {
                     graph.AddEdge(nodes[row, col], nodes[row - 1, col]);
                 }
 
-                if (row < weight - 1)
+                if (row < Width - 1)
                 {
                     graph.AddEdge(nodes[row, col], nodes[row + 1, col]);
                 }
 
-                if (col < height - 1)
+                if (col < Height - 1)
                 {
                     graph.AddEdge(nodes[row, col], nodes[row, col + 1]);
                 }
@@ -116,9 +109,9 @@ public class GridManager : MonoBehaviour
     }
     private void PrintGrid()
     {
-        for (int row = 0; row < weight; row++)
+        for (int row = 0; row < Width; row++)
         {
-            for (int col = 0; col < height; col++)
+            for (int col = 0; col < Height; col++)
             {
                 Debug.Log(nodes[row,col].GetValue().name);
             }
@@ -127,9 +120,9 @@ public class GridManager : MonoBehaviour
 
     private void PrintEdges()
     {
-        for (int row = 0; row < weight; row++)
+        for (int row = 0; row < Width; row++)
         {
-            for (int col = 0; col < height; col++)
+            for (int col = 0; col < Height; col++)
             {
                 Node[] related = nodes[row, col].GetAdy().ToArray();
                 if (related.Length > 2 && related.Length <= 3)
@@ -155,6 +148,6 @@ public class GridManager : MonoBehaviour
 
     private void GridPosition()
     {
-        transform.position = new Vector3(transform.position.x - (weight/2) + 0.5f, transform.position.y - (height/2) + 0.5f, 0);
+        transform.position = new Vector3(transform.position.x - (Width/2) + 0.5f, transform.position.y - (Height/2) + 0.5f, 0);
     }
 }

@@ -97,4 +97,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4919ed1bf2f120c4989bce6181b9fe7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySpeed: 0.05
+  enemySpeed: 2
+  isWalking: 0
