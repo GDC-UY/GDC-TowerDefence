@@ -5,7 +5,7 @@ using UnityEngine;
 public class Game : MonoBehaviour
 {
     private static Game instance;
-
+    public GameObject grillaSelecionada;
     public static Game Instance
     {
         get
