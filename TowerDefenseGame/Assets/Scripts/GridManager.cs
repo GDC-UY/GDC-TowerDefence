@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 
 public class GridManager : MonoBehaviour
-{  
+{
 
     public int Width;
     public int Height;
@@ -48,14 +48,14 @@ public class GridManager : MonoBehaviour
         nodes = new Node[Width, Height];
         GridCreate();
         CreateGraphConnections();
-        Instantiate(Enemy, new Vector3(-2f, -2f, 0 ), Quaternion.identity);
+        Instantiate(Enemy, new Vector3(-2f, -2f, 0), Quaternion.identity);
     }
 
     private GameObject EnemySpawn;
     private GameObject EnemyTarget;
-    
+
     private LinkedList<Node> path = null;
-    
+
     public LinkedList<Node> GetPath()
     {
         //Cache
@@ -75,7 +75,7 @@ public class GridManager : MonoBehaviour
                 cell.transform.position = new Vector3(
                     row + 0.5f, col + 0.5f, 0); // le sumamos la diferencia del largo de la celda 
                 cell.name = $"{row}x{col}";
-                
+
                 //TEMPORAL --------------------------------------------------
                 if (cell.name == "0x0")
                 {
@@ -88,9 +88,9 @@ public class GridManager : MonoBehaviour
                     //FINAL
                     cell.GetComponent<SpriteRenderer>().color = Color.green;
                     EnemyTarget = cell;
-                } 
+                }
                 //TEMPORAL --------------------------------------------------
-                    
+
                 cell.transform.SetParent(container.transform);
                 Node node = new Node(cell);
                 nodes[row, col] = node; // Asignar el objeto a la matriz
@@ -100,7 +100,7 @@ public class GridManager : MonoBehaviour
                     cell.GetComponent<SpriteRenderer>().color = Color.black;
                     node.SetUsed(true);
                 }
-                
+
                 cell.GetComponent<Cell>().node = node;
             }
         }
@@ -140,7 +140,7 @@ public class GridManager : MonoBehaviour
         {
             for (int col = 0; col < Height; col++)
             {
-                Debug.Log(nodes[row,col].GetValue().name);
+                Debug.Log(nodes[row, col].GetValue().name);
             }
         }
     }
@@ -154,21 +154,23 @@ public class GridManager : MonoBehaviour
                 Node[] related = nodes[row, col].GetAdy().ToArray();
                 if (related.Length > 2 && related.Length <= 3)
                 {
-                    Debug.Log(nodes[row,col].GetValue().name + " esta relacionado con " + related[0].GetValue().name);
-                    Debug.Log(nodes[row,col].GetValue().name + " esta relacionado con " + related[1].GetValue().name);
-                    Debug.Log(nodes[row,col].GetValue().name + " esta relacionado con " + related[2].GetValue().name);
-                }else if (related.Length > 3)
-                {
-                    Debug.Log(nodes[row,col].GetValue().name + " esta relacionado con " + related[0].GetValue().name);
-                    Debug.Log(nodes[row,col].GetValue().name + " esta relacionado con " + related[1].GetValue().name);
-                    Debug.Log(nodes[row,col].GetValue().name + " esta relacionado con " + related[2].GetValue().name);
-                    Debug.Log(nodes[row,col].GetValue().name + " esta relacionado con " + related[3].GetValue().name);
-                }else
-                {
-                    Debug.Log(nodes[row,col].GetValue().name + " esta relacionado con " + related[0].GetValue().name);
-                    Debug.Log(nodes[row,col].GetValue().name + " esta relacionado con " + related[1].GetValue().name);
+                    Debug.Log(nodes[row, col].GetValue().name + " esta relacionado con " + related[0].GetValue().name);
+                    Debug.Log(nodes[row, col].GetValue().name + " esta relacionado con " + related[1].GetValue().name);
+                    Debug.Log(nodes[row, col].GetValue().name + " esta relacionado con " + related[2].GetValue().name);
                 }
-                
+                else if (related.Length > 3)
+                {
+                    Debug.Log(nodes[row, col].GetValue().name + " esta relacionado con " + related[0].GetValue().name);
+                    Debug.Log(nodes[row, col].GetValue().name + " esta relacionado con " + related[1].GetValue().name);
+                    Debug.Log(nodes[row, col].GetValue().name + " esta relacionado con " + related[2].GetValue().name);
+                    Debug.Log(nodes[row, col].GetValue().name + " esta relacionado con " + related[3].GetValue().name);
+                }
+                else
+                {
+                    Debug.Log(nodes[row, col].GetValue().name + " esta relacionado con " + related[0].GetValue().name);
+                    Debug.Log(nodes[row, col].GetValue().name + " esta relacionado con " + related[1].GetValue().name);
+                }
+
             }
         }
     }
