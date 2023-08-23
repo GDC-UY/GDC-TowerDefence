@@ -46,7 +46,8 @@ public class GridManager : MonoBehaviour
         {
             for (int col = 0; col < Height; col++)
             {
-                GameObject cell = Instantiate(cellPrefab, new Vector3(transform.position.x + row, transform.position.y + col, 0 ), Quaternion.identity);
+                GameObject cell = Instantiate(cellPrefab);
+                cell.transform.position = new Vector3(row, col, 0);
                 cell.name = $"{row}x{col}";
                 
                 //TEMPORAL --------------------------------------------------
@@ -73,7 +74,7 @@ public class GridManager : MonoBehaviour
                     cell.GetComponent<SpriteRenderer>().color = Color.black;
                     node.SetUsed(true);
                 }
-
+                
                 cell.GetComponent<Cell>().node = node;
             }
         }
