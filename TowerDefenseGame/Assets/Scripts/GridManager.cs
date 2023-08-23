@@ -149,6 +149,6 @@ public class GridManager : MonoBehaviour
 
     private void GridPosition()
     {
-        transform.position = new Vector3(transform.position.x - (Width/2) + 0.5f, transform.position.y - (Height/2) + 0.5f, 0);
+        transform.position = new Vector3(0, 0, 0);
     }
 }
