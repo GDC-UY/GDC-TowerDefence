@@ -6,15 +6,41 @@ using UnityEngine;
 using UnityEngine.Serialization;
 
 public class GridManager : MonoBehaviour
-{
+{  
+
     public int Width;
     public int Height;
     [SerializeField] private GameObject cellPrefab;
     [SerializeField] private GameObject container;
     public Graph graph;
     public Node[,] nodes;
-
+    private static GridManager instance;
     [SerializeField] private GameObject Enemy;
+    public static GridManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<GridManager>();
+                DontDestroyOnLoad(instance.gameObject);
+            }
+            return instance;
+        }
+    }
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -22,8 +48,7 @@ public class GridManager : MonoBehaviour
         nodes = new Node[Width, Height];
         GridCreate();
         CreateGraphConnections();
-        
-        Instantiate(Enemy, new Vector3(-10.5f, 4.5f, 0 ), Quaternion.identity);
+        Instantiate(Enemy, new Vector3(-2f, -2f, 0 ), Quaternion.identity);
     }
 
     private GameObject EnemySpawn;
@@ -47,7 +72,8 @@ public class GridManager : MonoBehaviour
             for (int col = 0; col < Height; col++)
             {
                 GameObject cell = Instantiate(cellPrefab);
-                cell.transform.position = new Vector3(row, col, 0);
+                cell.transform.position = new Vector3(
+                    row + 0.5f, col + 0.5f, 0); // le sumamos la diferencia del largo de la celda 
                 cell.name = $"{row}x{col}";
                 
                 //TEMPORAL --------------------------------------------------
@@ -149,6 +175,6 @@ public class GridManager : MonoBehaviour
 
     private void GridPosition()
     {
-        transform.position = new Vector3(0, 0, 0);
+        transform.position = new Vector3(0.5f, 0.5f, 0);
     }
 }

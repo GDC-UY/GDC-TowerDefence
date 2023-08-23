@@ -38,6 +38,9 @@ namespace Scenes
         public void SetVisited(bool boolean){
             visited = boolean;
         }
+        public GameObject GetCell(){
+            return cell;
+        }
         public void AddEdge(Node node)
         {
             if (!ady.Contains(node))
