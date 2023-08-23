@@ -34,18 +34,27 @@ public class Game : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
+
+    // Game encarga de los inputs
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            GameObject selected = GridManager.Instance.getCell(TouchRay);
-            if (selected != null)
+            Debug.Log("Click");
+
+            RaycastHit2D hit = Physics2D.Raycast(TouchRay.origin, TouchRay.direction);
+
+            if (hit.collider != null)
             {
-                cellSelected = selected;
+                Debug.Log("Hit object: " + hit.collider.gameObject.name);
+                GameObject selected = GridManager.Instance.getCell(hit.point);
+                if (selected != null)
+                {
+                    cellSelected = selected;
+                }
             }
         }
     }
-    // Game encarga de los inputs
 
 
 }
