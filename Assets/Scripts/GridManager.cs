@@ -69,9 +69,7 @@ public class GridManager : MonoBehaviour
         {
             for (int col = 0; col < Height; col++)
             {
-                GameObject cell = Instantiate(cellPrefab);
-                cell.transform.position = new Vector3(
-                    row + 0.5f, col + 0.5f, 0); // le sumamos la diferencia del largo de la celda 
+                GameObject cell = Instantiate(cellPrefab, new Vector3(transform.position.x + row, transform.position.y + col, 0 ), Quaternion.identity);
                 cell.name = $"{row}x{col}";
                 //TEMPORAL --------------------------------------------------
                 if (cell.name == "0x0")
@@ -172,8 +170,9 @@ public class GridManager : MonoBehaviour
 
     private void GridPosition()
     {
-        transform.position = new Vector3(0.5f, 0.5f, 0);
+        transform.position = new Vector3(transform.position.x - (Width/2) + 0.5f, transform.position.y - (Height/2) + 0.5f, 0);
     }
+    
     // castea un ray, si este colisiona con una celda, devuelve la celda.
     public GameObject getCell(Vector2 point)
     {
@@ -185,6 +184,5 @@ public class GridManager : MonoBehaviour
             return GridManager.Instance.nodes[x, y].GetCell();
 
         return null;
-        transform.position = new Vector3(transform.position.x - (Width/2) + 0.5f, transform.position.y - (Height/2) + 0.5f, 0);
     }
 }
