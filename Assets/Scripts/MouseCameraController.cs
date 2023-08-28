@@ -3,7 +3,6 @@ using System.Collections;
 
 public class MouseCameraController : MonoBehaviour
 {
-    
     private Camera cam;
     [SerializeField] private GridManager gm;
 
@@ -138,5 +137,4 @@ public class MouseCameraController : MonoBehaviour
         Vector3 position = camera_position + direction;
         transform.position = position;
     }
-    
 }

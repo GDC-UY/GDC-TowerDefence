@@ -6,6 +6,5 @@ using UnityEngine;
 public class Cell : MonoBehaviour
 {
     public Node node;
- 
 }
 

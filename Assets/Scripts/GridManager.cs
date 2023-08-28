@@ -7,7 +7,6 @@ using UnityEngine.Serialization;
 
 public class GridManager : MonoBehaviour
 {
-
     public int Width;
     public int Height;
     [SerializeField] private GameObject cellPrefab;
@@ -41,6 +40,9 @@ public class GridManager : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
+=======
+
+    [SerializeField] private GameObject Enemy;
     // Start is called before the first frame update
     void Start()
     {
@@ -53,9 +55,7 @@ public class GridManager : MonoBehaviour
 
     private GameObject EnemySpawn;
     private GameObject EnemyTarget;
-
     private LinkedList<Node> path = null;
-
     public LinkedList<Node> GetPath()
     {
         //Cache
@@ -75,7 +75,6 @@ public class GridManager : MonoBehaviour
                 cell.transform.position = new Vector3(
                     row + 0.5f, col + 0.5f, 0); // le sumamos la diferencia del largo de la celda 
                 cell.name = $"{row}x{col}";
-
                 //TEMPORAL --------------------------------------------------
                 if (cell.name == "0x0")
                 {
@@ -90,7 +89,6 @@ public class GridManager : MonoBehaviour
                     EnemyTarget = cell;
                 }
                 //TEMPORAL --------------------------------------------------
-
                 cell.transform.SetParent(container.transform);
                 Node node = new Node(cell);
                 nodes[row, col] = node; // Asignar el objeto a la matriz
@@ -170,7 +168,6 @@ public class GridManager : MonoBehaviour
                     Debug.Log(nodes[row, col].GetValue().name + " esta relacionado con " + related[0].GetValue().name);
                     Debug.Log(nodes[row, col].GetValue().name + " esta relacionado con " + related[1].GetValue().name);
                 }
-
             }
         }
     }
@@ -190,5 +187,6 @@ public class GridManager : MonoBehaviour
             return GridManager.Instance.nodes[x, y].GetCell();
 
         return null;
+        transform.position = new Vector3(transform.position.x - (Width/2) + 0.5f, transform.position.y - (Height/2) + 0.5f, 0);
     }
 }
