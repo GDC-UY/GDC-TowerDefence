@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Scenes;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -52,21 +53,29 @@ public class Game : MonoBehaviour
 
             if (hit.collider != null)
             {
-                Debug.Log("Hit object: " + hit.collider.gameObject.name);
                 GameObject selected = hit.collider.gameObject;
                 ChangeCell(hit.collider.gameObject);
-                selected.GetComponent<SpriteRenderer>().color = Color.black; // TODO: despues agregar tipos e node.cs
             }
         }
     }
     
     public void EnableBuildMode()
     {
-        isBuildModeOn = true;
+        if (isBuildModeOn)
+        {
+            isBuildModeOn = false;
+        }
+        else
+        {
+            isBuildModeOn = true;
+        }
     }
 
     private void ChangeCell(GameObject cell)
     {
+        Cell cellToChange = cell.GetComponent<Cell>();
+        cellToChange.node.SetUsed(true);
+        cellToChange.GetComponent<SpriteRenderer>().color = Color.black;
     }
 
 }

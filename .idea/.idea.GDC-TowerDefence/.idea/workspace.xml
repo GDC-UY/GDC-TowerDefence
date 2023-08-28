@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6611ea0e-6077-4f17-a300-91c9a6be3324" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MouseCameraController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MouseCameraController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.GDC-TowerDefence/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GDC-TowerDefence/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,26 +24,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "TowerCreate",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;rider.external.source.directories&quot;: [
-      &quot;/home/matias/.var/app/com.unity.UnityHub/config/JetBrains/Rider2023.2/resharper-host/DecompilerCache&quot;,
-      &quot;/home/matias/.var/app/com.unity.UnityHub/config/JetBrains/Rider2023.2/resharper-host/SourcesCache&quot;,
-      &quot;/home/matias/.var/app/com.unity.UnityHub/data/Symbols/src&quot;
+  "keyToStringList": {
+    "rider.external.source.directories": [
+      "C:\\Users\\Leon\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\DecompilerCache",
+      "C:\\Users\\Leon\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\SourcesCache",
+      "C:\\Users\\Leon\\AppData\\Local\\Symbols\\src"
     ]
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Standalone Player.Start Unity">
     <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2021.3.25f1\Editor\Unity.exe" />
@@ -61,16 +62,38 @@
       <option name="USE_EXTERNAL_CONSOLE" value="0" />
       <method v="2" />
     </configuration>
+    <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+      <option name="allowRunningInParallel" value="false" />
+      <option name="listenPortForConnections" value="false" />
+      <option name="pid" />
+      <option name="projectPathOnTarget" />
+      <option name="selectedOptions">
+        <list />
+      </option>
+      <method v="2" />
+    </configuration>
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+      <option name="allowRunningInParallel" value="false" />
+      <option name="listenPortForConnections" value="false" />
+      <option name="pid" />
+      <option name="projectPathOnTarget" />
+      <option name="selectedOptions">
+        <list />
+      </option>
+      <method v="2" />
+    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="9bca2bd3-5e5e-4325-b63b-91c15a12f8e5" name="Changes" comment="" />
+      <changelist id="6611ea0e-6077-4f17-a300-91c9a6be3324" name="Changes" comment="" />
       <created>1693252890723</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1693252890723</updated>
       <workItem from="1693252895628" duration="800000" />
+      <workItem from="1693259245056" duration="647000" />
+      <workItem from="1693259928204" duration="63000" />
     </task>
     <servers />
   </component>
