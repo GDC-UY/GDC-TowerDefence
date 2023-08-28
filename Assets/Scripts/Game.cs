@@ -53,20 +53,20 @@ public class Game : MonoBehaviour
             if (hit.collider != null)
             {
                 Debug.Log("Hit object: " + hit.collider.gameObject.name);
-                GameObject selected = GridManager.Instance.getCell(hit.point);
-                if (selected != null)
-                {
-                    cellSelected = selected;
-                    selected.GetComponent<SpriteRenderer>().color = Color.black; // TODO: despues agregar tipos e node.cs
-                }
+                GameObject selected = hit.collider.gameObject;
+                ChangeCell(hit.collider.gameObject);
+                selected.GetComponent<SpriteRenderer>().color = Color.black; // TODO: despues agregar tipos e node.cs
             }
-            isBuildModeOn = false;
         }
     }
     
     public void EnableBuildMode()
     {
         isBuildModeOn = true;
+    }
+
+    private void ChangeCell(GameObject cell)
+    {
     }
 
 }

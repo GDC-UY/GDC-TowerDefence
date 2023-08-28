@@ -258,9 +258,9 @@ MonoBehaviour:
   MinY: 0
   MaxX: 0
   MinX: 0
-  mouseSpeed: 0
-  minZoom: 0
-  maxZoom: 0
+  mouseSpeed: 0.5
+  minZoom: 1
+  maxZoom: 5
   hit_position: {x: 0, y: 0, z: 0}
   current_position: {x: 0, y: 0, z: 0}
   camera_position: {x: 0, y: 0, z: 0}

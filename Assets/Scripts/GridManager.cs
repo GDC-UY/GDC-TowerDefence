@@ -174,7 +174,8 @@ public class GridManager : MonoBehaviour
     }
     
     // castea un ray, si este colisiona con una celda, devuelve la celda.
-    public GameObject getCell(Vector2 point)
+    /*
+     public GameObject getCell(Vector2 point)
     {
         Debug.Log(point.x + " " + point.y);
         int x = Mathf.FloorToInt(point.x);
@@ -184,5 +185,5 @@ public class GridManager : MonoBehaviour
             return GridManager.Instance.nodes[x, y].GetCell();
 
         return null;
-    }
+    }*/
 }
