@@ -13,6 +13,34 @@ public class GridManager : MonoBehaviour
     [SerializeField] private GameObject container;
     public Graph graph;
     public Node[,] nodes;
+    private static GridManager instance;
+    [SerializeField] private GameObject Enemy;
+    public static GridManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<GridManager>();
+                DontDestroyOnLoad(instance.gameObject);
+            }
+            return instance;
+        }
+    }
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+    }
+=======
 
     [SerializeField] private GameObject Enemy;
     // Start is called before the first frame update
@@ -22,15 +50,12 @@ public class GridManager : MonoBehaviour
         nodes = new Node[Width, Height];
         GridCreate();
         CreateGraphConnections();
-        
-        Instantiate(Enemy, new Vector3(-10.5f, 4.5f, 0 ), Quaternion.identity);
+        Instantiate(Enemy, new Vector3(-2f, -2f, 0), Quaternion.identity);
     }
 
     private GameObject EnemySpawn;
     private GameObject EnemyTarget;
-    
     private LinkedList<Node> path = null;
-    
     public LinkedList<Node> GetPath()
     {
         //Cache
@@ -46,9 +71,10 @@ public class GridManager : MonoBehaviour
         {
             for (int col = 0; col < Height; col++)
             {
-                GameObject cell = Instantiate(cellPrefab, new Vector3(transform.position.x + row, transform.position.y + col, 0 ), Quaternion.identity);
+                GameObject cell = Instantiate(cellPrefab);
+                cell.transform.position = new Vector3(
+                    row + 0.5f, col + 0.5f, 0); // le sumamos la diferencia del largo de la celda 
                 cell.name = $"{row}x{col}";
-                
                 //TEMPORAL --------------------------------------------------
                 if (cell.name == "0x0")
                 {
@@ -61,9 +87,8 @@ public class GridManager : MonoBehaviour
                     //FINAL
                     cell.GetComponent<SpriteRenderer>().color = Color.green;
                     EnemyTarget = cell;
-                } 
+                }
                 //TEMPORAL --------------------------------------------------
-                    
                 cell.transform.SetParent(container.transform);
                 Node node = new Node(cell);
                 nodes[row, col] = node; // Asignar el objeto a la matriz
@@ -113,7 +138,7 @@ public class GridManager : MonoBehaviour
         {
             for (int col = 0; col < Height; col++)
             {
-                Debug.Log(nodes[row,col].GetValue().name);
+                Debug.Log(nodes[row, col].GetValue().name);
             }
         }
     }
@@ -127,27 +152,41 @@ public class GridManager : MonoBehaviour
                 Node[] related = nodes[row, col].GetAdy().ToArray();
                 if (related.Length > 2 && related.Length <= 3)
                 {
-                    Debug.Log(nodes[row,col].GetValue().name + " esta relacionado con " + related[0].GetValue().name);
-                    Debug.Log(nodes[row,col].GetValue().name + " esta relacionado con " + related[1].GetValue().name);
-                    Debug.Log(nodes[row,col].GetValue().name + " esta relacionado con " + related[2].GetValue().name);
-                }else if (related.Length > 3)
-                {
-                    Debug.Log(nodes[row,col].GetValue().name + " esta relacionado con " + related[0].GetValue().name);
-                    Debug.Log(nodes[row,col].GetValue().name + " esta relacionado con " + related[1].GetValue().name);
-                    Debug.Log(nodes[row,col].GetValue().name + " esta relacionado con " + related[2].GetValue().name);
-                    Debug.Log(nodes[row,col].GetValue().name + " esta relacionado con " + related[3].GetValue().name);
-                }else
-                {
-                    Debug.Log(nodes[row,col].GetValue().name + " esta relacionado con " + related[0].GetValue().name);
-                    Debug.Log(nodes[row,col].GetValue().name + " esta relacionado con " + related[1].GetValue().name);
+                    Debug.Log(nodes[row, col].GetValue().name + " esta relacionado con " + related[0].GetValue().name);
+                    Debug.Log(nodes[row, col].GetValue().name + " esta relacionado con " + related[1].GetValue().name);
+                    Debug.Log(nodes[row, col].GetValue().name + " esta relacionado con " + related[2].GetValue().name);
                 }
-                
+                else if (related.Length > 3)
+                {
+                    Debug.Log(nodes[row, col].GetValue().name + " esta relacionado con " + related[0].GetValue().name);
+                    Debug.Log(nodes[row, col].GetValue().name + " esta relacionado con " + related[1].GetValue().name);
+                    Debug.Log(nodes[row, col].GetValue().name + " esta relacionado con " + related[2].GetValue().name);
+                    Debug.Log(nodes[row, col].GetValue().name + " esta relacionado con " + related[3].GetValue().name);
+                }
+                else
+                {
+                    Debug.Log(nodes[row, col].GetValue().name + " esta relacionado con " + related[0].GetValue().name);
+                    Debug.Log(nodes[row, col].GetValue().name + " esta relacionado con " + related[1].GetValue().name);
+                }
             }
         }
     }
 
     private void GridPosition()
     {
+        transform.position = new Vector3(0.5f, 0.5f, 0);
+    }
+    // castea un ray, si este colisiona con una celda, devuelve la celda.
+    public GameObject getCell(Vector2 point)
+    {
+        Debug.Log(point.x + " " + point.y);
+        int x = Mathf.FloorToInt(point.x);
+        int y = Mathf.FloorToInt(point.y);
+        if (x >= 0 && x < GridManager.Instance.Width &&
+            y >= 0 && y < GridManager.Instance.Height)
+            return GridManager.Instance.nodes[x, y].GetCell();
+
+        return null;
         transform.position = new Vector3(transform.position.x - (Width/2) + 0.5f, transform.position.y - (Height/2) + 0.5f, 0);
     }
 }
