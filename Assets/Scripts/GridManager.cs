@@ -40,9 +40,7 @@ public class GridManager : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
-=======
-
-    [SerializeField] private GameObject Enemy;
+    
     // Start is called before the first frame update
     void Start()
     {
