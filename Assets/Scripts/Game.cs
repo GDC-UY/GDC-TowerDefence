@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using Scenes;
 using Unity.VisualScripting;
+using UnityEditor.PackageManager;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class Game : MonoBehaviour
@@ -45,10 +47,9 @@ public class Game : MonoBehaviour
     // Game encarga de los inputs
     void Update()
     {
-        if (isBuildModeOn && Input.GetMouseButtonDown(0))
+        if (isBuildModeOn && Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject() // el EventSystem realmente no se porque funciona pero es para solucionar que no se ponga un muro cuando desactivas el boton
+        )
         {
-            //Debug.Log("Click");
-
             RaycastHit2D hit = Physics2D.Raycast(TouchRay.origin, TouchRay.direction);
 
             if (hit.collider != null)
