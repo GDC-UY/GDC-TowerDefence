@@ -20,7 +20,7 @@ public class Game : MonoBehaviour
             if (instance == null)
             {
                 instance = FindObjectOfType<Game>();
-                DontDestroyOnLoad(instance.gameObject);
+                //DontDestroyOnLoad(instance.gameObject);
             }
             return instance;
         }
@@ -31,7 +31,7 @@ public class Game : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(this.gameObject);
+            //DontDestroyOnLoad(this.gameObject);
         }
         else
         {
@@ -76,6 +76,7 @@ public class Game : MonoBehaviour
         Cell cellToChange = cell.GetComponent<Cell>();
         cellToChange.node.SetUsed(true);
         cellToChange.GetComponent<SpriteRenderer>().color = Color.black;
+        GridManager.updatePath();
     }
 
 }
