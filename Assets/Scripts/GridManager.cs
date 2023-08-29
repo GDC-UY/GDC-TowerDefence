@@ -54,12 +54,21 @@ public class GridManager : MonoBehaviour
     private GameObject EnemySpawn;
     private GameObject EnemyTarget;
     private LinkedList<Node> path = null;
+    private static bool pathIsValid = false;
     public LinkedList<Node> GetPath()
     {
         //Cache
-        if (this.path == null)
-            this.path = this.graph.EnemyPathFinding(EnemySpawn, EnemyTarget);
-        return this.path;
+        if (!pathIsValid)
+        {
+            path = this.graph.EnemyPathFinding(EnemySpawn, EnemyTarget);
+            pathIsValid = true;
+        }
+        return path;
+    }
+
+    public static void updatePath()
+    {
+        pathIsValid = false;
     }
 
     private void GridCreate()
