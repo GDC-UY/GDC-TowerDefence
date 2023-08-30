@@ -11,7 +11,8 @@ public class Enemy : MonoBehaviour
     private GameObject nextGO;
     [SerializeField] private float enemySpeed = 2f; // Ajusta la velocidad según lo necesario
     [SerializeField] private bool isWalking = false; // Cambia "Walk" a "isWalking"
-
+    [SerializeField] private int life = 100; // Ajusta la vida según lo necesario
+    [SerializeField] private int bounty = 10; // Ajusta la recompensa por matar al enemigo
     private void Start()
     {
         manager = GameObject.FindGameObjectWithTag("GridManager").GetComponent<GridManager>();
@@ -22,7 +23,8 @@ public class Enemy : MonoBehaviour
     }
 
     private float deltaX;
-    private float deltaY;
+    private float deltaY; 
+    
     private void Update()
     {
         if (isWalking && next != null)
@@ -59,6 +61,7 @@ public class Enemy : MonoBehaviour
                 {
                     moveDirection.y = 0;
                 }
+
                 MoveAdd(moveDirection.x * enemySpeed * Time.deltaTime, moveDirection.y * enemySpeed * Time.deltaTime);
             }
         }
@@ -75,4 +78,26 @@ public class Enemy : MonoBehaviour
     {
         isWalking = true;
     }
+
+    public void StopWalking()
+    {
+        isWalking = false;
+    }
+    
+    public void Dead()
+    {
+        Destroy(gameObject);
+        GameManager.instance.AddMoney(bounty);
+    }
+    
+    //how to create a method to reduce its life when it is hit by a bullet
+    public void Hit(int damage)
+    {
+        life -= damage;
+        if (life <= 0)
+        {
+            Dead();
+        }
+    }  
+
 }
