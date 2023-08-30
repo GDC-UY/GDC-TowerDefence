@@ -6,6 +6,7 @@ TagManager:
   tags:
   - GridManager
   - Cell
+  - Enemy
   layers:
   - Default
   - TransparentFX

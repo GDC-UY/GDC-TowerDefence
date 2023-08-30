@@ -12,7 +12,11 @@ public class Game : MonoBehaviour
     private static Game instance;
     public GameObject cellSelected;
     public Button activateBuildModeButton;
+    public Button activateTowerBuildModeButton;
     public bool isBuildModeOn;
+    public bool isTowerBuildModeOn;
+
+    public GameObject tower;
     Ray TouchRay => Camera.main.ScreenPointToRay(Input.mousePosition);
     public static Game Instance
 
@@ -42,6 +46,7 @@ public class Game : MonoBehaviour
     }
     void Start(){
         activateBuildModeButton.onClick.AddListener(EnableBuildMode);
+        activateTowerBuildModeButton.onClick.AddListener(EnableTowerBuildMode);
     }
 
     // Game encarga de los inputs
@@ -58,11 +63,46 @@ public class Game : MonoBehaviour
                 ChangeCell(hit.collider.gameObject);
             }
         }
+
+        if (isTowerBuildModeOn && Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+        {
+            RaycastHit2D hit = Physics2D.Raycast(TouchRay.origin, TouchRay.direction);
+
+            if (hit.collider != null && hit.collider.gameObject.GetComponent<Cell>().node.GetUsed())
+            {
+                Instantiate(tower, hit.collider.gameObject.transform.position, Quaternion.identity);
+            }
+        }
     }
     
     public void EnableBuildMode()
     {
+<<<<<<< Updated upstream
         isBuildModeOn = !isBuildModeOn;
+=======
+        if (isBuildModeOn)
+        {
+            isBuildModeOn = false;
+        }
+        else
+        {
+            isBuildModeOn = true;
+            isTowerBuildModeOn = false;
+        }
+    }
+
+    public void EnableTowerBuildMode()
+    {
+        if (isTowerBuildModeOn)
+        {
+            isTowerBuildModeOn = false;
+        }
+        else
+        {
+            isTowerBuildModeOn = true;
+            isBuildModeOn = false;
+        }
+>>>>>>> Stashed changes
     }
 
     private void ChangeCell(GameObject cell)
@@ -72,5 +112,4 @@ public class Game : MonoBehaviour
         cellToChange.GetComponent<SpriteRenderer>().color = Color.black;
         GridManager.updatePath();
     }
-
 }
