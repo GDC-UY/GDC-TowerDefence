@@ -78,9 +78,6 @@ public class Game : MonoBehaviour
     
     public void EnableBuildMode()
     {
-<<<<<<< Updated upstream
-        isBuildModeOn = !isBuildModeOn;
-=======
         if (isBuildModeOn)
         {
             isBuildModeOn = false;
@@ -103,7 +100,6 @@ public class Game : MonoBehaviour
             isTowerBuildModeOn = true;
             isBuildModeOn = false;
         }
->>>>>>> Stashed changes
     }
 
     private void ChangeCell(GameObject cell)
