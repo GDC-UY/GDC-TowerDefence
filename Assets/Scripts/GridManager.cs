@@ -51,14 +51,14 @@ public class GridManager : MonoBehaviour
         Instantiate(Enemy, new Vector3(-2f, -2f, 0), Quaternion.identity);
     }
 
-    private GameObject EnemySpawn;
+    private EnemySpawner[] EnemySpawners;
     private GameObject EnemyTarget;
     private LinkedList<Node> path = null;
     public LinkedList<Node> GetPath()
     {
         //Cache
         if (this.path == null)
-            this.path = this.graph.EnemyPathFinding(EnemySpawn, EnemyTarget);
+            this.path = this.graph.EnemyPathFinding(EnemySpawners[0].spawnPoint, EnemyTarget);
         return this.path;
     }
 
@@ -76,7 +76,7 @@ public class GridManager : MonoBehaviour
                 {
                     //INICIO
                     cell.GetComponent<SpriteRenderer>().color = Color.red;
-                    EnemySpawn = cell;
+                    this.EnemySpawners[0].spawnPoint = cell;
                 }
                 else if (cell.name == "19x19")
                 {

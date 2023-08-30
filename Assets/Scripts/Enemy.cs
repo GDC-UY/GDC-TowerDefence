@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
+        //EnemeySpawner está encargado de otorgarle al enemigo su path.
         manager = GameObject.FindGameObjectWithTag("GridManager").GetComponent<GridManager>();
         enemyPath = manager.GetPath();
         next = enemyPath.First;
