@@ -10,6 +10,7 @@ using UnityEngine.UI;
 public class Game : MonoBehaviour
 {
     private static Game instance;
+    public GridManager gm;
     public GameObject cellSelected;
     public Button activateBuildModeButton;
     public bool isBuildModeOn;
@@ -41,6 +42,7 @@ public class Game : MonoBehaviour
         }
     }
     void Start(){
+        gm.previewPath();
         activateBuildModeButton.onClick.AddListener(EnableBuildMode);
     }
 
@@ -52,9 +54,8 @@ public class Game : MonoBehaviour
         {
             RaycastHit2D hit = Physics2D.Raycast(TouchRay.origin, TouchRay.direction);
 
-            if (hit.collider != null)
+            if (hit.collider.gameObject != null)
             {
-                GameObject selected = hit.collider.gameObject;
                 ChangeCell(hit.collider.gameObject);
             }
         }
@@ -69,8 +70,9 @@ public class Game : MonoBehaviour
     {
         Cell cellToChange = cell.GetComponent<Cell>();
         cellToChange.node.SetUsed(true);
-        cellToChange.GetComponent<SpriteRenderer>().color = Color.black;
-        GridManager.updatePath();
+        cellToChange.ChangeColor(Color.black);
+        gm.updatePath(cellToChange);
+        
     }
 
 }

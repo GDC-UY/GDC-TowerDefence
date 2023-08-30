@@ -53,24 +53,64 @@ public class GridManager : MonoBehaviour
 
     private GameObject EnemySpawn;
     private GameObject EnemyTarget;
-    private LinkedList<Node> path = null;
     private static bool pathIsValid = false;
+    
+    private LinkedList<Node> path = null;
+    private LinkedList<Node> prevSecurePath = null;
+    
     public LinkedList<Node> GetPath()
     {
-        //Cache
-        if (!pathIsValid)
+        if (pathIsValid)
         {
-            path = this.graph.EnemyPathFinding(EnemySpawn, EnemyTarget);
-            pathIsValid = true;
+            if(path != null)
+                prevSecurePath = new LinkedList<Node>(path);
+            
+            path = graph.EnemyPathFinding(EnemySpawn, EnemyTarget);
+
+            if (path == null)
+            {
+                if(prevSecurePath != null) 
+                    path = new LinkedList<Node>(prevSecurePath);
+            }
+
+            pathIsValid = false;
         }
+
         return path;
     }
 
-    public static void updatePath()
+    public void updatePath(Cell cell)
     {
-        pathIsValid = false;
+        if (path != null)
+        {
+            foreach (Node j in path)
+            {
+                if (!j.GetUsed())
+                {
+                    j.GetValue().GetComponent<SpriteRenderer>().color = Color.magenta;
+                }
+            }
+        }
+        
+        pathIsValid = true;
+        GetPath();
+        previewPath();
+        
+       
     }
 
+    public void previewPath()
+    {
+        if (path != null)
+        {
+            foreach (Node j in path)
+            {
+                j.GetCell().ChangeColor(Color.yellow);
+                j.SetUsed(false);
+            }
+        }
+    }
+    
     private void GridCreate()
     {
         graph = new Graph();
@@ -98,12 +138,6 @@ public class GridManager : MonoBehaviour
                 Node node = new Node(cell);
                 nodes[row, col] = node; // Asignar el objeto a la matriz
                 graph.AddNode(node);
-                if (cell.name == "15x0" || cell.name == "1x0" || cell.name == "3x5" || cell.name == "3x1" || cell.name == "3x2" || cell.name == "3x3" || cell.name == "19x18" || cell.name == "18x18" || cell.name == "17x18" || cell.name == "17x17" || cell.name == "10x10")
-                {
-                    cell.GetComponent<SpriteRenderer>().color = Color.black;
-                    node.SetUsed(true);
-                }
-
                 cell.GetComponent<Cell>().node = node;
             }
         }

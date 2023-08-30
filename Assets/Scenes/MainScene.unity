@@ -251,6 +251,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb2aafa9ef35dcfb183d4b060d629046, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cam: {fileID: 519420031}
   gm: {fileID: 1647526879}
   boundX: 0
   boundY: 0
@@ -260,10 +261,10 @@ MonoBehaviour:
   MinX: 0
   mouseSpeed: 0.5
   minZoom: 1
-  maxZoom: 5
-  hit_position: {x: 0, y: 0, z: 0}
-  current_position: {x: 0, y: 0, z: 0}
-  camera_position: {x: 0, y: 0, z: 0}
+  maxZoom: 5.5
+  hitPosition: {x: 0, y: 0, z: 0}
+  currentPosition: {x: 0, y: 0, z: 0}
+  cameraPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &1356500484
 GameObject:
   m_ObjectHideFlags: 0
@@ -737,6 +738,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28c88fc3cb12a9c48a6f211805483d50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gm: {fileID: 1647526879}
   cellSelected: {fileID: 0}
   activateBuildModeButton: {fileID: 1886263325}
   isBuildModeOn: 0
