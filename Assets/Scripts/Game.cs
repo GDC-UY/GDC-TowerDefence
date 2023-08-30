@@ -62,14 +62,7 @@ public class Game : MonoBehaviour
     
     public void EnableBuildMode()
     {
-        if (isBuildModeOn)
-        {
-            isBuildModeOn = false;
-        }
-        else
-        {
-            isBuildModeOn = true;
-        }
+        isBuildModeOn = !isBuildModeOn;
     }
 
     private void ChangeCell(GameObject cell)
