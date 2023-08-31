@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Scenes;
 using Unity.VisualScripting;
 using UnityEditor.PackageManager;
@@ -54,18 +55,17 @@ public class Game : MonoBehaviour
     // Game encarga de los inputs
     void Update()
     {
-        if (isBuildModeOn && Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject() // el EventSystem realmente no se porque funciona pero es para solucionar que no se ponga un muro cuando desactivas el boton
-        )
+        if (isBuildModeOn && Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
             RaycastHit2D hit = Physics2D.Raycast(TouchRay.origin, TouchRay.direction);
 
             if (hit.collider.gameObject != null)
             {
-                ChangeCell(hit.collider.gameObject);
+                BuildOnCell(hit.collider.gameObject);
             }
         }
 
-        if (isTowerBuildModeOn && Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+        if (isTowerBuildModeOn && Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())
         {
             RaycastHit2D hit = Physics2D.Raycast(TouchRay.origin, TouchRay.direction);
 
@@ -74,7 +74,19 @@ public class Game : MonoBehaviour
                 Instantiate(tower, hit.collider.gameObject.transform.position, Quaternion.identity);
             }
         }
+
+        // Check for Control + Z or right-click
+        if ((Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)) && Input.GetKeyDown(KeyCode.Z) || Input.GetMouseButtonDown(1))
+        {
+            RaycastHit2D hit = Physics2D.Raycast(TouchRay.origin, TouchRay.direction);
+
+            if (hit.collider.gameObject != null)
+            {
+                DestroyOnCell(hit.collider.gameObject);
+            }
+        }
     }
+
     
     public void EnableBuildMode()
     {
@@ -102,12 +114,31 @@ public class Game : MonoBehaviour
         }
     }
 
-    private void ChangeCell(GameObject cell)
+    private Stack<Cell> StackCZ = new Stack<Cell>();
+    
+
+    private void BuildOnCell(GameObject cell)
     {
         Cell cellToChange = cell.GetComponent<Cell>();
         cellToChange.node.SetUsed(true);
         cellToChange.ChangeColor(Color.black);
-        gm.updatePath(cellToChange);
+        
+        if (!gm.updatePath(cellToChange))
+        {
+            StackCZ.Push(cellToChange);
+        }
+        
+    }
+    
+    private void DestroyOnCell(GameObject cell)
+    {
+        if (StackCZ.Any())
+        {
+            Cell cellToChange = StackCZ.Pop();
+            cellToChange.node.SetUsed(false);
+            cellToChange.ChangeColor(Color.magenta);
+            gm.updatePath(cellToChange);
+        }
         
     }
 }

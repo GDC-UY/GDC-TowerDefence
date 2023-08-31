@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Scenes;
+using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -79,7 +81,7 @@ public class GridManager : MonoBehaviour
         return path;
     }
 
-    public void updatePath(Cell cell)
+    public bool updatePath(Cell cell)
     {
         if (path != null)
         {
@@ -95,8 +97,23 @@ public class GridManager : MonoBehaviour
         pathIsValid = true;
         GetPath();
         previewPath();
+
+        return isPartOf(cell);
+    }
+    
+    private bool isPartOf(Cell cell)
+    {
+        LinkedListNode<Node> a = path.First;
         
-       
+        while (a != null)
+        {
+            if (a.Value.GetCell() == cell)
+            {
+                return true;
+            }
+            a = a.Next;
+        }
+        return false;
     }
 
     public void previewPath()
