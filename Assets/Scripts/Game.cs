@@ -38,6 +38,7 @@ public class Game : MonoBehaviour
         }
     }
     void Start(){
+        Resources.LoadAsync<Material>("Resources/Materials");
         activateBuildModeButton.onClick.AddListener(EnableBuildMode);
     }
 
