@@ -246,11 +246,24 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fb2aafa9ef35dcfb183d4b060d629046, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gm: {fileID: 0}
+  boundX: 0
+  boundY: 0
+  MaxY: 0
+  MinY: 0
+  MaxX: 0
+  MinX: 0
+  mouseSpeed: 0
+  minZoom: 0
+  maxZoom: 0
+  hit_position: {x: 0, y: 0, z: 0}
+  current_position: {x: 0, y: 0, z: 0}
+  camera_position: {x: 0, y: 0, z: 0}
 --- !u!1 &1356500484
 GameObject:
   m_ObjectHideFlags: 0
