@@ -7,9 +7,9 @@ namespace Scenes
     public class Node
     {
         private GameObject cell;
-        private LinkedList<Node> ady;
+        private LinkedList<Node> ady; //adjacentes 
         [SerializeField] private bool visited;
-        [SerializeField] private bool used;
+        [SerializeField] private bool used; // can't be visited 
         public Node(GameObject data){
             cell = data;
             ady = new LinkedList<Node>();
