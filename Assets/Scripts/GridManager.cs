@@ -3,9 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Scenes;
-using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class GridManager : MonoBehaviour
 {
@@ -50,7 +48,6 @@ public class GridManager : MonoBehaviour
         nodes = new Node[Width, Height];
         GridCreate();
         CreateGraphConnections();
-        Instantiate(Enemy, new Vector3(-2f, -2f, 0), Quaternion.identity);
     }
 
     private GameObject EnemySpawn;
@@ -125,6 +122,11 @@ public class GridManager : MonoBehaviour
                 j.GetCell().ChangeColor(Color.yellow);
                 j.SetUsed(false);
             }
+        }
+        else
+        {
+            updatePath(null);
+            previewPath();
         }
     }
     

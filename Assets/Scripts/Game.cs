@@ -1,9 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Scenes;
-using Unity.VisualScripting;
-using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -15,8 +12,10 @@ public class Game : MonoBehaviour
     public GameObject cellSelected;
     public Button activateBuildModeButton;
     public Button activateTowerBuildModeButton;
+    public Button undoBuildButton;
     public bool isBuildModeOn;
     public bool isTowerBuildModeOn;
+    public GameObject Enemy;
 
     public GameObject tower;
     Ray TouchRay => Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -47,9 +46,10 @@ public class Game : MonoBehaviour
         }
     }
     void Start(){
-        gm.previewPath();
+        undoBuildButton.onClick.AddListener(DestroyCell);
         activateBuildModeButton.onClick.AddListener(EnableBuildMode);
-        activateTowerBuildModeButton.onClick.AddListener(EnableTowerBuildMode);
+        //activateTowerBuildModeButton.onClick.AddListener(EnableTowerBuildMode);
+        gm.previewPath();
     }
 
     // Game encarga de los inputs
@@ -78,12 +78,12 @@ public class Game : MonoBehaviour
         // Check for Control + Z or right-click
         if ((Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)) && Input.GetKeyDown(KeyCode.Z) || Input.GetMouseButtonDown(1))
         {
-            RaycastHit2D hit = Physics2D.Raycast(TouchRay.origin, TouchRay.direction);
+            DestroyCell();
+        }
 
-            if (hit.collider.gameObject != null)
-            {
-                DestroyOnCell(hit.collider.gameObject);
-            }
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            Instantiate(Enemy, new Vector3(-9.5f, -9.5f, 10 ), Quaternion.identity);
         }
     }
 
@@ -130,8 +130,9 @@ public class Game : MonoBehaviour
         
     }
     
-    private void DestroyOnCell(GameObject cell)
+    public void DestroyCell()
     {
+        Debug.Log("Function called!");
         if (StackCZ.Any())
         {
             Cell cellToChange = StackCZ.Pop();
