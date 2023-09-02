@@ -48,8 +48,8 @@ public class Game : MonoBehaviour
     void Start(){
         undoBuildButton.onClick.AddListener(DestroyCell);
         activateBuildModeButton.onClick.AddListener(EnableBuildMode);
-        //activateTowerBuildModeButton.onClick.AddListener(EnableTowerBuildMode);
-        gm.previewPath();
+        activateTowerBuildModeButton.onClick.AddListener(EnableTowerBuildMode);
+        gm.previewPath();   
     }
 
     // Game encarga de los inputs
