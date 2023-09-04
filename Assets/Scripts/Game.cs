@@ -77,7 +77,7 @@ public class Game : MonoBehaviour
 
             if (hit.collider.gameObject != null)
             {
-                BuildOnCell(hit.collider.gameObject);
+                BuildWallOnCell(hit.collider.gameObject);
             }
         }
         // building tower
@@ -122,12 +122,11 @@ public class Game : MonoBehaviour
     private Stack<Cell> StackCZ = new Stack<Cell>();
     
 
-    private void BuildOnCell(GameObject cell)
+    private void BuildWallOnCell(GameObject cell)
     {
         Cell cellToChange = cell.GetComponent<Cell>();
         cellToChange.node.SetUsed(true);
-        cellToChange.ChangeColor(Color.black);
-        
+        cellToChange.ChangeTypes(EnumCell.Wall);
         if (!gm.updatePath(cellToChange))
         {
             StackCZ.Push(cellToChange);

@@ -40,7 +40,7 @@ public class GridManager : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -48,27 +48,31 @@ public class GridManager : MonoBehaviour
         nodes = new Node[Width, Height];
         GridCreate();
         CreateGraphConnections();
+        EnemySpawn.GetComponent<Cell>().ChangeTypes(EnumCell.EnemySpawn);
+        EnemyTarget.GetComponent<Cell>().ChangeTypes(EnumCell.Finish);
+
     }
 
     private GameObject EnemySpawn;
     private GameObject EnemyTarget;
     private static bool pathIsValid = false;
-    
+
     private LinkedList<Node> path = null;
     private LinkedList<Node> prevSecurePath = null;
-    
+
     public LinkedList<Node> GetPath()
     {
         if (pathIsValid)
         {
-            if(path != null)
+            if (path != null)
                 prevSecurePath = new LinkedList<Node>(path);
-            
+
+
             path = graph.EnemyPathFinding(EnemySpawn, EnemyTarget);
 
             if (path == null)
             {
-                if(prevSecurePath != null) 
+                if (prevSecurePath != null)
                     path = new LinkedList<Node>(prevSecurePath);
             }
 
@@ -90,18 +94,18 @@ public class GridManager : MonoBehaviour
                 }
             }
         }
-        
+
         pathIsValid = true;
         GetPath();
         previewPath();
 
         return isPartOf(cell);
     }
-    
+
     private bool isPartOf(Cell cell)
     {
         LinkedListNode<Node> a = path.First;
-        
+
         while (a != null)
         {
             if (a.Value.GetCell() == cell)
@@ -129,7 +133,7 @@ public class GridManager : MonoBehaviour
             previewPath();
         }
     }
-    
+
     private void GridCreate()
     {
         graph = new Graph();
@@ -137,21 +141,21 @@ public class GridManager : MonoBehaviour
         {
             for (int col = 0; col < Height; col++)
             {
-                GameObject cell = Instantiate(cellPrefab, new Vector3(transform.position.x + row, transform.position.y + col, 0 ), Quaternion.identity);
+                GameObject cell = Instantiate(cellPrefab, new Vector3(transform.position.x + row, transform.position.y + col, 0), Quaternion.identity);
                 cell.name = $"{row}x{col}";
                 //TEMPORAL --------------------------------------------------
                 if (cell.name == "0x0")
                 {
                     //INICIO
-                    cell.GetComponent<Cell>().ChangeTypes(EnumCell.EnemySpawn);
                     EnemySpawn = cell;
+                    // cell.GetComponent<Node>().SetUsed(false);
                 }
                 else if (cell.name == "19x19")
                 {
                     //FINAL
                     // cell.GetComponent<SpriteRenderer>().color = Color.green;
-                    cell.GetComponent<Cell>().ChangeTypes(EnumCell.Finish);
                     EnemyTarget = cell;
+                    // cell.GetComponent<Node>().SetUsed(false);
                 }
                 //TEMPORAL --------------------------------------------------
                 cell.transform.SetParent(transform);
@@ -159,7 +163,6 @@ public class GridManager : MonoBehaviour
                 nodes[row, col] = node; // Asignar el objeto a la matriz
                 graph.AddNode(node);
                 cell.GetComponent<Cell>().node = node;
-                cell.GetComponent<Cell>().ChangeTypes(EnumCell.Wall);
             }
         }
     }
@@ -234,7 +237,7 @@ public class GridManager : MonoBehaviour
 
     private void GridPosition()
     {
-        transform.position = new Vector3(transform.position.x - (Width/2) + 0.5f, transform.position.y - (Height/2) + 0.5f, 0);
+        transform.position = new Vector3(transform.position.x - (Width / 2) + 0.5f, transform.position.y - (Height / 2) + 0.5f, 0);
     }
 
 }

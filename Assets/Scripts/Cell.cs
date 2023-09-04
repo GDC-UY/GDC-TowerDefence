@@ -23,9 +23,9 @@ public class Cell : MonoBehaviour
     
     // types EnemySpawn, Finish, Ground, Wall, Path, Tower, Obstacle
     public void ChangeTypes(EnumCell newType){
-        type = newType;
+        // EnumCell type = newType;
 
-        switch (type)
+        switch (newType)
         {
             case EnumCell.Ground:
                 spriteRenderer.material = Resources.Load<Material>("Materials/Ground");
