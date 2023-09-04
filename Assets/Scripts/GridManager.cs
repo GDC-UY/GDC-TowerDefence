@@ -59,7 +59,7 @@ public class GridManager : MonoBehaviour
     
     public LinkedList<Node> GetPath()
     {
-        if (pathIsValid)
+        if (!pathIsValid)
         {
             if(path != null)
                 prevSecurePath = new LinkedList<Node>(path);
@@ -72,7 +72,7 @@ public class GridManager : MonoBehaviour
                     path = new LinkedList<Node>(prevSecurePath);
             }
 
-            pathIsValid = false;
+            pathIsValid = true;
         }
 
         return path;
@@ -91,7 +91,7 @@ public class GridManager : MonoBehaviour
             }
         }
         
-        pathIsValid = true;
+        pathIsValid = false;
         GetPath();
         previewPath();
 
