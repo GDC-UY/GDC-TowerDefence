@@ -12,7 +12,6 @@ public class Game : MonoBehaviour
     public bool isBuildModeOn;
     Ray TouchRay => Camera.main.ScreenPointToRay(Input.mousePosition);
     public static Game Instance
-
     {
         get
         {
@@ -37,7 +36,8 @@ public class Game : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
-    void Start(){
+    void Start()
+    {
         activateBuildModeButton.onClick.AddListener(EnableBuildMode);
     }
 
@@ -46,24 +46,30 @@ public class Game : MonoBehaviour
     {
         if (isBuildModeOn && Input.GetMouseButtonDown(0))
         {
-            //Debug.Log("Click");
-
-            RaycastHit2D hit = Physics2D.Raycast(TouchRay.origin, TouchRay.direction);
-
-            if (hit.collider != null)
-            {
-                Debug.Log("Hit object: " + hit.collider.gameObject.name);
-                GameObject selected = GridManager.Instance.getCell(hit.point);
-                if (selected != null)
-                {
-                    cellSelected = selected;
-                    selected.GetComponent<SpriteRenderer>().color = Color.black; // TODO: despues agregar tipos e node.cs
-                }
-            }
-            isBuildModeOn = false;
+            ClickHandler();
         }
     }
-    
+
+    private void ClickHandler()
+    {
+        //Debug.Log("Click");
+
+        RaycastHit2D hit = Physics2D.Raycast(TouchRay.origin, TouchRay.direction);
+
+        if (hit.collider != null)
+        {
+            Debug.Log("Hit object: " + hit.collider.gameObject.name);
+            GameObject selected = GridManager.Instance.GetCellFromRaycast(hit);
+            if (selected != null)
+            {
+                cellSelected = selected;
+                // selected.GetComponent<SpriteRenderer>().color = Color.black; // TODO: despues agregar tipos e node.cs
+                selected.GetComponent<Cell>().ChangeTypes(EnumCell.Wall);
+            }
+        }
+        isBuildModeOn = false;
+    }
+
     public void EnableBuildMode()
     {
         isBuildModeOn = true;

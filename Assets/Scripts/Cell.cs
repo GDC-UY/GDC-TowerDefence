@@ -10,11 +10,11 @@ public class Cell : MonoBehaviour
 {
     public Node node;
     private EnumCell type;
-    private Material materialRef; 
+    private Renderer rendererReference; 
     private void Start(){
-        ResourceRequest materials = Resources.LoadAsync<Material>("Resources/Materials");
+        Resources.LoadAsync<Material>("Resources/Materials");
         // getting a reference to this cell material 
-        materialRef = GetComponent<Material>();
+        rendererReference = GetComponent<Renderer>();
     }
     // types EnemySpawn, Finish, Ground, Wall, Path, Tower, Obstacle
     public void ChangeTypes(EnumCell newType){
@@ -23,11 +23,11 @@ public class Cell : MonoBehaviour
         switch (type)
         {
             case EnumCell.Ground:
-                materialRef = Resources.Load<Material>("Materials/Ground");
+                rendererReference.material = Resources.Load<Material>("Materials/Ground");
                 node.SetUsed(false);
                 break;
             case EnumCell.Wall:
-                materialRef = Resources.Load<Material>("Materials/Wall");
+                rendererReference.material = Resources.Load<Material>("Materials/Wall");
                 node.SetUsed(true);
                 break;
             case EnumCell.Path:
@@ -36,11 +36,11 @@ public class Cell : MonoBehaviour
                 node.SetUsed(false);
                 break;
             case EnumCell.EnemySpawn:
-                materialRef = Resources.Load<Material>("Materials/EnemySpawn");
+                rendererReference.material = Resources.Load<Material>("Materials/EnemySpawn");
                 node.SetUsed(false);
                 break;
             case EnumCell.Finish:
-                materialRef = Resources.Load<Material>("Materials/Finish");
+                rendererReference.material = Resources.Load<Material>("Materials/Finish");
                 node.SetUsed(false);
                 break;
             case EnumCell.Tower:
@@ -55,7 +55,7 @@ public class Cell : MonoBehaviour
                 break;            
 
             default:
-                materialRef = Resources.Load<Material>("Materials/Ground");
+                rendererReference.material = Resources.Load<Material>("Materials/Ground");
                 break;
         }
     }

@@ -76,24 +76,26 @@ public class GridManager : MonoBehaviour
                 if (cell.name == "0x0")
                 {
                     //INICIO
-                    cell.GetComponent<SpriteRenderer>().color = Color.red;
+                    cell.GetComponent<Cell>().ChangeTypes(EnumCell.EnemySpawn);
                     EnemySpawn = cell;
                 }
                 else if (cell.name == "19x19")
                 {
                     //FINAL
-                    cell.GetComponent<SpriteRenderer>().color = Color.green;
+                    // cell.GetComponent<SpriteRenderer>().color = Color.green;
+                    cell.GetComponent<Cell>().ChangeTypes(EnumCell.Finish);
                     EnemyTarget = cell;
                 }
                 //TEMPORAL --------------------------------------------------
-                cell.transform.SetParent(container.transform);
+                cell.transform.SetParent(transform);
                 Node node = new Node(cell);
                 nodes[row, col] = node; // Asignar el objeto a la matriz
                 graph.AddNode(node);
                 if (cell.name == "15x0" || cell.name == "1x0" || cell.name == "3x5" || cell.name == "3x1" || cell.name == "3x2" || cell.name == "3x3" || cell.name == "19x18" || cell.name == "18x18" || cell.name == "17x18" || cell.name == "17x17" || cell.name == "10x10")
                 {
-                    cell.GetComponent<SpriteRenderer>().color = Color.black;
-                    node.SetUsed(true);
+                    // cell.GetComponent<SpriteRenderer>().color = Color.black;
+                    // node.SetUsed(true);
+                    cell.GetComponent<Cell>().ChangeTypes(EnumCell.Wall);
                 }
 
                 cell.GetComponent<Cell>().node = node;
@@ -174,16 +176,19 @@ public class GridManager : MonoBehaviour
         transform.position = new Vector3(0.5f, 0.5f, 0);
     }
     // castea un ray, si este colisiona con una celda, devuelve la celda.
-    public GameObject getCell(Vector2 point)
+    public GameObject GetCellFromRaycast(RaycastHit2D hit)
     {
-        Debug.Log(point.x + " " + point.y);
-        int x = Mathf.FloorToInt(point.x);
-        int y = Mathf.FloorToInt(point.y);
+        Debug.Log(hit.point.x + " " + hit.point.y);
+        int x = Mathf.FloorToInt(hit.point.x);
+        int y = Mathf.FloorToInt(hit.point.y);
         if (x >= 0 && x < GridManager.Instance.Width &&
             y >= 0 && y < GridManager.Instance.Height)
-            return GridManager.Instance.nodes[x, y].GetCell();
-
+        {
+            // return Instance.nodes[x, y].GetCell();
+            return hit.collider.gameObject;
+        }
         return null;
-        transform.position = new Vector3(transform.position.x - (Width/2) + 0.5f, transform.position.y - (Height/2) + 0.5f, 0);
+        // transform.position = new Vector3(
+            // transform.position.x - (Width / 2) + 0.5f, transform.position.y - (Height / 2) + 0.5f, 0);
     }
 }
