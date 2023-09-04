@@ -8,6 +8,7 @@ namespace Scenes
     {
         private GameObject cell;
         private LinkedList<Node> ady; //adjacentes 
+        private Cell cellObj;
         [SerializeField] private bool visited;
         [SerializeField] private bool used; // can't be visited 
         public Node(GameObject data){
@@ -15,9 +16,15 @@ namespace Scenes
             ady = new LinkedList<Node>();
             visited = false;
             used = false;
+            cellObj = cell.GetComponent<Cell>();
         }
         public GameObject GetValue(){
             return cell;
+        }
+
+        public Cell GetCell()
+        {
+            return cellObj;
         }
         public LinkedList<Node> GetAdy(){
             return ady;
@@ -37,9 +44,6 @@ namespace Scenes
         }
         public void SetVisited(bool boolean){
             visited = boolean;
-        }
-        public GameObject GetCell(){
-            return cell;
         }
         public void AddEdge(Node node)
         {

@@ -10,12 +10,17 @@ public class Cell : MonoBehaviour
 {
     public Node node;
     private EnumCell type;
-    private Renderer rendererReference; 
+    [SerializeField] private SpriteRenderer spriteRenderer;
     private void Start(){
         Resources.LoadAsync<Material>("Resources/Materials");
         // getting a reference to this cell material 
-        rendererReference = GetComponent<Renderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
+    public void ChangeColor(Color col)
+    {
+        spriteRenderer.color = col;
+    }
+    
     // types EnemySpawn, Finish, Ground, Wall, Path, Tower, Obstacle
     public void ChangeTypes(EnumCell newType){
         type = newType;
@@ -23,11 +28,11 @@ public class Cell : MonoBehaviour
         switch (type)
         {
             case EnumCell.Ground:
-                rendererReference.material = Resources.Load<Material>("Materials/Ground");
+                spriteRenderer.material = Resources.Load<Material>("Materials/Ground");
                 node.SetUsed(false);
                 break;
             case EnumCell.Wall:
-                rendererReference.material = Resources.Load<Material>("Materials/Wall");
+                spriteRenderer.material = Resources.Load<Material>("Materials/Wall");
                 node.SetUsed(true);
                 break;
             case EnumCell.Path:
@@ -36,11 +41,11 @@ public class Cell : MonoBehaviour
                 node.SetUsed(false);
                 break;
             case EnumCell.EnemySpawn:
-                rendererReference.material = Resources.Load<Material>("Materials/EnemySpawn");
+                spriteRenderer.material = Resources.Load<Material>("Materials/EnemySpawn");
                 node.SetUsed(false);
                 break;
             case EnumCell.Finish:
-                rendererReference.material = Resources.Load<Material>("Materials/Finish");
+                spriteRenderer.material = Resources.Load<Material>("Materials/Finish");
                 node.SetUsed(false);
                 break;
             case EnumCell.Tower:
@@ -55,7 +60,7 @@ public class Cell : MonoBehaviour
                 break;            
 
             default:
-                rendererReference.material = Resources.Load<Material>("Materials/Ground");
+                spriteRenderer.material = Resources.Load<Material>("Materials/Ground");
                 break;
         }
     }

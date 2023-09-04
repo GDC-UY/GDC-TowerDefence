@@ -36,16 +36,14 @@ public class Enemy : MonoBehaviour
             if (Mathf.Abs(deltaX) < enemySpeed * Time.deltaTime && Mathf.Abs(deltaY) < enemySpeed * Time.deltaTime)
             {
                 transform.position = new Vector2(targetPosition.x, targetPosition.y);
-                next.Value.GetValue().GetComponent<SpriteRenderer>().color = Color.blue;
                 next = next.Next;
                 if (next != null)
                 {
                     nextGO = next.Value.GetValue();
-                    next.Value.GetValue().GetComponent<SpriteRenderer>().color = Color.yellow;
                 }
                 else
                 {
-                    next = enemyPath.First;
+                    Destroy(this.gameObject);
                 }
             }
             else
