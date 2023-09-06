@@ -25,7 +25,7 @@ public class Cell : MonoBehaviour
     // types EnemySpawn, Finish, Ground, Wall, Path, Tower, Obstacle
     public void ChangeTypes(EnumCell newType){
         // EnumCell type = newType;
-        spriteRenderer = GetComponent<SpriteRenderer>();
+
         switch (newType)
         {
             case EnumCell.Ground:
@@ -35,9 +35,10 @@ public class Cell : MonoBehaviour
             case EnumCell.Wall:
                 // create a new GameObject
                 GameObject wallObject = new GameObject();
-
+                wallObject.name = "Wall "+ this.gameObject.name;
+                
                 // add a SpriteRenderer component to the game object
-                SpriteRenderer spriteRenderer = wallObject.AddComponent<SpriteRenderer>();
+                wallObject.AddComponent<SpriteRenderer>();
 
                 // set the sprite of the SpriteRenderer to the wall sprite
                 Sprite spriteWall = Resources.Load<Sprite>("SpritesCell/Wall");
