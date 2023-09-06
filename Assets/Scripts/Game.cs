@@ -66,10 +66,12 @@ public class Game : MonoBehaviour
         if (isTowerBuildModeOn && Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())
         {
             RaycastHit2D hit = Physics2D.Raycast(TouchRay.origin, TouchRay.direction);
+            Cell hittedCell = hit.collider.gameObject.GetComponent<Cell>();
 
-            if (hit.collider != null && hit.collider.gameObject.GetComponent<Cell>().node.GetUsed())
+            if (hit.collider != null && hittedCell.node.GetUsed() && !hittedCell.HasAttachedTurret())
             {
-                Instantiate(tower, hit.collider.gameObject.transform.position, Quaternion.identity);
+                GameObject turret = Instantiate(tower, hit.collider.gameObject.transform.position, Quaternion.identity);
+                hittedCell.AttachTurret(turret);
             }
         }
 
@@ -130,10 +132,10 @@ public class Game : MonoBehaviour
     
     public void DestroyCell()
     {
-        Debug.Log("Function called!");
         if (StackCZ.Any())
         {
             Cell cellToChange = StackCZ.Pop();
+            cellToChange.DeatachTurret();
             cellToChange.node.SetUsed(false);
             cellToChange.ChangeColor(Color.magenta);
             gm.updatePath(cellToChange);
