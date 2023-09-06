@@ -50,7 +50,8 @@ public class GridManager : MonoBehaviour
         CreateGraphConnections();
     }
 
-    private GameObject EnemySpawn;
+    private GameObject[] EnemySpawn = new GameObject[3];
+    private int spawnActive = -1;
     private GameObject EnemyTarget;
     private static bool pathIsValid = false;
     
@@ -64,7 +65,7 @@ public class GridManager : MonoBehaviour
             if(path != null)
                 prevSecurePath = new LinkedList<Node>(path);
             
-            path = graph.EnemyPathFinding(EnemySpawn, EnemyTarget);
+            path = graph.EnemyPathFinding(EnemySpawn[spawnActive], EnemyTarget);
 
             if (path == null)
             {
@@ -144,7 +145,8 @@ public class GridManager : MonoBehaviour
                 {
                     //INICIO
                     cell.GetComponent<SpriteRenderer>().color = Color.red;
-                    EnemySpawn = cell;
+                    spawnActive += 1;
+                    EnemySpawn[spawnActive] = cell;
                 }
                 else if (cell.name == "19x19")
                 {

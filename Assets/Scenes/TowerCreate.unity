@@ -700,8 +700,8 @@ MonoBehaviour:
   MaxX: 0
   MinX: 0
   mouseSpeed: 0.5
-  minZoom: 1
-  maxZoom: 5
+  minZoom: 0.5
+  maxZoom: 10
   hitPosition: {x: 0, y: 0, z: 0}
   currentPosition: {x: 0, y: 0, z: 0}
   cameraPosition: {x: 0, y: 0, z: 0}
@@ -1242,11 +1242,11 @@ PrefabInstance:
       objectReference: {fileID: 104020759841555626, guid: d9c20aa723c58b14aba1bdfbbdfb0b40, type: 3}
     - target: {fileID: 1699354150553313027, guid: 4a36403b5c9341846aaad37087e4ac9a, type: 3}
       propertyPath: Width
-      value: 20
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 1699354150553313027, guid: 4a36403b5c9341846aaad37087e4ac9a, type: 3}
       propertyPath: Height
-      value: 20
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 1699354150553313027, guid: 4a36403b5c9341846aaad37087e4ac9a, type: 3}
       propertyPath: height
