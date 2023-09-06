@@ -22,7 +22,7 @@ public class Tower : MonoBehaviour
     }
 
     /// <summary>
-    /// De todos los enemigos, encuentra el m·s cercano a la torre y lo targetea. Si no hay ninguno, el target es null
+    /// De todos los enemigos, encuentra el m√°s cercano a la torre y lo targetea. Si no hay ninguno, el target es null
     /// </summary>
     void UpdateTarget()
     {
@@ -52,24 +52,6 @@ public class Tower : MonoBehaviour
                 target = null;
             }
         }
-        /*foreach (GameObject enemy in enemies)
-        {
-            float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
-            if (distanceToEnemy < shortestDistance)
-            {
-                shortestDistance = distanceToEnemy;
-                nearestEnemy = enemy;
-            }
-        }
-
-        if (nearestEnemy != null && shortestDistance <= range)
-        {
-            target = nearestEnemy.transform;
-        }
-        else
-        {
-            target = null;
-        }*/
     }
 
     private void OnDrawGizmosSelected()
