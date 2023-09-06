@@ -12,7 +12,7 @@ public class Cell : MonoBehaviour
     private EnumCell type;
     [SerializeField] private SpriteRenderer spriteRenderer;
     private void Start(){
-        Resources.LoadAsync<Material>("Resources/Materials");
+        Resources.LoadAsync<Material>("Resources/SpritesCell");
         // getting a reference to this cell material 
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
@@ -21,18 +21,29 @@ public class Cell : MonoBehaviour
         spriteRenderer.color = col;
     }
     
+
     // types EnemySpawn, Finish, Ground, Wall, Path, Tower, Obstacle
     public void ChangeTypes(EnumCell newType){
         // EnumCell type = newType;
-
+        spriteRenderer = GetComponent<SpriteRenderer>();
         switch (newType)
         {
             case EnumCell.Ground:
-                spriteRenderer.material = Resources.Load<Material>("Materials/Ground");
+                spriteRenderer.material = Resources.Load<Material>("SpritesCell/Ground");
                 node.SetUsed(false);
                 break;
             case EnumCell.Wall:
-                spriteRenderer.material = Resources.Load<Material>("Materials/Wall");
+                // create a new GameObject
+                GameObject wallObject = new GameObject();
+
+                // add a SpriteRenderer component to the game object
+                SpriteRenderer spriteRenderer = wallObject.AddComponent<SpriteRenderer>();
+
+                // set the sprite of the SpriteRenderer to the wall sprite
+                Sprite spriteWall = Resources.Load<Sprite>("SpritesCell/Wall");
+                spriteRenderer.sprite = spriteWall;
+
+                wallObject.transform.SetParent(transform);
                 node.SetUsed(true);
                 break;
             case EnumCell.Path:

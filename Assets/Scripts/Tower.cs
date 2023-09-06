@@ -22,7 +22,7 @@ public class Tower : MonoBehaviour
     }
 
     /// <summary>
-    /// De todos los enemigos, encuentra el más cercano a la torre y lo targetea. Si no hay ninguno, el target es null
+    /// De todos los enemigos, encuentra el mï¿½s cercano a la torre y lo targetea. Si no hay ninguno, el target es null
     /// </summary>
     void UpdateTarget()
     {
