@@ -27,7 +27,6 @@ public class Game : MonoBehaviour
             if (instance == null)
             {
                 instance = FindObjectOfType<Game>();
-                //DontDestroyOnLoad(instance.gameObject);
             }
             return instance;
         }
@@ -38,7 +37,6 @@ public class Game : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            //DontDestroyOnLoad(this.gameObject);
         }
         else
         {
