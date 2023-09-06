@@ -1,9 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Scenes;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class GridManager : MonoBehaviour
 {
@@ -48,20 +48,88 @@ public class GridManager : MonoBehaviour
         nodes = new Node[Width, Height];
         GridCreate();
         CreateGraphConnections();
-        Instantiate(Enemy, new Vector3(-2f, -2f, 0), Quaternion.identity);
     }
 
     private GameObject EnemySpawn;
     private GameObject EnemyTarget;
+    private static bool pathIsValid = false;
+    
     private LinkedList<Node> path = null;
+    private LinkedList<Node> prevSecurePath = null;
+    
     public LinkedList<Node> GetPath()
     {
-        //Cache
-        if (this.path == null)
-            this.path = this.graph.EnemyPathFinding(EnemySpawn, EnemyTarget);
-        return this.path;
+        if (pathIsValid)
+        {
+            if(path != null)
+                prevSecurePath = new LinkedList<Node>(path);
+            
+            path = graph.EnemyPathFinding(EnemySpawn, EnemyTarget);
+
+            if (path == null)
+            {
+                if(prevSecurePath != null) 
+                    path = new LinkedList<Node>(prevSecurePath);
+            }
+
+            pathIsValid = false;
+        }
+
+        return path;
     }
 
+    public bool updatePath(Cell cell)
+    {
+        if (path != null)
+        {
+            foreach (Node j in path)
+            {
+                if (!j.GetUsed())
+                {
+                    j.GetValue().GetComponent<SpriteRenderer>().color = Color.magenta;
+                }
+            }
+        }
+        
+        pathIsValid = true;
+        GetPath();
+        previewPath();
+
+        return isPartOf(cell);
+    }
+    
+    private bool isPartOf(Cell cell)
+    {
+        LinkedListNode<Node> a = path.First;
+        
+        while (a != null)
+        {
+            if (a.Value.GetCell() == cell)
+            {
+                return true;
+            }
+            a = a.Next;
+        }
+        return false;
+    }
+
+    public void previewPath()
+    {
+        if (path != null)
+        {
+            foreach (Node j in path)
+            {
+                j.GetCell().ChangeColor(Color.yellow);
+                j.SetUsed(false);
+            }
+        }
+        else
+        {
+            updatePath(null);
+            previewPath();
+        }
+    }
+    
     private void GridCreate()
     {
         graph = new Graph();
@@ -89,12 +157,6 @@ public class GridManager : MonoBehaviour
                 Node node = new Node(cell);
                 nodes[row, col] = node; // Asignar el objeto a la matriz
                 graph.AddNode(node);
-                if (cell.name == "15x0" || cell.name == "1x0" || cell.name == "3x5" || cell.name == "3x1" || cell.name == "3x2" || cell.name == "3x3" || cell.name == "19x18" || cell.name == "18x18" || cell.name == "17x18" || cell.name == "17x17" || cell.name == "10x10")
-                {
-                    cell.GetComponent<SpriteRenderer>().color = Color.black;
-                    node.SetUsed(true);
-                }
-
                 cell.GetComponent<Cell>().node = node;
             }
         }
@@ -171,18 +233,5 @@ public class GridManager : MonoBehaviour
     private void GridPosition()
     {
         transform.position = new Vector3(transform.position.x - (Width/2) + 0.5f, transform.position.y - (Height/2) + 0.5f, 0);
-    }
-    
-    // castea un ray, si este colisiona con una celda, devuelve la celda.
-    public GameObject getCell(Vector2 point)
-    {
-        Debug.Log(point.x + " " + point.y);
-        int x = Mathf.FloorToInt(point.x);
-        int y = Mathf.FloorToInt(point.y);
-        if (x >= 0 && x < GridManager.Instance.Width &&
-            y >= 0 && y < GridManager.Instance.Height)
-            return GridManager.Instance.nodes[x, y].GetCell();
-
-        return null;
     }
 }

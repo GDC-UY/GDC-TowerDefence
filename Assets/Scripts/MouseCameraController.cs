@@ -1,9 +1,10 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.Serialization;
 
 public class MouseCameraController : MonoBehaviour
 {
-    private Camera cam;
+    public Camera cam;
     [SerializeField] private GridManager gm;
 
     [Header("Mapa objeto")]
@@ -23,25 +24,21 @@ public class MouseCameraController : MonoBehaviour
     [SerializeField] private float minZoom;
     [SerializeField] private float maxZoom;
 
+    [FormerlySerializedAs("hit_position")]
     [Header("Movimiento del mouse")]
-    [SerializeField] Vector3 hit_position = Vector3.zero;
-    [SerializeField] Vector3 current_position = Vector3.zero;
-    [SerializeField] Vector3 camera_position = Vector3.zero;
+    [SerializeField] Vector3 hitPosition = Vector3.zero;
+    [SerializeField] Vector3 currentPosition = Vector3.zero;
+    [SerializeField] Vector3 cameraPosition = Vector3.zero;
     
-
-
-    //https://media.discordapp.net/attachments/699277437439311962/1052420002332033104/image.png
-
     private void Start()
     {
-        getBounds();
-        cam = GetComponent<Camera>();
+        GetBounds();
     }
 
-    private void getBounds()
+    private void GetBounds()
     {
-        boundX = GetComponent<Camera>().orthographicSize * Screen.width / Screen.height;
-        boundY = GetComponent<Camera>().orthographicSize;
+        boundY = cam.orthographicSize;
+        boundX = boundY * Screen.width / Screen.height;
         
         MaxY = (gm.Width/2) - boundY;
         MinY = -(gm.Width/2) + boundY;
@@ -71,7 +68,7 @@ public class MouseCameraController : MonoBehaviour
                 {
                     cam.orthographicSize = maxZoom;
                 }
-                getBounds();
+                GetBounds();
             }
         }
         else if(wheelValue > 0)
@@ -83,19 +80,19 @@ public class MouseCameraController : MonoBehaviour
                 {
                     cam.orthographicSize = minZoom;
                 }
-                getBounds();
+                GetBounds();
             }
         }
 
         if (Input.GetMouseButtonDown(0))
         {
-            hit_position = Input.mousePosition;
-            camera_position = transform.position;
+            hitPosition = Input.mousePosition;
+            cameraPosition = transform.position;
 
         }
         if (Input.GetMouseButton(0))
         {
-            current_position = Input.mousePosition;
+            currentPosition = Input.mousePosition;
             if (this.transform.position.y < MaxY && this.transform.position.y > MinY && this.transform.position.x > MinX && this.transform.position.x < MaxX)
             {
                 LeftMouseDrag();
@@ -131,10 +128,10 @@ public class MouseCameraController : MonoBehaviour
 
     void LeftMouseDrag()
     {
-        current_position.z = hit_position.z = camera_position.y;
-        Vector3 direction = Camera.main.ScreenToWorldPoint(current_position) - Camera.main.ScreenToWorldPoint(hit_position);
+        currentPosition.z = hitPosition.z = cameraPosition.y;
+        Vector3 direction = Camera.main.ScreenToWorldPoint(currentPosition) - Camera.main.ScreenToWorldPoint(hitPosition);
         direction = direction * -1;
-        Vector3 position = camera_position + direction;
+        Vector3 position = cameraPosition + direction;
         transform.position = position;
     }
 }
