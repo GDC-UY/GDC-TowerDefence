@@ -234,18 +234,4 @@ public class GridManager : MonoBehaviour
     {
         transform.position = new Vector3(transform.position.x - (Width/2) + 0.5f, transform.position.y - (Height/2) + 0.5f, 0);
     }
-    
-    // castea un ray, si este colisiona con una celda, devuelve la celda.
-    /*
-     public GameObject getCell(Vector2 point)
-    {
-        Debug.Log(point.x + " " + point.y);
-        int x = Mathf.FloorToInt(point.x);
-        int y = Mathf.FloorToInt(point.y);
-        if (x >= 0 && x < GridManager.Instance.Width &&
-            y >= 0 && y < GridManager.Instance.Height)
-            return GridManager.Instance.nodes[x, y].GetCell();
-
-        return null;
-    }*/
 }
