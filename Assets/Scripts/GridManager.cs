@@ -62,7 +62,7 @@ public class GridManager : MonoBehaviour
 
     public LinkedList<Node> GetPath()
     {
-        if (pathIsValid)
+        if (!pathIsValid)
         {
             if (path != null)
                 prevSecurePath = new LinkedList<Node>(path);
@@ -76,7 +76,7 @@ public class GridManager : MonoBehaviour
                     path = new LinkedList<Node>(prevSecurePath);
             }
 
-            pathIsValid = false;
+            pathIsValid = true;
         }
 
         return path;
@@ -94,8 +94,8 @@ public class GridManager : MonoBehaviour
                 }
             }
         }
-
-        pathIsValid = true;
+        
+        pathIsValid = false;
         GetPath();
         previewPath();
 
@@ -239,5 +239,4 @@ public class GridManager : MonoBehaviour
     {
         transform.position = new Vector3(transform.position.x - (Width / 2) + 0.5f, transform.position.y - (Height / 2) + 0.5f, 0);
     }
-
 }

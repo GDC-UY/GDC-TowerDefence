@@ -11,6 +11,30 @@ public class Cell : MonoBehaviour
     public Node node;
     private EnumCell type;
     [SerializeField] private SpriteRenderer spriteRenderer;
+    private GameObject attachedTurret;
+
+    public void AttachTurret(GameObject turret)
+    {
+        if (attachedTurret == null)
+        {
+            attachedTurret = turret;
+            attachedTurret.transform.SetParent(this.gameObject.transform);
+        }
+    }
+
+    public bool HasAttachedTurret()
+    {
+        return attachedTurret != null;
+    }
+
+    public void DeatachTurret()
+    {
+        if (attachedTurret != null)
+        {
+            Destroy(attachedTurret.gameObject);
+            attachedTurret = null;
+        }
+    }
     private void Start(){
         Resources.LoadAsync<Material>("Resources/Materials");
         // getting a reference to this cell material 

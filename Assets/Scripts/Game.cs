@@ -26,7 +26,6 @@ public class Game : MonoBehaviour
             if (instance == null)
             {
                 instance = FindObjectOfType<Game>();
-                //DontDestroyOnLoad(instance.gameObject);
             }
             return instance;
         }
@@ -37,7 +36,6 @@ public class Game : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            //DontDestroyOnLoad(this.gameObject);
         }
         else
         {
@@ -54,7 +52,27 @@ public class Game : MonoBehaviour
     // Game encarga de los inputs
     void Update()
     {
-        ClickHandler();
+        if (isBuildModeOn && Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+        {
+            RaycastHit2D hit = Physics2D.Raycast(TouchRay.origin, TouchRay.direction);
+
+            if (hit.collider.gameObject != null)
+            {
+                BuildOnCell(hit.collider.gameObject);
+            }
+        }
+
+        if (isTowerBuildModeOn && Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())
+        {
+            RaycastHit2D hit = Physics2D.Raycast(TouchRay.origin, TouchRay.direction);
+            Cell hittedCell = hit.collider.gameObject.GetComponent<Cell>();
+
+            if (hit.collider != null && hittedCell.node.GetUsed() && !hittedCell.HasAttachedTurret())
+            {
+                GameObject turret = Instantiate(tower, hit.collider.gameObject.transform.position, Quaternion.identity);
+                hittedCell.AttachTurret(turret);
+            }
+        }
 
         // Check for Control + Z or right-click
         if ((Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)) && Input.GetKeyDown(KeyCode.Z) || Input.GetMouseButtonDown(1))
@@ -136,10 +154,10 @@ public class Game : MonoBehaviour
     
     public void DestroyCell()
     {
-        Debug.Log("Function called!");
         if (StackCZ.Any())
         {
             Cell cellToChange = StackCZ.Pop();
+            cellToChange.DeatachTurret();
             cellToChange.node.SetUsed(false);
             cellToChange.ChangeColor(Color.magenta);
             gm.updatePath(cellToChange);
