@@ -6,7 +6,7 @@ public class Tower : MonoBehaviour
 {
     [SerializeField] Transform target;
     GameObject playerBase;
-    [SerializeField] LinkedList<GameObject> enemiesInRange = new LinkedList<GameObject>();
+    LinkedList<GameObject> enemiesInRange = new LinkedList<GameObject>();
 
     // Start is called before the first frame update
     void Start()
