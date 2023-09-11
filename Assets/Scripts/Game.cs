@@ -52,27 +52,7 @@ public class Game : MonoBehaviour
     // Game encarga de los inputs
     void Update()
     {
-        if (isBuildModeOn && Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
-        {
-            RaycastHit2D hit = Physics2D.Raycast(TouchRay.origin, TouchRay.direction);
-
-            if (hit.collider.gameObject != null)
-            {
-                BuildOnCell(hit.collider.gameObject);
-            }
-        }
-
-        if (isTowerBuildModeOn && Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())
-        {
-            RaycastHit2D hit = Physics2D.Raycast(TouchRay.origin, TouchRay.direction);
-            Cell hittedCell = hit.collider.gameObject.GetComponent<Cell>();
-
-            if (hit.collider != null && hittedCell.node.GetUsed() && !hittedCell.HasAttachedTurret())
-            {
-                GameObject turret = Instantiate(tower, hit.collider.gameObject.transform.position, Quaternion.identity);
-                hittedCell.AttachTurret(turret);
-            }
-        }
+        ClickHandler();
 
         // Check for Control + Z or right-click
         if ((Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)) && Input.GetKeyDown(KeyCode.Z) || Input.GetMouseButtonDown(1))
@@ -88,25 +68,26 @@ public class Game : MonoBehaviour
 
     private void ClickHandler()
     {
-        // building wall
+        // handle wall
         if (isBuildModeOn && Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
             RaycastHit2D hit = Physics2D.Raycast(TouchRay.origin, TouchRay.direction);
 
             if (hit.collider.gameObject != null)
             {
-                BuildWallOnCell(hit.collider.gameObject);
+                BuildOnCell(hit.collider.gameObject);
             }
         }
-        // building tower
+        // build tower
         if (isTowerBuildModeOn && Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())
         {
             RaycastHit2D hit = Physics2D.Raycast(TouchRay.origin, TouchRay.direction);
+            Cell hittedCell = hit.collider.gameObject.GetComponent<Cell>();
 
-            if (hit.collider != null && hit.collider.gameObject.GetComponent<Cell>().node.GetUsed())
+            if (hit.collider != null && hittedCell.node.GetUsed() && !hittedCell.HasAttachedTurret())
             {
-                Instantiate(
-                    tower, hit.collider.gameObject.transform.position, Quaternion.identity, hit.collider.gameObject.GetComponent<Cell>().node.GetCell().transform);
+                GameObject turret = Instantiate(tower, hit.collider.gameObject.transform.position, Quaternion.identity);
+                hittedCell.AttachTurret(turret);
             }
         }
     }
