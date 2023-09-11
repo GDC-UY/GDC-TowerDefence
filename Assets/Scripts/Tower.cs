@@ -5,7 +5,6 @@ using UnityEngine;
 public class Tower : MonoBehaviour
 {
     [SerializeField] Transform target;
-    float range = 2;
     GameObject playerBase;
     [SerializeField] LinkedList<GameObject> enemiesInRange = new LinkedList<GameObject>();
 
