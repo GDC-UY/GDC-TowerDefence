@@ -52,7 +52,9 @@ public class Game : MonoBehaviour
     // Game encarga de los inputs
     void Update()
     {
-        ClickHandler();
+        if(Input.GetMouseButtonDown(0)){
+            ClickHandler();
+        }
 
         // Check for Control + Z or right-click
         if ((Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)) && Input.GetKeyDown(KeyCode.Z) || Input.GetMouseButtonDown(1))
@@ -69,7 +71,7 @@ public class Game : MonoBehaviour
     private void ClickHandler()
     {
         // handle wall
-        if (isBuildModeOn && Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+        if (isBuildModeOn && !EventSystem.current.IsPointerOverGameObject())
         {
             RaycastHit2D hit = Physics2D.Raycast(TouchRay.origin, TouchRay.direction);
 
@@ -79,7 +81,7 @@ public class Game : MonoBehaviour
             }
         }
         // build tower
-        if (isTowerBuildModeOn && Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())
+        if (isTowerBuildModeOn && !EventSystem.current.IsPointerOverGameObject())
         {
             RaycastHit2D hit = Physics2D.Raycast(TouchRay.origin, TouchRay.direction);
             Cell hittedCell = hit.collider.gameObject.GetComponent<Cell>();
