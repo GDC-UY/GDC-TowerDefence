@@ -119,6 +119,18 @@ public class Game : MonoBehaviour
             isBuildModeOn = false;
         }
     }
+    private void BuildOnCell(GameObject cell)
+    {
+        Cell cellToChange = cell.GetComponent<Cell>();
+        cellToChange.node.SetUsed(true);
+        cellToChange.ChangeColor(Color.black);
+        
+        if (!gm.updatePath(cellToChange))
+        {
+            StackCZ.Push(cellToChange);
+        }
+        
+    }
 
     private Stack<Cell> StackCZ = new Stack<Cell>();
     
