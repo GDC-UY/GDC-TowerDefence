@@ -70,7 +70,7 @@ public class Game : MonoBehaviour
 
     private void ClickHandler()
     {
-        // handle wall
+        // build wall
         if (isBuildModeOn && !EventSystem.current.IsPointerOverGameObject())
         {
             RaycastHit2D hit = Physics2D.Raycast(TouchRay.origin, TouchRay.direction);
@@ -80,6 +80,7 @@ public class Game : MonoBehaviour
                 BuildOnCell(hit.collider.gameObject);
             }
         }
+        // fin wall
         // build tower
         if (isTowerBuildModeOn && !EventSystem.current.IsPointerOverGameObject())
         {
@@ -92,6 +93,7 @@ public class Game : MonoBehaviour
                 hittedCell.AttachTurret(turret);
             }
         }
+        // fin tower
     }
 
     public void EnableBuildMode()

@@ -48,6 +48,7 @@ public class MouseCameraController : MonoBehaviour
 
     void Update()
     {
+        
         Debug.DrawLine(new Vector2(MinX - boundX, MaxY + boundY), new Vector2(MaxX + boundX, MaxY + boundY), Color.red);
         Debug.DrawLine(new Vector2(MaxX + boundX, MinY - boundY), new Vector2(MinX - boundX, MinY - boundY), Color.red);
         Debug.DrawLine(new Vector2(MinX - boundX, MaxY + boundY), new Vector2(MinX - boundX, MinY - boundY), Color.red);
