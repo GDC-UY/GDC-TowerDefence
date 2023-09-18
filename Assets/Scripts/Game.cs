@@ -63,12 +63,12 @@ public class Game : MonoBehaviour
             }
         }
 
-        if (isTowerBuildModeOn && Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())
+        if (isTowerBuildModeOn && Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
             RaycastHit2D hit = Physics2D.Raycast(TouchRay.origin, TouchRay.direction);
             Cell hittedCell = hit.collider.gameObject.GetComponent<Cell>();
 
-            if (hit.collider != null && hittedCell.node.GetUsed() && !hittedCell.HasAttachedTurret())
+            if (hittedCell != null && hittedCell.node.GetUsed() && !hittedCell.HasAttachedTurret())
             {
                 GameObject turret = Instantiate(tower, hit.collider.gameObject.transform.position, Quaternion.identity);
                 hittedCell.AttachTurret(turret);
