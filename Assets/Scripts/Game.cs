@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
+using UnityEditor.UI;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -18,6 +20,7 @@ public class Game : MonoBehaviour
     public GameObject Enemy;
     public int gold;
     private Stack<GameObject> StackCZ = new Stack<GameObject>();
+    public TMP_Dropdown dropdown;
 
     public GameObject tower;
     Ray TouchRay => Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -70,7 +73,7 @@ public class Game : MonoBehaviour
         }
         
         // Se toma 3000 como precio placeholder de una torre, si no se tiene la plata no se construye
-        if (isTowerBuildModeOn && Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())
+        if (isTowerBuildModeOn && Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
             RaycastHit2D hit = Physics2D.Raycast(TouchRay.origin, TouchRay.direction);
             Cell hittedCell = hit.collider.gameObject.GetComponent<Cell>();
