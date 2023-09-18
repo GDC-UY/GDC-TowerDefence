@@ -16,6 +16,7 @@ public class Game : MonoBehaviour
     public bool isBuildModeOn;
     public bool isTowerBuildModeOn;
     public GameObject Enemy;
+    public int gold;
 
     public GameObject tower;
     Ray TouchRay => Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -53,31 +54,43 @@ public class Game : MonoBehaviour
     // Game encarga de los inputs
     void Update()
     {
-        if (isBuildModeOn && Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+
+        if (isBuildModeOn && Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject() )
         {
             RaycastHit2D hit = Physics2D.Raycast(TouchRay.origin, TouchRay.direction);
-
-            if (hit.collider.gameObject != null)
+            
+            Debug.Log("Entra?");
+            if (hit.collider.gameObject != null  && (this.gold >= 1000))
             {
                 BuildOnCell(hit.collider.gameObject);
+                // El jugador pierde 1000 en la construccion.
+                this.LoseMoney(1000);
+                Debug.Log("Oro restante: "+ this.gold);
             }
         }
-
+        
+        // Se toma 3000 como precio placeholder de una torre, si no se tiene la plata no se construye
         if (isTowerBuildModeOn && Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())
         {
             RaycastHit2D hit = Physics2D.Raycast(TouchRay.origin, TouchRay.direction);
             Cell hittedCell = hit.collider.gameObject.GetComponent<Cell>();
-
-            if (hit.collider != null && hittedCell.node.GetUsed() && !hittedCell.HasAttachedTurret())
+            Debug.Log("Entro?");
+            if (hit.collider != null && hittedCell.node.GetUsed() && !hittedCell.HasAttachedTurret()  && (this.gold >= 3000))
             {
+                // Se instancia y pone la torreta
                 GameObject turret = Instantiate(tower, hit.collider.gameObject.transform.position, Quaternion.identity);
                 hittedCell.AttachTurret(turret);
+                // El jugador pierde 3000 en la construccion.
+                this.LoseMoney(3000);
+                Debug.Log("Oro restante:  "+ this.gold);
             }
         }
 
         // Check for Control + Z or right-click
         if ((Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)) && Input.GetKeyDown(KeyCode.Z) || Input.GetMouseButtonDown(1))
         {
+            // El jugador recupera 50% de la plata que le costo hacer la torre, por ahora 1500
+            this.RecieveMoney(1500);
             DestroyCell();
         }
 
@@ -126,8 +139,7 @@ public class Game : MonoBehaviour
         if (!gm.updatePath(cellToChange))
         {
             StackCZ.Push(cellToChange);
-        }
-        
+        }       
     }
     
     public void DestroyCell()
@@ -141,5 +153,19 @@ public class Game : MonoBehaviour
             gm.updatePath(cellToChange);
         }
         
+    }
+
+    public void RecieveMoney(int oro) {
+        this.gold += oro;
+    }
+
+    public void LoseMoney(int oro) {
+        if (this.gold - oro < 0)
+        {
+            this.gold=0;
+        }
+        else {
+            this.gold =this.gold - oro;
+        }
     }
 }
