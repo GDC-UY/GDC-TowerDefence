@@ -99,6 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 6683004393138437767}
+  cost: 1000
 --- !u!61 &-7451650621165598817
 BoxCollider2D:
   m_ObjectHideFlags: 0

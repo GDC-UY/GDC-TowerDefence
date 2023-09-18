@@ -8,6 +8,12 @@ public class Tower : MonoBehaviour
     float range = 2;
     GameObject playerBase;
 
+    [SerializeField] private int cost;
+
+    public int getCost() {
+        return cost;
+    }
+
     // Start is called before the first frame update
     void Start()
     {

@@ -17,6 +17,7 @@ public class Game : MonoBehaviour
     public bool isTowerBuildModeOn;
     public GameObject Enemy;
     public int gold;
+    private Stack<GameObject> StackCZ = new Stack<GameObject>();
 
     public GameObject tower;
     Ray TouchRay => Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -80,6 +81,7 @@ public class Game : MonoBehaviour
                 // Se instancia y pone la torreta
                 GameObject turret = Instantiate(tower, hit.collider.gameObject.transform.position, Quaternion.identity);
                 hittedCell.AttachTurret(turret);
+                StackCZ.Push(turret);
                 // El jugador pierde 3000 en la construccion.
                 this.LoseMoney(3000);
                 Debug.Log("Oro restante:  "+ this.gold);
@@ -89,8 +91,6 @@ public class Game : MonoBehaviour
         // Check for Control + Z or right-click
         if ((Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)) && Input.GetKeyDown(KeyCode.Z) || Input.GetMouseButtonDown(1))
         {
-            // El jugador recupera 50% de la plata que le costo hacer la torre, por ahora 1500
-            this.RecieveMoney(1500);
             DestroyCell();
         }
 
@@ -127,7 +127,7 @@ public class Game : MonoBehaviour
         }
     }
 
-    private Stack<Cell> StackCZ = new Stack<Cell>();
+
     
 
     private void BuildOnCell(GameObject cell)
@@ -138,7 +138,7 @@ public class Game : MonoBehaviour
         
         if (!gm.updatePath(cellToChange))
         {
-            StackCZ.Push(cellToChange);
+            StackCZ.Push(cell);
         }       
     }
     
@@ -146,14 +146,26 @@ public class Game : MonoBehaviour
     {
         if (StackCZ.Any())
         {
-            Cell cellToChange = StackCZ.Pop();
-            cellToChange.DeatachTurret();
-            cellToChange.node.SetUsed(false);
-            cellToChange.ChangeColor(Color.magenta);
-            gm.updatePath(cellToChange);
+            GameObject gamePop = StackCZ.Pop();
+            if (gamePop.tag=="Cell") {
+                // El jugador recupera 50% de la plata que le costo hacer la torre, por ahora 1500
+                Cell cell = gamePop.gameObject.GetComponent<Cell>();
+                this.RecieveMoney(cell.getCost() / 2);
+
+                cell.node.SetUsed(false);
+                cell.ChangeColor(Color.magenta);
+                gm.updatePath(cell);
+            }
+            else {
+                Cell cell = gamePop.transform.parent.gameObject.GetComponent<Cell>();
+                cell.DeatachTurret();
+                this.RecieveMoney(gamePop.GetComponent<Tower>().getCost() / 2);
+            }
         }
         
     }
+
+
 
     public void RecieveMoney(int oro) {
         this.gold += oro;
