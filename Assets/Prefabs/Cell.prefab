@@ -99,6 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 6683004393138437767}
+  cost: 1000
   LeftUp: {fileID: 21300000, guid: d79792c20f3df5be799a8c03e84ca802, type: 3}
   LeftDown: {fileID: 21300000, guid: 373bf0741382ad25ca1bd2723ffa5f15, type: 3}
   RightUp: {fileID: 21300000, guid: 59a1b5b6f6c2348ea944da2ab0debde5, type: 3}

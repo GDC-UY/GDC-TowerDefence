@@ -8,6 +8,12 @@ public class Tower : MonoBehaviour
     GameObject playerBase;
     LinkedList<GameObject> enemiesInRange = new LinkedList<GameObject>();
 
+    [SerializeField] private int cost;
+
+    public int getCost() {
+        return cost;
+    }
+
     // Start is called before the first frame update
     void Start()
     {

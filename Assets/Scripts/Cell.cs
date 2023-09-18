@@ -10,6 +10,13 @@ public class Cell : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
     private GameObject attachedTurret;
 
+    // Precios:
+    [SerializeField] private int cost;
+
+    public int getCost() {
+        return cost;
+    }
+
     public void AttachTurret(GameObject turret)
     {
         if (attachedTurret == null)
