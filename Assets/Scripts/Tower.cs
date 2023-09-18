@@ -5,8 +5,8 @@ using UnityEngine;
 public class Tower : MonoBehaviour
 {
     [SerializeField] Transform target;
-    float range = 2;
     GameObject playerBase;
+    LinkedList<GameObject> enemiesInRange = new LinkedList<GameObject>();
 
     [SerializeField] private int cost;
 
@@ -32,26 +32,22 @@ public class Tower : MonoBehaviour
     /// </summary>
     void UpdateTarget()
     {
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         float shortestDistance = Mathf.Infinity;
         GameObject nearestEnemy = null;
 
-        foreach (GameObject enemy in enemies)
+        foreach (GameObject enemy in enemiesInRange)
         {
-            float distanceTower = Vector3.Distance(transform.position, enemy.transform.position);
-            float distanceBase = Vector3.Distance(playerBase.transform.position, enemy.transform.position);
-
-            if (distanceBase < shortestDistance && distanceTower <= range)
+            float distanceEnemyToBase = Vector3.Distance(playerBase.transform.position, enemy.transform.position);
+            
+            if (distanceEnemyToBase < shortestDistance)
             {
-                shortestDistance = distanceBase;
+                shortestDistance = distanceEnemyToBase;
                 nearestEnemy = enemy;
-                Debug.Log("Enemigo: " + nearestEnemy.name + "\ndistancia torre " + distanceTower + "\ndistancia baase " + distanceBase);
-
             }
 
             if (nearestEnemy != null)
             {
-                target = enemy.transform;
+                target = nearestEnemy.transform;
             }
             else
             {
@@ -60,9 +56,21 @@ public class Tower : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmosSelected()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawSphere(transform.position, range);
+        if (collision.gameObject.tag == "Enemy")
+        {
+            enemiesInRange.AddLast(collision.gameObject);
+            UpdateTarget();
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            enemiesInRange.Remove(collision.gameObject);
+            UpdateTarget();
+        }
     }
 }

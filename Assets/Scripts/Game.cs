@@ -60,7 +60,6 @@ public class Game : MonoBehaviour
         {
             RaycastHit2D hit = Physics2D.Raycast(TouchRay.origin, TouchRay.direction);
             
-            Debug.Log("Entra?");
             if (hit.collider.gameObject != null  && (this.gold >= 1000))
             {
                 BuildOnCell(hit.collider.gameObject);
@@ -75,7 +74,6 @@ public class Game : MonoBehaviour
         {
             RaycastHit2D hit = Physics2D.Raycast(TouchRay.origin, TouchRay.direction);
             Cell hittedCell = hit.collider.gameObject.GetComponent<Cell>();
-            Debug.Log("Entro?");
             if (hit.collider != null && hittedCell.node.GetUsed() && !hittedCell.HasAttachedTurret()  && (this.gold >= 3000))
             {
                 // Se instancia y pone la torreta
@@ -92,11 +90,6 @@ public class Game : MonoBehaviour
         if ((Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)) && Input.GetKeyDown(KeyCode.Z) || Input.GetMouseButtonDown(1))
         {
             DestroyCell();
-        }
-
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            Instantiate(Enemy, new Vector3(-9.5f, -9.5f, 10 ), Quaternion.identity);
         }
     }
 
@@ -134,7 +127,7 @@ public class Game : MonoBehaviour
     {
         Cell cellToChange = cell.GetComponent<Cell>();
         cellToChange.node.SetUsed(true);
-        cellToChange.ChangeColor(Color.black);
+        cellToChange.buildWall();
         
         if (!gm.updatePath(cellToChange))
         {

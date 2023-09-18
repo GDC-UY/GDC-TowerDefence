@@ -86,7 +86,7 @@ public class GridManager : MonoBehaviour
             {
                 if (!j.GetUsed())
                 {
-                    j.GetValue().GetComponent<SpriteRenderer>().color = Color.magenta;
+                    j.GetValue().GetComponent<Cell>().RemoveColor();
                 }
             }
         }
@@ -143,13 +143,11 @@ public class GridManager : MonoBehaviour
                 if (cell.name == "0x0")
                 {
                     //INICIO
-                    cell.GetComponent<SpriteRenderer>().color = Color.red;
                     EnemySpawn = cell;
                 }
                 else if (cell.name == "19x19")
                 {
                     //FINAL
-                    cell.GetComponent<SpriteRenderer>().color = Color.green;
                     EnemyTarget = cell;
                 }
                 //TEMPORAL --------------------------------------------------
