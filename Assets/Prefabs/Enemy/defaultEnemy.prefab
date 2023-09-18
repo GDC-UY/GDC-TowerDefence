@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 104020759841555627}
   - component: {fileID: -4155555621812833070}
   m_Layer: 0
-  m_Name: Circle
+  m_Name: defaultEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 104020759841555626}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -10, y: 4, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -98,7 +98,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4919ed1bf2f120c4989bce6181b9fe7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySpeed: 5
+  health: 100
+  speed: 3
+  damage: 1
+  cost: 1
   isWalking: 1
 --- !u!58 &-4155555621812833070
 CircleCollider2D:

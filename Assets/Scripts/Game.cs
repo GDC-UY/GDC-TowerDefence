@@ -80,11 +80,6 @@ public class Game : MonoBehaviour
         {
             DestroyCell();
         }
-
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            Instantiate(Enemy, new Vector3(-9.5f, -9.5f, 10 ), Quaternion.identity);
-        }
     }
 
     
@@ -121,7 +116,7 @@ public class Game : MonoBehaviour
     {
         Cell cellToChange = cell.GetComponent<Cell>();
         cellToChange.node.SetUsed(true);
-        cellToChange.ChangeColor(Color.black);
+        cellToChange.buildWall();
         
         if (!gm.updatePath(cellToChange))
         {
@@ -137,7 +132,7 @@ public class Game : MonoBehaviour
             Cell cellToChange = StackCZ.Pop();
             cellToChange.DeatachTurret();
             cellToChange.node.SetUsed(false);
-            cellToChange.ChangeColor(Color.magenta);
+            cellToChange.ChangeColor(new Color(1,1,1,0));
             gm.updatePath(cellToChange);
         }
         
