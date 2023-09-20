@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
-using UnityEditor.UI;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -13,19 +12,18 @@ public class Game : MonoBehaviour
     public GridManager gm;
     public GameObject cellSelected;
     public Button activateBuildModeButton;
-    public Button activateTowerBuildModeButton;
     public Button undoBuildButton;
     public bool isBuildModeOn;
     public bool isTowerBuildModeOn;
     public GameObject Enemy;
     public int gold;
     private Stack<GameObject> StackCZ = new Stack<GameObject>();
+    public GameObject notEnoughGoldText;
     public TMP_Dropdown dropdown;
 
-    public GameObject tower;
+    public GameObject tower1, tower2, tower3;
     Ray TouchRay => Camera.main.ScreenPointToRay(Input.mousePosition);
     public static Game Instance
-
     {
         get
         {
@@ -51,41 +49,70 @@ public class Game : MonoBehaviour
     void Start(){
         undoBuildButton.onClick.AddListener(DestroyCell);
         activateBuildModeButton.onClick.AddListener(EnableBuildMode);
-        activateTowerBuildModeButton.onClick.AddListener(EnableTowerBuildMode);
-        gm.previewPath();   
+        gm.previewPath();
+
+        dropdown.onValueChanged.AddListener(delegate
+        {
+            EnableTowerBuildMode();
+        });
     }
 
     // Game encarga de los inputs
     void Update()
     {
-
         if (isBuildModeOn && Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject() )
         {
             RaycastHit2D hit = Physics2D.Raycast(TouchRay.origin, TouchRay.direction);
             
-            if (hit.collider.gameObject != null  && (this.gold >= 1000))
+            if (hit.collider.gameObject != null)
             {
-                BuildOnCell(hit.collider.gameObject);
-                // El jugador pierde 1000 en la construccion.
-                this.LoseMoney(1000);
-                Debug.Log("Oro restante: "+ this.gold);
+                if ((this.gold >= 1000))
+                {
+                     BuildOnCell(hit.collider.gameObject);
+                    // El jugador pierde 1000 en la construccion.
+                    this.LoseMoney(1000);
+                    Debug.Log("Oro restante: "+ this.gold);
+                }
+                else
+                {
+                    StartCoroutine(NotEnoughGoldText());
+                }
             }
         }
         
         // Se toma 3000 como precio placeholder de una torre, si no se tiene la plata no se construye
-        if (isTowerBuildModeOn && Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+        if (!isBuildModeOn && Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
             RaycastHit2D hit = Physics2D.Raycast(TouchRay.origin, TouchRay.direction);
             Cell hittedCell = hit.collider.gameObject.GetComponent<Cell>();
-            if (hit.collider != null && hittedCell.node.GetUsed() && !hittedCell.HasAttachedTurret()  && (this.gold >= 3000))
+            if (hit.collider != null && hittedCell.node.GetUsed() && !hittedCell.HasAttachedTurret())
             {
-                // Se instancia y pone la torreta
-                GameObject turret = Instantiate(tower, hit.collider.gameObject.transform.position, Quaternion.identity);
-                hittedCell.AttachTurret(turret);
-                StackCZ.Push(turret);
-                // El jugador pierde 3000 en la construccion.
-                this.LoseMoney(3000);
-                Debug.Log("Oro restante:  "+ this.gold);
+                if ((this.gold >= 3000))
+                {
+                    GameObject turret = null;
+                    switch (dropdown.value)
+                    {
+                        case 1:
+                            turret = Instantiate(tower1, hit.collider.gameObject.transform.position, Quaternion.identity);
+                            break;
+                        case 2:
+                            turret = Instantiate(tower2, hit.collider.gameObject.transform.position, Quaternion.identity);
+                            break;
+                        case 3:
+                            turret = Instantiate(tower3, hit.collider.gameObject.transform.position, Quaternion.identity);
+                            break;
+                    }
+                    // Se instancia y pone la torreta
+                    hittedCell.AttachTurret(turret);
+                    StackCZ.Push(turret);
+                    // El jugador pierde 3000 en la construccion.
+                    this.LoseMoney(3000);
+                    Debug.Log("Oro restante:  " + this.gold);
+                }
+                else
+                {
+                    StartCoroutine(NotEnoughGoldText());
+                }
             }
         }
 
@@ -96,7 +123,6 @@ public class Game : MonoBehaviour
         }
     }
 
-    
     public void EnableBuildMode()
     {
         if (isBuildModeOn)
@@ -108,23 +134,14 @@ public class Game : MonoBehaviour
             isBuildModeOn = true;
             isTowerBuildModeOn = false;
         }
+
+        dropdown.value = 0;
     }
 
     public void EnableTowerBuildMode()
     {
-        if (isTowerBuildModeOn)
-        {
-            isTowerBuildModeOn = false;
-        }
-        else
-        {
-            isTowerBuildModeOn = true;
-            isBuildModeOn = false;
-        }
+        isBuildModeOn = false;
     }
-
-
-    
 
     private void BuildOnCell(GameObject cell)
     {
@@ -161,8 +178,6 @@ public class Game : MonoBehaviour
         
     }
 
-
-
     public void RecieveMoney(int oro) {
         this.gold += oro;
     }
@@ -175,5 +190,12 @@ public class Game : MonoBehaviour
         else {
             this.gold =this.gold - oro;
         }
+    }
+
+    IEnumerator NotEnoughGoldText()
+    {
+        notEnoughGoldText.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        notEnoughGoldText.SetActive(false);
     }
 }
