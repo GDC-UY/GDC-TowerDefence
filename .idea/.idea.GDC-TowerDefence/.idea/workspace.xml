@@ -6,12 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="6611ea0e-6077-4f17-a300-91c9a6be3324" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GDC-TowerDefence/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GDC-TowerDefence/.idea/workspace.xml" afterDir="false" />
+<<<<<<< Updated upstream
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Cell.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Cell.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Circle.prefab" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Circle.prefab.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/TowerCreate.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/TowerCreate.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cell.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cell.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy.cs" afterDir="false" />
+=======
+>>>>>>> Stashed changes
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/GridManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GridManager.cs" afterDir="false" />
     </list>
@@ -34,6 +37,7 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+<<<<<<< Updated upstream
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
@@ -53,6 +57,27 @@
       &quot;/home/matias/.var/app/com.unity.UnityHub/config/JetBrains/Rider2023.2/resharper-host/DecompilerCache&quot;,
       &quot;/home/matias/.var/app/com.unity.UnityHub/config/JetBrains/Rider2023.2/resharper-host/SourcesCache&quot;,
       &quot;/home/matias/.var/app/com.unity.UnityHub/data/Symbols/src&quot;
+=======
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "RoundManagement",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.build.unityPlugin",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "rider.external.source.directories": [
+      "C:\\Users\\Néstor\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\DecompilerCache",
+      "C:\\Users\\Néstor\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\SourcesCache",
+      "C:\\Users\\Néstor\\AppData\\Local\\Symbols\\src"
+>>>>>>> Stashed changes
     ]
   }
 }</component>
@@ -132,10 +157,14 @@
       <workItem from="1693568808535" duration="67000" />
       <workItem from="1693568910551" duration="1239000" />
       <workItem from="1693661728438" duration="2370000" />
+<<<<<<< Updated upstream
       <workItem from="1694177426708" duration="294000" />
       <workItem from="1694177733385" duration="2110000" />
       <workItem from="1694444486899" duration="379000" />
       <workItem from="1694460252559" duration="4627000" />
+=======
+      <workItem from="1694634418083" duration="4262000" />
+>>>>>>> Stashed changes
     </task>
     <servers />
   </component>

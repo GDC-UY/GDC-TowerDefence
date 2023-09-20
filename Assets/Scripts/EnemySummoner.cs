@@ -8,7 +8,8 @@ public class EnemySummoner : MonoBehaviour
 {
     public GameObject[] enemies;
     public int[] enemiesCost;
-
+    public GameObject cell;
+    private int counter;
     public void Start()
     {
         //Sort the enemies by cost, the first one will be the most expensive
@@ -35,7 +36,7 @@ public class EnemySummoner : MonoBehaviour
         {
             if (points >= enemiesCost[index])
             {
-                Instantiate(enemies[index], enemyBase, Quaternion.identity);
+                Instantiate(enemies[index], enemyBase, Quaternion.identity,gameObject.transform);
                 points -= enemiesCost[index];
             }
             else
@@ -45,9 +46,14 @@ public class EnemySummoner : MonoBehaviour
         }
     }
 
-    public void Update()
-    {   
-        if (Input.GetKeyDown(KeyCode.X))
-            spawnEnemies(new Vector3(0, 0, 0), 20);
+    public void enemyDied()
+    {
+        this.counter--;
     }
+
+    public int getEnemyAmount()
+    {
+        return this.counter;
+    }
+    
 }

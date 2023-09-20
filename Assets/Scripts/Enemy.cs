@@ -21,6 +21,7 @@ public class Enemy : MonoBehaviour
     
     public void death()
     {
+        this.gameObject.transform.parent.GetComponent<EnemySummoner>().enemyDied();
         Destroy(this.gameObject);
     }
     
