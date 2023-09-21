@@ -18,8 +18,8 @@ public class Game : MonoBehaviour
     public GameObject Enemy;
     public int gold;
     private Stack<GameObject> StackCZ = new Stack<GameObject>();
-
-    public GameObject tower;
+    [SerializeField] private GameObject[] towers;
+    private TowerType towerType;
     Ray TouchRay => Camera.main.ScreenPointToRay(Input.mousePosition);
     public static Game Instance
 
@@ -58,32 +58,36 @@ public class Game : MonoBehaviour
 
         if (isBuildModeOn && Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject() )
         {
-            RaycastHit2D hit = Physics2D.Raycast(TouchRay.origin, TouchRay.direction);
-            
-            if (hit.collider.gameObject != null  && (this.gold >= 1000))
+            //Para evitar errores de null reference exeption debido a la hitbox de la torreta, el raycast solo detecta objetos de la capa Cell
+            RaycastHit2D hit = Physics2D.Raycast(TouchRay.origin, TouchRay.direction, Mathf.Infinity, LayerMask.GetMask("Cell")); 
+            Cell hitCell = hit.collider.gameObject.GetComponent<Cell>();
+            if (hit.collider.gameObject != null  && (this.gold >= hitCell.getCost()) && !hitCell.node.GetUsed())
             {
                 BuildOnCell(hit.collider.gameObject);
-                // El jugador pierde 1000 en la construccion.
-                this.LoseMoney(1000);
+                this.LoseMoney(hitCell.getCost());
                 Debug.Log("Oro restante: "+ this.gold);
             }
         }
         
-        // Se toma 3000 como precio placeholder de una torre, si no se tiene la plata no se construye
         if (isTowerBuildModeOn && Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())
         {
-            RaycastHit2D hit = Physics2D.Raycast(TouchRay.origin, TouchRay.direction);
-            Cell hittedCell = hit.collider.gameObject.GetComponent<Cell>();
-            if (hit.collider != null && hittedCell.node.GetUsed() && !hittedCell.HasAttachedTurret()  && (this.gold >= 3000))
+            towerType = TowerType.Tower0;
+            RaycastHit2D hit = Physics2D.Raycast(TouchRay.origin, TouchRay.direction, Mathf.Infinity, LayerMask.GetMask("Cell"));
+            Cell hitCell = hit.collider.gameObject.GetComponent<Cell>();
+            Tower tower = towers[(int)towerType].gameObject.GetComponent<Tower>();
+            if (hitCell != null) //Para que no de null reference exeption
             {
-                // Se instancia y pone la torreta
-                GameObject turret = Instantiate(tower, hit.collider.gameObject.transform.position, Quaternion.identity);
-                hittedCell.AttachTurret(turret);
-                StackCZ.Push(turret);
-                // El jugador pierde 3000 en la construccion.
-                this.LoseMoney(3000);
-                Debug.Log("Oro restante:  "+ this.gold);
+                if (hit.collider != null && hitCell.node.GetUsed() && !hitCell.HasAttachedTurret()  && (this.gold >= tower.getCost())) //Esta es la linea de error null reference exeption
+                {
+                    // Se instancia y pone la torreta
+                    GameObject turret = Instantiate(towers[(int)towerType], hit.collider.gameObject.transform.position, Quaternion.identity);
+                    hitCell.AttachTurret(turret);
+                    StackCZ.Push(turret);
+                    this.LoseMoney(tower.getCost());
+                    Debug.Log("Oro restante:  "+ this.gold);
+                }    
             }
+            
         }
 
         // Check for Control + Z or right-click
@@ -157,9 +161,6 @@ public class Game : MonoBehaviour
         }
         
     }
-
-
-
     public void RecieveMoney(int oro) {
         this.gold += oro;
     }
@@ -172,5 +173,9 @@ public class Game : MonoBehaviour
         else {
             this.gold =this.gold - oro;
         }
+    }
+    private enum TowerType
+    {
+        Tower0,
     }
 }

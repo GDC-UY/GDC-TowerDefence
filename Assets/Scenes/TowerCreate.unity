@@ -1339,7 +1339,9 @@ MonoBehaviour:
   isBuildModeOn: 0
   isTowerBuildModeOn: 0
   Enemy: {fileID: 104020759841555626, guid: d9c20aa723c58b14aba1bdfbbdfb0b40, type: 3}
-  tower: {fileID: 3980668479387134960, guid: aef84c3950a41de4a98f75514054b378, type: 3}
+  gold: 1000
+  towers:
+  - {fileID: 3980668479387134960, guid: aef84c3950a41de4a98f75514054b378, type: 3}
 --- !u!4 &2125990001
 Transform:
   m_ObjectHideFlags: 0
