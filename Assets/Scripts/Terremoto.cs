@@ -4,11 +4,8 @@ using UnityEngine;
 
 public class Terremoto : MonoBehaviour
 {
-    public float earthquakeDuration = 10f; // Duracion
-    public float earthquakeInterval = 30f; // Intervalo
-    public float earthquakeForce = 10f; // Daño a los muros
-
-    private bool isEarthquakeActive = false;
+    public float interval = 30f; // Intervalo
+    public int minimaDestruccion = 3; // Minimas paredes que se deben destruir
 
     // Start is called before the first frame update
     void Start()
@@ -26,35 +23,10 @@ public class Terremoto : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(earthquakeInterval);
-
-            StartEarthquake();
-            yield return new WaitForSeconds(earthquakeDuration);
-            EndEarthquake();
+            yield return new WaitForSeconds(interval);
+            // Seleccionar pared random
+            // pared.DestroyWall(); o algo asi
         }
     }
 
-    private void StartEarthquake()
-    {
-        isEarthquakeActive = true;
-        // Implement earthquake visual effects and audio here
-
-        // You can also shake the camera or add screen effects to simulate the earthquake
-        // CameraShake.Shake(duration, magnitude);
-
-        // Apply earthquake force to walls (You might need a separate wall manager script)
-        WallManager.Instance.ApplyEarthquakeForce(earthquakeForce);
-    }
-
-    private void EndEarthquake()
-    {
-        isEarthquakeActive = false;
-        // Implement earthquake ending effects and audio here
-
-        // Stop camera shaking and screen effects
-        // CameraShake.StopShake();
-
-        // Reset or stop the earthquake force on walls
-        WallManager.Instance.ResetEarthquakeForce();
-    }
 }

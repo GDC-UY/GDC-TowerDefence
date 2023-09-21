@@ -12,6 +12,7 @@ public class Enemy : MonoBehaviour
     public int damage = 1; //Daño que hace el enemigo a la base del jugador
     public int cost = 11; //Costo de invocación del enemigo (USO INTERNO)
     public int gold = 10; //Oro que deja al morir
+
     
     public bool isWalking = false; // Cambia "Walk" a "isWalking"
     
@@ -23,7 +24,7 @@ public class Enemy : MonoBehaviour
     public void death()
     {
         Destroy(this.gameObject);
-        //return gold -/- game.RecieveMoney(gold) //Cuando muere debe retornar o llamar al metodo para que el jugador reciba oro. Por ahora no estan vinculados los archivos.
+        Game.Instance.RecieveMoney(gold); // Esto da automaticamente el oro, se tiene que cambiar para que caigan monedas y se recojan al hacer clic
     }
     
     private void Start()

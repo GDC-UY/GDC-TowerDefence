@@ -113,5 +113,10 @@ public class Cell : MonoBehaviour
     {
         spriteRenderer.color = new Color(0,0,0,0);
     }
+
+    public void DestroyWall()
+    {
+        //GridManager.Instance.nodes // No parece haber metodo para destruir paredes, tampoco estoy seguro como se deberia hacer
+    }
 }
 
