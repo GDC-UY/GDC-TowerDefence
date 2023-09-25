@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 104020759841555625}
   - component: {fileID: 104020759841555624}
   - component: {fileID: 104020759841555627}
+  - component: {fileID: -4155555621812833070}
   m_Layer: 0
-  m_Name: NonDefaultEnemy
+  m_Name: defaultEnemy 1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,7 +76,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.101122975, g: 1, b: 0, a: 1}
+  m_Color: {r: 0, g: 1, b: 0.95873094, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -98,7 +99,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
-  speed: 2
+  speed: 3
   damage: 1
-  cost: 11
+  cost: 1
   isWalking: 1
+--- !u!58 &-4155555621812833070
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 104020759841555626}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5

@@ -11,6 +11,8 @@ public class Enemy : MonoBehaviour
     public float speed = 2f; //Velocidad base del enemigo
     public int damage = 1; //Daño que hace el enemigo a la base del jugador
     public int cost = 11; //Costo de invocación del enemigo (USO INTERNO)
+
+    public string WalkingDirection = "UP";
     
     public bool isWalking = false; // Cambia "Walk" a "isWalking"
     
@@ -91,5 +93,22 @@ public class Enemy : MonoBehaviour
     {
         Vector3 pos = transform.position;
         transform.position = pos + new Vector3(x, y, 0);
+        
+        if (x > 0)
+        {
+            WalkingDirection = "RIGHT";
+        }
+        else if (x < 0)
+        {
+            WalkingDirection = "LEFT";
+        }
+        else if (y > 0)
+        {
+            WalkingDirection = "UP";
+        }
+        else if (y < 0)
+        {
+            WalkingDirection = "DOWN";
+        }
     }
 }

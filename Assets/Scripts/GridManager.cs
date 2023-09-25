@@ -86,7 +86,7 @@ public class GridManager : MonoBehaviour
             {
                 if (!j.GetUsed())
                 {
-                    j.GetValue().GetComponent<Cell>().RemoveColor();
+                    j.GetValue().GetComponent<Cell>().RemoveSprite();
                 }
             }
         }
@@ -119,7 +119,7 @@ public class GridManager : MonoBehaviour
         {
             foreach (Node j in path)
             {
-                j.GetCell().ChangeColor(Color.yellow);
+                j.GetCell().MakeEnemyPath();
                 j.SetUsed(false);
             }
         }

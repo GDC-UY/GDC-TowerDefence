@@ -64,7 +64,7 @@ public class Game : MonoBehaviour
             if (hit.collider.gameObject != null  && (this.gold >= hitCell.getCost()) && !hitCell.node.GetUsed())
             {
                 BuildOnCell(hit.collider.gameObject);
-                this.LoseMoney(hitCell.getCost());
+                LoseMoney(hitCell.getCost());
                 Debug.Log("Oro restante: "+ this.gold);
             }
         }
@@ -150,7 +150,7 @@ public class Game : MonoBehaviour
                 this.RecieveMoney(cell.getCost() / 2);
 
                 cell.node.SetUsed(false);
-                cell.ChangeColor(Color.magenta);
+                cell.RemoveWall();
                 gm.updatePath(cell);
             }
             else {
