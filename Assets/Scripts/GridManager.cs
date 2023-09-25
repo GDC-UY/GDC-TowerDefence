@@ -17,6 +17,10 @@ public class GridManager : MonoBehaviour
     public Node[,] nodes;
     private static GridManager instance;
     [SerializeField] private GameObject Enemy;
+    private GameObject EnemySpawn;
+    public GameObject enemySummoner;
+    private GameObject EnemyTarget;
+    private static bool pathIsValid = false;
 
     public static GridManager Instance
     {
@@ -52,12 +56,10 @@ public class GridManager : MonoBehaviour
         nodes = new Node[Width, Height];
         GridCreate();
         CreateGraphConnections();
+        this.enemySummoner.transform.position = nodes[0,0].GetCell().transform.position;
     }
 
-    private GameObject EnemySpawn;
-    private EnemySummoner enemySummoner;
-    private GameObject EnemyTarget;
-    private static bool pathIsValid = false;
+    
 
     private LinkedList<Node> path = null;
     private LinkedList<Node> prevSecurePath = null;
@@ -152,7 +154,6 @@ public class GridManager : MonoBehaviour
                 {
                     //INICIO
                     EnemySpawn = cell;
-                    Instantiate<EnemySummoner>(enemySummoner, EnemySpawn.transform.position, Quaternion.identity);
                 }
                 else if (cell.name == this.final)
                 {
@@ -237,11 +238,6 @@ public class GridManager : MonoBehaviour
                 }
             }
         }
-    }
-
-    public EnemySummoner getEnemySummoner()
-    {
-        return this.enemySummoner;
     }
     
     private void GridPosition()

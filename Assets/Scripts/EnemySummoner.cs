@@ -7,7 +7,7 @@ using UnityEngine;
 public class EnemySummoner : MonoBehaviour
 {
     public GameObject[] enemies;
-    public int[] enemiesCost;
+    private int[] enemiesCost;
     public GameObject cell;
     private int counter;
     public void Start()
@@ -30,18 +30,21 @@ public class EnemySummoner : MonoBehaviour
     //Tambien si sobran puntos deberia de rellenar con enemigos de bajo coste
     public void spawnEnemies(Vector3 enemyBase, int roundPoints)
     {
-        int points = roundPoints;
         int index = 0;
-        while (points > 0)
+        if (enemiesCost.Length != 0 || enemies.Length != 0)
         {
-            if (points >= enemiesCost[index])
+            while (roundPoints > 0)
             {
-                Instantiate(enemies[index], enemyBase, Quaternion.identity,gameObject.transform);
-                points -= enemiesCost[index];
-            }
-            else
-            {
-                index++;
+                if (roundPoints >= enemiesCost[index])
+                {
+                    Instantiate(enemies[index], enemyBase, Quaternion.identity, gameObject.transform);
+                    roundPoints -= enemiesCost[index];
+                    Debug.Log("Spawnee algo.");
+                }
+                else
+                {
+                    index++;
+                }
             }
         }
     }
