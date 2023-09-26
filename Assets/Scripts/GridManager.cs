@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Scenes;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class GridManager : MonoBehaviour
 {
@@ -53,7 +54,6 @@ public class GridManager : MonoBehaviour
     private GameObject EnemySpawn;
     private GameObject EnemyTarget;
     private static bool pathIsValid = false;
-    
     private LinkedList<Node> path = null;
     private LinkedList<Node> prevSecurePath = null;
     
@@ -232,4 +232,45 @@ public class GridManager : MonoBehaviour
     {
         transform.position = new Vector3(transform.position.x - (Width/2) + 0.5f, transform.position.y - (Height/2) + 0.5f, 0);
     }
+    
+    public int SetRandomNodeAndNeighborsToFalse()
+    {
+        Node randomNode;
+        Node neighborNode;
+        int randomRow;
+        int randomCol;
+        int destruccion = 0;    // contador de paredes destruidas
+        do
+        {
+            // Select a random node
+            randomRow = UnityEngine.Random.Range(0, Width);
+            randomCol = UnityEngine.Random.Range(0, Height);
+
+            randomNode = nodes[randomRow, randomCol];
+        }
+        while (!randomNode.GetUsed()); // Check if the random node is initially true (or another condition)
+        
+        randomNode.SetUsed(false);
+        destruccion++;
+        
+        // Loop through the neighboring nodes and set them to false
+        for (int row = Mathf.Max(0, randomRow - 1); row <= Mathf.Min(Width - 1, randomRow + 1); row++)
+        {
+            for (int col = Mathf.Max(0, randomCol - 1); col <= Mathf.Min(Height - 1, randomCol + 1); col++)
+            {
+                neighborNode = nodes[row, col];
+                if (neighborNode.GetUsed())
+                {
+                    nodes[row, col].SetUsed(false);
+                    destruccion++;
+                }
+            }
+        }
+        return destruccion;
+    }
+
+    
+    
 }
+
+

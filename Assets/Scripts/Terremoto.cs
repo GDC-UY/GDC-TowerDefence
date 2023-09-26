@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class Terremoto : MonoBehaviour
 {
-    public float interval = 30f; // Intervalo
-    public int minimaDestruccion = 3; // Minimas paredes que se deben destruir
+    private int minimaDestruccion = 3; // Minimas paredes que se deben destruir
+    private int destruccion;
+    private GridManager gridManager;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        gridManager = GridManager.Instance;
     }
 
     // Update is called once per frame
@@ -19,14 +20,12 @@ public class Terremoto : MonoBehaviour
         
     }
 
-    private IEnumerator TriggerEarthquake()
+    private void TriggerEarthquake()    // Falta ver como llamarlo
     {
-        while (true)
+        while (destruccion < minimaDestruccion)
         {
-            yield return new WaitForSeconds(interval);
-            // Seleccionar pared random
-            // pared.DestroyWall(); o algo asi
+            destruccion = gridManager.SetRandomNodeAndNeighborsToFalse();
         }
+        destruccion = 0;
     }
-
 }
