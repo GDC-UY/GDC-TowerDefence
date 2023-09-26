@@ -10,9 +10,10 @@ public class Cell : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
     private GameObject attachedTurret;
 
-    // Precios:
     [SerializeField] private int cost;
-
+    
+    public bool cellIsPath = false;
+    
     public int getCost() {
         return cost;
     }
@@ -61,68 +62,132 @@ public class Cell : MonoBehaviour
 
     [SerializeField] private Sprite CenterNoConectionsOfTheWallForTheEnemiesToNotPassRightThroughBecauseThatWouldBeBadAndWeDontWantThatSoWeHaveToMakeSureThatTheEnemiesDontPassThroughTheWallsBecauseThatWouldBeBadAndWeDontWantThatSoWeHaveToMakeSureThatTheEnemiesDontPassThroughTheWalls;
 
-    public void buildWall()
+    [SerializeField] private Sprite EnemyPathSprite;
+
+    private int[] getCoords()
     {
         string name = this.gameObject.name;
         string[] split = name.Split('x');
         int x = Int32.Parse(split[0]);
         int y = Int32.Parse(split[1]);
-        spriteRenderer.sprite = SpriteChooser(x,y);
         
-        GridManager.Instance.nodes[x-1,y].GetCell().UpdateNeighborTexture(x-1, y);
-        GridManager.Instance.nodes[x+1,y].GetCell().UpdateNeighborTexture(x+1, y);
-        GridManager.Instance.nodes[x,y+1].GetCell().UpdateNeighborTexture(x, y+1);
-        GridManager.Instance.nodes[x,y-1].GetCell().UpdateNeighborTexture(x, y-1);
+        int[] coords = {x,y};
+        return coords;
+    }
+    
+    public void buildWall()
+    {
+        int[] coords = getCoords();   
+        spriteRenderer.sprite = SpriteChooser(coords[0],coords[1]);
+    }
+
+    //ESTE METODO SE EJECUTA CUANDO SE CONSTRUYE UNA PARED Y NO INTERUMPE EL PATHFINDING
+    //SE LLAMA EN GAME BUILDONCELL
+    public void WallBuilded()
+    {
+        int[] coords = getCoords();
+        textureCaller(coords[0],coords[1]);
     }
 
     public void UpdateNeighborTexture(int x, int y)
     {
+        //EN TEORIA SI ESTE METODO SE EJECUTA ESTOY PARADO EN UN NODO QUE TIENE UNA CELDA QUE TIENE UNA PARED Y NO ES NULL
+        //PORQUE CARAJOS DAS ERROR AAAAAAAAAAAAAAAAAAAAAAAYUUUUUUUUUUDDDDDDDDDAAAAAAAAAAAAAAA
         spriteRenderer.sprite = SpriteChooser(x,y);
+    }
+    
+    public void textureCaller(int x, int y)
+    {
+        Cell temp = null;
+        
+        try{temp = GridManager.Instance.nodes[x, y + 1].GetCell();}catch (Exception e){temp = null;}
+        if (temp != null)
+        {
+            temp.UpdateNeighborTexture(x, y + 1);
+        }
+        
+        try{temp = GridManager.Instance.nodes[x, y - 1].GetCell();}catch (Exception e){temp = null;}
+        if (temp != null)
+        {
+            temp.UpdateNeighborTexture(x, y - 1);
+        }
+        
+        try{temp = GridManager.Instance.nodes[x - 1, y].GetCell();}catch (Exception e){temp = null;}
+        if (temp != null)
+        {
+            temp.UpdateNeighborTexture(x - 1, y);
+        }
+        
+        try{temp = GridManager.Instance.nodes[x + 1, y].GetCell();}catch (Exception e){temp = null;}
+        if (temp != null)
+        {
+            temp.UpdateNeighborTexture(x + 1, y);
+        }
     }
 
     public Sprite SpriteChooser(int x, int y)
     {
-        spriteRenderer.color = new Color(1, 1, 1, 1);
+        bool arriba = false;
+        bool abajo = false;
+        bool izquierda = false;
+        bool derecha = false;
         
-        Node nd = GridManager.Instance.nodes[x, y];
-        if (nd.GetUsed())
+        Node nodoActual = GridManager.Instance.nodes[x, y];
+        
+        try{arriba = GridManager.Instance.nodes[x, y + 1].GetUsed();}catch (Exception e){arriba = false;}
+        try{abajo = GridManager.Instance.nodes[x, y - 1].GetUsed();}catch (Exception e){abajo = false;}
+        try{izquierda = GridManager.Instance.nodes[x - 1, y].GetUsed();}catch (Exception e){izquierda = false;}
+        try{derecha = GridManager.Instance.nodes[x + 1, y].GetUsed();}catch (Exception e){derecha = false;}
+        
+        if (nodoActual != null && nodoActual.GetUsed())
         { 
-            if(GridManager.Instance.nodes[x - 1, y].GetUsed() && GridManager.Instance.nodes[x + 1, y].GetUsed() &&
-               GridManager.Instance.nodes[x, y + 1].GetUsed() && GridManager.Instance.nodes[x, y - 1].GetUsed())
+            if (arriba && abajo && izquierda && derecha)
                 return Center;
-            else if (GridManager.Instance.nodes[x - 1, y].GetUsed() && GridManager.Instance.nodes[x + 1, y].GetUsed() &&
-              GridManager.Instance.nodes[x, y + 1].GetUsed())
+            
+            else if (arriba && derecha && izquierda)
                 return TUp;
-            else if (GridManager.Instance.nodes[x - 1, y].GetUsed() && GridManager.Instance.nodes[x + 1, y].GetUsed() &&
-                     GridManager.Instance.nodes[x, y - 1].GetUsed())
+            
+            else if (izquierda && derecha && abajo)
                 return TDown;
-            else if (GridManager.Instance.nodes[x - 1, y].GetUsed() && GridManager.Instance.nodes[x, y + 1].GetUsed() &&
-                     GridManager.Instance.nodes[x, y - 1].GetUsed())
+            
+            else if (izquierda && arriba && abajo)
                 return TLeft;
-            else if (GridManager.Instance.nodes[x + 1, y].GetUsed() && GridManager.Instance.nodes[x, y + 1].GetUsed() &&
-                     GridManager.Instance.nodes[x, y - 1].GetUsed())
+            
+            else if (arriba && derecha && abajo)
                 return TRight;
-            else if (GridManager.Instance.nodes[x - 1, y].GetUsed() && GridManager.Instance.nodes[x, y + 1].GetUsed())
+            
+            else if (arriba && izquierda)
                 return LeftUp;
-            else if (GridManager.Instance.nodes[x - 1, y].GetUsed() && GridManager.Instance.nodes[x, y - 1].GetUsed())
-                return LeftDown;
-            else if (GridManager.Instance.nodes[x + 1, y].GetUsed() && GridManager.Instance.nodes[x, y + 1].GetUsed())
+                
+            else if (arriba && derecha)
                 return RightUp;
-            else if (GridManager.Instance.nodes[x + 1, y].GetUsed() && GridManager.Instance.nodes[x, y - 1].GetUsed())
+            
+            else if (abajo && izquierda)
+                return LeftDown;
+            
+            else if (abajo && derecha)
                 return RightDown;
-            else if (GridManager.Instance.nodes[x - 1, y].GetUsed())
-                return Left;
-            else if (GridManager.Instance.nodes[x + 1, y].GetUsed())
-                return Left;
-            else if (GridManager.Instance.nodes[x, y + 1].GetUsed())
+            
+            else if (arriba)
                 return Up;
-            else if (GridManager.Instance.nodes[x, y - 1].GetUsed())
+            
+            else if (abajo)
                 return Up;
+            
+            else if (izquierda)
+                return Left;
+            
+            else if (derecha)
+                return Left;
+            
             else
                 return CenterNoConectionsOfTheWallForTheEnemiesToNotPassRightThroughBecauseThatWouldBeBadAndWeDontWantThatSoWeHaveToMakeSureThatTheEnemiesDontPassThroughTheWallsBecauseThatWouldBeBadAndWeDontWantThatSoWeHaveToMakeSureThatTheEnemiesDontPassThroughTheWalls;
             
         }
-
+        
+        if(this.cellIsPath)
+            return EnemyPathSprite;
+        
         return null;  
     }
 
@@ -134,22 +199,13 @@ public class Cell : MonoBehaviour
     public void RemoveWall()
     {
         RemoveSprite();
-        string name = this.gameObject.name;
-        string[] split = name.Split('x');
-        int x = Int32.Parse(split[0]);
-        int y = Int32.Parse(split[1]);
-        
-        Debug.Log("Borrando pared en: " + x + " " + y);
-        
-        GridManager.Instance.nodes[x-1,y].GetCell().UpdateNeighborTexture(x-1, y);
-        GridManager.Instance.nodes[x+1,y].GetCell().UpdateNeighborTexture(x+1, y);
-        GridManager.Instance.nodes[x,y+1].GetCell().UpdateNeighborTexture(x, y+1);
-        GridManager.Instance.nodes[x,y-1].GetCell().UpdateNeighborTexture(x, y-1);
+        int[] coords = getCoords();
+        textureCaller(coords[0],coords[1]);
     }
 
     public void MakeEnemyPath()
     {
-        spriteRenderer.sprite = Center;
+        spriteRenderer.sprite = EnemyPathSprite;
     }
 }
 

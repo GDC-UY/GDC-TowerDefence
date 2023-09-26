@@ -64,7 +64,6 @@ public class Game : MonoBehaviour
             if (hit.collider.gameObject != null  && (this.gold >= hitCell.getCost()) && !hitCell.node.GetUsed())
             {
                 BuildOnCell(hit.collider.gameObject);
-                LoseMoney(hitCell.getCost());
                 Debug.Log("Oro restante: "+ this.gold);
             }
         }
@@ -83,7 +82,7 @@ public class Game : MonoBehaviour
                     GameObject turret = Instantiate(towers[(int)towerType], hit.collider.gameObject.transform.position, Quaternion.identity);
                     hitCell.AttachTurret(turret);
                     StackCZ.Push(turret);
-                    this.LoseMoney(tower.getCost());
+                    LoseMoney(tower.getCost());
                     Debug.Log("Oro restante:  "+ this.gold);
                 }    
             }
@@ -131,11 +130,14 @@ public class Game : MonoBehaviour
     {
         Cell cellToChange = cell.GetComponent<Cell>();
         cellToChange.node.SetUsed(true);
+        
         cellToChange.buildWall();
         
         if (!gm.updatePath(cellToChange))
         {
+            LoseMoney(cell.GetComponent<Cell>().getCost());
             StackCZ.Push(cell);
+            cellToChange.WallBuilded();
         }       
     }
     
@@ -144,7 +146,7 @@ public class Game : MonoBehaviour
         if (StackCZ.Any())
         {
             GameObject gamePop = StackCZ.Pop();
-            if (gamePop.tag=="Cell") {
+            if (gamePop.tag == "Cell") {
                 // El jugador recupera 50% de la plata que le costo hacer la torre, por ahora 1500
                 Cell cell = gamePop.gameObject.GetComponent<Cell>();
                 this.RecieveMoney(cell.getCost() / 2);

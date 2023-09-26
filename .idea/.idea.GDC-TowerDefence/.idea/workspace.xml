@@ -7,16 +7,38 @@
     <list default="true" id="6611ea0e-6077-4f17-a300-91c9a6be3324" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GDC-TowerDefence/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GDC-TowerDefence/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Cell.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Cell.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Enemy/NonDefaultEnemy.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Enemy/NonDefaultEnemy.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Enemy/defaultEnemy.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Enemy/defaultEnemy.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/TowerCreate.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/TowerCreate.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cell.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cell.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy.cs.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/GridManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GridManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Node.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Node.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprite/Muros 3.0/Muro en T abajo.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprite/Muros 3.0/Muro en T abajo.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprite/Muros 3.0/Muro en T arriba.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprite/Muros 3.0/Muro en T arriba.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprite/Muros 3.0/Muro en T derecha.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprite/Muros 3.0/Muro en T derecha.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprite/Muros 3.0/Muro en T izquierda .png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprite/Muros 3.0/Muro en T izquierda .png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprite/Muros 3.0/Muro en cruz.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprite/Muros 3.0/Muro en cruz.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprite/Walls 2.0/Camino vertical .png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprite/Walls 2.0/Camino vertical .png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprite/Walls 2.0/Esquina derecha arriba 100px 2.0.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprite/Walls 2.0/Esquina derecha arriba 100px 2.0.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprite/Walls 2.0/Esquina izquierda abajo 100px 2.0.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprite/Walls 2.0/Esquina izquierda abajo 100px 2.0.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprite/Walls 2.0/Muro 1 100px.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprite/Walls 2.0/Muro 1 100px.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprite/Walls 2.0/Muro 2 100px.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprite/Walls 2.0/Muro 2 100px.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprite/Walls 2.0/Muro 3 100px.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprite/Walls 2.0/Muro 3 100px.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprite/Walls 2.0/Muro en T abajo.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprite/Walls 2.0/Muro en T abajo.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprite/Walls 2.0/Muro en T izquierda .png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprite/Walls 2.0/Muro en T izquierda .png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprite/Walls 2.0/Muro en cruz.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprite/Walls 2.0/Muro en cruz.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprite/Walls 2.0/centerxdxd.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprite/Walls 2.0/centerxdxd.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprite/Walls 2.0/copis1.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprite/Walls 2.0/copis1.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprite/Walls 2.0/copis2.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprite/Walls 2.0/copis2.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprite/Walls/Left1.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprite/Walls/Left1.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprite/Walls/LeftDown1.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprite/Walls/LeftDown1.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprite/Walls/LeftUp1.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprite/Walls/LeftUp1.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprite/Walls/Muro 2 100px.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprite/Walls/Muro 2 100px.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprite/Walls/Muro 3 100px.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprite/Walls/Muro 3 100px.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprite/Walls/RightDown1.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprite/Walls/RightDown1.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprite/Walls/RightUp1.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprite/Walls/RightUp1.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprite/Walls/Up.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprite/Walls/Up.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ToroPJ.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ToroPJ.cs.meta" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,7 +65,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "dev",
+    "git-widget-placeholder": "ToroPJ",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -54,9 +76,9 @@
   },
   "keyToStringList": {
     "rider.external.source.directories": [
-      "/home/matias/.var/app/com.unity.UnityHub/config/JetBrains/Rider2023.2/resharper-host/DecompilerCache",
-      "/home/matias/.var/app/com.unity.UnityHub/config/JetBrains/Rider2023.2/resharper-host/SourcesCache",
-      "/home/matias/.var/app/com.unity.UnityHub/data/Symbols/src"
+      "C:\\Users\\matia\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\DecompilerCache",
+      "C:\\Users\\matia\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\SourcesCache",
+      "C:\\Users\\matia\\AppData\\Local\\Symbols\\src"
     ]
   }
 }]]></component>
@@ -70,7 +92,7 @@
       <method v="2" />
     </configuration>
     <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="$USER_HOME$/Unity/Hub/Editor/2021.3.25f1/Editor/Unity" />
+      <option name="EXE_PATH" value="C:\Program Files\Unity 2021.3.25f1\Editor\Unity.exe" />
       <option name="PROGRAM_PARAMETERS" value="-projectPath $PROJECT_DIR$ -debugCodeOptimization" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -78,7 +100,7 @@
       <method v="2" />
     </configuration>
     <configuration name="Unit Tests (batch mode)" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="$USER_HOME$/Unity/Hub/Editor/2021.3.25f1/Editor/Unity" />
+      <option name="EXE_PATH" value="C:\Program Files\Unity 2021.3.25f1\Editor\Unity.exe" />
       <option name="PROGRAM_PARAMETERS" value="-runTests -batchmode -projectPath $PROJECT_DIR$ -testResults Logs/results.xml -testPlatform EditMode -debugCodeOptimization" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -95,10 +117,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="165">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="165" />
+      <option name="pid" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -143,6 +165,7 @@
       <workItem from="1695239274432" duration="4272000" />
       <workItem from="1695251752791" duration="3615000" />
       <workItem from="1695669684232" duration="4396000" />
+      <workItem from="1695759552338" duration="7753000" />
     </task>
     <servers />
   </component>
