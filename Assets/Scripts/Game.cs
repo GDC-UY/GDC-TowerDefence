@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,8 +24,8 @@ public class Game : MonoBehaviour
     private Stack<GameObject> StackCZ = new Stack<GameObject>();
     private int enemyPoints;
     private int roundCounter;
-    // private IEnumerator roundTimerCoroutine;
-    [SerializeField] private float roundTimer;
+    private IEnumerator roundTimerCoroutine;
+    [SerializeField] private int roundTimer;
     private bool enemiesSpawned;
     public EnemySummoner summoner;
     public TextMeshProUGUI timerMesh, roundMesh;
@@ -72,14 +73,12 @@ public class Game : MonoBehaviour
         endBuildingPhaseButton.onClick.AddListener(beginDefensePhase);
         gm.previewPath();
         this.enemyPoints = 20;
-        this.roundTimer = 90;
         this.roundCounter = 1;
         this.roundMesh.SetText(roundCounter.ToString());
         this.gameState = PossibleGameStates.Building;
-        // roundTimerCoroutine = reduceTime(1);
-        // StartCoroutine(roundTimerCoroutine);
+        roundTimerCoroutine = reduceTime();
+        StartCoroutine(roundTimerCoroutine);
         enemiesSpawned = false;
-        this.gold = 20000;
     }
 
     // Game encarga de los inputs
@@ -87,7 +86,6 @@ public class Game : MonoBehaviour
     {
         if (this.gameState.Equals(PossibleGameStates.Building))
         {
-            Debug.Log("Construyendo");
             if (isBuildModeOn && Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
             {
                 RaycastHit2D hit = Physics2D.Raycast(TouchRay.origin, TouchRay.direction);
@@ -130,10 +128,12 @@ public class Game : MonoBehaviour
         }
         else
         {
+            
             if (!enemiesSpawned)
             {
                 enemiesSpawned = true;
                 summoner.spawnEnemies(summoner.gameObject.transform.position,this.enemyPoints);
+                Debug.Log(summoner.getEnemyAmount().ToString());
             }
             else if (summoner.getEnemyAmount() == 0 && enemiesSpawned)
             {
@@ -142,7 +142,7 @@ public class Game : MonoBehaviour
                 this.roundCounter++;
                 this.roundMesh.SetText(roundCounter.ToString());
                 this.increaseEnemyPoints();
-                // StartCoroutine(roundTimerCoroutine);
+                StartCoroutine(roundTimerCoroutine);
             }
             
         }
@@ -244,23 +244,20 @@ public class Game : MonoBehaviour
     {
         if (this.gameState == PossibleGameStates.Building)
         {
-            this.gameState = PossibleGameStates.Defending;
+            this.roundTimer = 0;
+            this.timerMesh.SetText(String.Empty);
         }
-        
     }
 
-    /*public IEnumerator reduceTime(float waitTime)
+    public IEnumerator reduceTime()
     {
-        if (this.roundTimer == 0)
+        while (this.roundTimer > 0)
         {
-            this.gameState = PossibleGameStates.Defending;
-            StopCoroutine(roundTimerCoroutine);
-        }
-        else
-        {
-            this.roundTimer -= waitTime;
             this.timerMesh.SetText(roundTimer.ToString());
-            yield return new WaitForSeconds(waitTime);
+            yield return new WaitForSeconds(1);
+            this.roundTimer--;
         }
-    }*/
+        this.gameState = PossibleGameStates.Defending;
+        yield return null;
+    }
 }

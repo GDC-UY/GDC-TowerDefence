@@ -39,7 +39,7 @@ public class EnemySummoner : MonoBehaviour
                 {
                     Instantiate(enemies[index], enemyBase, Quaternion.identity, gameObject.transform);
                     roundPoints -= enemiesCost[index];
-                    Debug.Log("Spawnee algo.");
+                    counter++;
                 }
                 else
                 {

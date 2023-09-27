@@ -123,6 +123,54 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &65268086
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 65268088}
+  - component: {fileID: 65268087}
+  m_Layer: 0
+  m_Name: EnemySummoner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &65268087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 65268086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2dafa4ce9f491c1b9770c37d8f69108, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemies:
+  - {fileID: 104020759841555626, guid: d9c20aa723c58b14aba1bdfbbdfb0b40, type: 3}
+  - {fileID: 104020759841555626, guid: 69db44fc1e3886f808067383c2a62fbb, type: 3}
+  cell: {fileID: 0}
+--- !u!4 &65268088
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 65268086}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2125990001}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &229717164
 GameObject:
   m_ObjectHideFlags: 0
@@ -181,7 +229,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: Ronda
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1152,7 +1200,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -48, y: -296}
+  m_AnchoredPosition: {x: -181, y: -30}
   m_SizeDelta: {x: 2080.67, y: 1492.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1115799497
@@ -1605,6 +1653,7 @@ MonoBehaviour:
   Enemy: {fileID: 104020759841555626, guid: d9c20aa723c58b14aba1bdfbbdfb0b40, type: 3}
   gold: 0
   roundTimer: 0
+  summoner: {fileID: 65268087}
   timerMesh: {fileID: 2147481434}
   roundMesh: {fileID: 229717166}
   tower: {fileID: 3980668479387134960, guid: aef84c3950a41de4a98f75514054b378, type: 3}
@@ -1622,6 +1671,7 @@ Transform:
   m_Children:
   - {fileID: 1598724187}
   - {fileID: 378758863}
+  - {fileID: 65268088}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1661,7 +1711,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 136.5}
-  m_SizeDelta: {x: 151.55, y: 50}
+  m_SizeDelta: {x: 88.15, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2147481434
 MonoBehaviour:
@@ -1683,7 +1733,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: 'sec
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1717,7 +1769,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -1803,6 +1855,10 @@ PrefabInstance:
       propertyPath: container
       value: 
       objectReference: {fileID: 378758862}
+    - target: {fileID: 1699354150553313027, guid: 4a36403b5c9341846aaad37087e4ac9a, type: 3}
+      propertyPath: enemySummoner
+      value: 
+      objectReference: {fileID: 65268086}
     - target: {fileID: 1699354150553313029, guid: 4a36403b5c9341846aaad37087e4ac9a, type: 3}
       propertyPath: m_RootOrder
       value: 0
