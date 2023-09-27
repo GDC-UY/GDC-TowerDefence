@@ -11,10 +11,17 @@ public class GridManager : MonoBehaviour
     public int Height;
     [SerializeField] private GameObject cellPrefab;
     [SerializeField] private GameObject container;
+    [SerializeField] private string inicio;
+    [SerializeField] private string final;
     public Graph graph;
     public Node[,] nodes;
     private static GridManager instance;
     [SerializeField] private GameObject Enemy;
+    private GameObject EnemySpawn;
+    public GameObject enemySummoner;
+    private GameObject EnemyTarget;
+    private static bool pathIsValid = false;
+
     public static GridManager Instance
     {
         get
@@ -24,6 +31,7 @@ public class GridManager : MonoBehaviour
                 instance = FindObjectOfType<GridManager>();
                 DontDestroyOnLoad(instance.gameObject);
             }
+
             return instance;
         }
     }
@@ -40,7 +48,7 @@ public class GridManager : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -48,27 +56,26 @@ public class GridManager : MonoBehaviour
         nodes = new Node[Width, Height];
         GridCreate();
         CreateGraphConnections();
+        this.enemySummoner.transform.position = nodes[0,0].GetCell().transform.position;
     }
 
-    private GameObject EnemySpawn;
-    private GameObject EnemyTarget;
-    private static bool pathIsValid = false;
     
+
     private LinkedList<Node> path = null;
     private LinkedList<Node> prevSecurePath = null;
-    
+
     public LinkedList<Node> GetPath()
     {
         if (!pathIsValid)
         {
-            if(path != null)
+            if (path != null)
                 prevSecurePath = new LinkedList<Node>(path);
-            
+
             path = graph.EnemyPathFinding(EnemySpawn, EnemyTarget);
 
             if (path == null)
             {
-                if(prevSecurePath != null) 
+                if (prevSecurePath != null)
                     path = new LinkedList<Node>(prevSecurePath);
             }
 
@@ -90,26 +97,28 @@ public class GridManager : MonoBehaviour
                 }
             }
         }
-        
+
         pathIsValid = false;
         GetPath();
         previewPath();
 
         return isPartOf(cell);
     }
-    
+
     private bool isPartOf(Cell cell)
     {
         LinkedListNode<Node> a = path.First;
-        
+
         while (a != null)
         {
             if (a.Value.GetCell() == cell)
             {
                 return true;
             }
+
             a = a.Next;
         }
+
         return false;
     }
 
@@ -129,7 +138,7 @@ public class GridManager : MonoBehaviour
             previewPath();
         }
     }
-    
+
     private void GridCreate()
     {
         graph = new Graph();
@@ -137,19 +146,21 @@ public class GridManager : MonoBehaviour
         {
             for (int col = 0; col < Height; col++)
             {
-                GameObject cell = Instantiate(cellPrefab, new Vector3(transform.position.x + row, transform.position.y + col, 0 ), Quaternion.identity);
+                GameObject cell = Instantiate(cellPrefab,
+                    new Vector3(transform.position.x + row, transform.position.y + col, 0), Quaternion.identity);
                 cell.name = $"{row}x{col}";
                 //TEMPORAL --------------------------------------------------
-                if (cell.name == "0x0")
+                if (cell.name == this.inicio)
                 {
                     //INICIO
                     EnemySpawn = cell;
                 }
-                else if (cell.name == "19x19")
+                else if (cell.name == this.final)
                 {
                     //FINAL
                     EnemyTarget = cell;
                 }
+
                 //TEMPORAL --------------------------------------------------
                 cell.transform.SetParent(container.transform);
                 Node node = new Node(cell);
@@ -188,6 +199,7 @@ public class GridManager : MonoBehaviour
             }
         }
     }
+
     private void PrintGrid()
     {
         for (int row = 0; row < Width; row++)
@@ -227,7 +239,7 @@ public class GridManager : MonoBehaviour
             }
         }
     }
-
+    
     private void GridPosition()
     {
         transform.position = new Vector3(transform.position.x - (Width/2) + 0.5f, transform.position.y - (Height/2) + 0.5f, 0);
