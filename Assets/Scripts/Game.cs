@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using UnityEditor.Experimental;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -13,6 +15,7 @@ public class Game : MonoBehaviour
     public GameObject cellSelected;
     public Button activateBuildModeButton;
     public Button undoBuildButton;
+    public Button endBuildingPhaseButton;
     public bool isBuildModeOn;
     public bool isTowerBuildModeOn;
     public GameObject Enemy;
@@ -23,6 +26,31 @@ public class Game : MonoBehaviour
 
     public GameObject tower1, tower2, tower3;
     Ray TouchRay => Camera.main.ScreenPointToRay(Input.mousePosition);
+    [SerializeField] private GameObject[] towers;
+    private TowerType towerType;
+    private int enemyPoints;
+    private int roundCounter;
+    private IEnumerator roundTimerCoroutine;
+    [SerializeField] private int roundTimer;
+    private bool enemiesSpawned;
+    public EnemySummoner summoner;
+    public TextMeshProUGUI timerMesh, roundMesh;
+
+    private enum PossibleGameStates
+    {
+        Building,
+        Defending
+    }
+
+    private enum TowerType
+    {
+        Tower1,
+        Tower2,
+        Tower3
+    }
+
+    private PossibleGameStates gameState;
+
     public static Game Instance
     {
         get
@@ -31,6 +59,7 @@ public class Game : MonoBehaviour
             {
                 instance = FindObjectOfType<Game>();
             }
+
             return instance;
         }
     }
@@ -46,7 +75,9 @@ public class Game : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
-    void Start(){
+
+    void Start()
+    {
         undoBuildButton.onClick.AddListener(DestroyCell);
         activateBuildModeButton.onClick.AddListener(EnableBuildMode);
         gm.previewPath();
@@ -55,74 +86,100 @@ public class Game : MonoBehaviour
         {
             EnableTowerBuildMode();
         });
+        endBuildingPhaseButton.onClick.AddListener(beginDefensePhase);
+        gm.previewPath();
+        this.enemyPoints = 20;
+        this.roundCounter = 1;
+        this.roundMesh.SetText(roundCounter.ToString());
+        this.gameState = PossibleGameStates.Building;
+        roundTimerCoroutine = reduceTime();
+        StartCoroutine(roundTimerCoroutine);
+        enemiesSpawned = false;
     }
-
     // Game encarga de los inputs
     void Update()
     {
-        if (isBuildModeOn && Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject() )
+        if (this.gameState.Equals(PossibleGameStates.Building))
         {
-            RaycastHit2D hit = Physics2D.Raycast(TouchRay.origin, TouchRay.direction);
-            
-            if (hit.collider.gameObject != null)
+            if (isBuildModeOn && Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
             {
-                if ((this.gold >= 1000))
+                //Para evitar errores de null reference exeption debido a la hitbox de la torreta, el raycast solo detecta objetos de la capa Cell
+                RaycastHit2D hit = Physics2D.Raycast(TouchRay.origin, TouchRay.direction, Mathf.Infinity, LayerMask.GetMask("Cell"));
+                Cell hitCell = hit.collider.gameObject.GetComponent<Cell>();
+                if (hit.collider.gameObject != null && (this.gold >= hitCell.getCost()) && !hitCell.node.GetUsed())
                 {
-                     BuildOnCell(hit.collider.gameObject);
-                    // El jugador pierde 1000 en la construccion.
-                    this.LoseMoney(1000);
-                    Debug.Log("Oro restante: "+ this.gold);
-                }
-                else
-                {
-                    StartCoroutine(NotEnoughGoldText());
+                    BuildOnCell(hit.collider.gameObject);
+                    this.LoseMoney(hitCell.getCost());
+                    Debug.Log("Oro restante: " + this.gold);
                 }
             }
-        }
-        
-        // Se toma 3000 como precio placeholder de una torre, si no se tiene la plata no se construye
-        if (!isBuildModeOn && Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
-        {
-            RaycastHit2D hit = Physics2D.Raycast(TouchRay.origin, TouchRay.direction);
-            Cell hittedCell = hit.collider.gameObject.GetComponent<Cell>();
-            if (hit.collider != null && hittedCell.node.GetUsed() && !hittedCell.HasAttachedTurret())
+            Debug.Log(isTowerBuildModeOn);
+            if (!isBuildModeOn && Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
             {
-                if ((this.gold >= 3000))
+                Debug.Log("torreta");
+                //towerType = TowerType.Tower1;
+                RaycastHit2D hit = Physics2D.Raycast(TouchRay.origin, TouchRay.direction, Mathf.Infinity, LayerMask.GetMask("Cell"));
+                Cell hitCell = hit.collider.gameObject.GetComponent<Cell>();
+                //Tower tower = towers[(int)towerType].gameObject.GetComponent<Tower>();
+                if (hitCell != null) //Para que no de null reference exeption
                 {
-                    GameObject turret = null;
-                    switch (dropdown.value)
+                    if (hit.collider != null && hitCell.node.GetUsed() && !hitCell.HasAttachedTurret()) //&& (this.gold >= tower.getCost())) //Esta es la linea de error null reference exeption
                     {
-                        case 1:
-                            turret = Instantiate(tower1, hit.collider.gameObject.transform.position, Quaternion.identity);
-                            break;
-                        case 2:
-                            turret = Instantiate(tower2, hit.collider.gameObject.transform.position, Quaternion.identity);
-                            break;
-                        case 3:
-                            turret = Instantiate(tower3, hit.collider.gameObject.transform.position, Quaternion.identity);
-                            break;
+                        Debug.Log("hola");
+                        if ((this.gold >= 3000))
+                        {
+                            GameObject turret = null;
+                            switch (dropdown.value)
+                            {
+                                case 1:
+                                    turret = Instantiate(tower1, hit.collider.gameObject.transform.position, Quaternion.identity);
+                                    break;
+                                case 2:
+                                    turret = Instantiate(tower2, hit.collider.gameObject.transform.position, Quaternion.identity);
+                                    break;
+                                case 3:
+                                    turret = Instantiate(tower3, hit.collider.gameObject.transform.position, Quaternion.identity);
+                                    break;
+                            }
+                            // Se instancia y pone la torreta
+                            hitCell.AttachTurret(turret);
+                            StackCZ.Push(turret);
+                            // El jugador pierde 3000 en la construccion.
+                            this.LoseMoney(3000);
+                            Debug.Log("Oro restante:  " + this.gold);
+                        }
+                        else
+                        {
+                            StartCoroutine(NotEnoughGoldText());
+                        }
                     }
-                    // Se instancia y pone la torreta
-                    hittedCell.AttachTurret(turret);
-                    StackCZ.Push(turret);
-                    // El jugador pierde 3000 en la construccion.
-                    this.LoseMoney(3000);
-                    Debug.Log("Oro restante:  " + this.gold);
-                }
-                else
-                {
-                    StartCoroutine(NotEnoughGoldText());
                 }
             }
+            // Check for Control + Z or right-click
+            if ((Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)) && Input.GetKeyDown(KeyCode.Z) || Input.GetMouseButtonDown(1))
+            {
+                DestroyCell();
+            }
         }
-
-        // Check for Control + Z or right-click
-        if ((Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)) && Input.GetKeyDown(KeyCode.Z) || Input.GetMouseButtonDown(1))
+        else
         {
-            DestroyCell();
+            if (!enemiesSpawned)
+            {
+                enemiesSpawned = true;
+                summoner.spawnEnemies(summoner.gameObject.transform.position, this.enemyPoints);
+            }
+            else if (summoner.getEnemyAmount() == 0 && enemiesSpawned)
+            {
+                enemiesSpawned = false;
+                this.roundCounter++;
+                this.roundTimer = 90;
+                this.roundMesh.SetText(roundCounter.ToString());
+                this.increaseEnemyPoints();
+                this.gameState = PossibleGameStates.Building;
+                StartCoroutine(reduceTime());
+            }
         }
     }
-
     public void EnableBuildMode()
     {
         if (isBuildModeOn)
@@ -147,48 +204,54 @@ public class Game : MonoBehaviour
     {
         Cell cellToChange = cell.GetComponent<Cell>();
         cellToChange.node.SetUsed(true);
-        cellToChange.buildWall();
         
+        cellToChange.buildWall();
+
         if (!gm.updatePath(cellToChange))
         {
+            LoseMoney(cell.GetComponent<Cell>().getCost());
             StackCZ.Push(cell);
+            cellToChange.WallBuilded();
         }       
     }
-    
+
     public void DestroyCell()
     {
         if (StackCZ.Any())
         {
             GameObject gamePop = StackCZ.Pop();
-            if (gamePop.tag=="Cell") {
+            if (gamePop.tag == "Cell")
+            {
                 // El jugador recupera 50% de la plata que le costo hacer la torre, por ahora 1500
                 Cell cell = gamePop.gameObject.GetComponent<Cell>();
                 this.RecieveMoney(cell.getCost() / 2);
 
                 cell.node.SetUsed(false);
-                cell.ChangeColor(Color.magenta);
+                cell.RemoveWall();
                 gm.updatePath(cell);
             }
-            else {
+            else
+            {
                 Cell cell = gamePop.transform.parent.gameObject.GetComponent<Cell>();
                 cell.DeatachTurret();
                 this.RecieveMoney(gamePop.GetComponent<Tower>().getCost() / 2);
             }
         }
-        
     }
-
-    public void RecieveMoney(int oro) {
+    public void RecieveMoney(int oro)
+    {
         this.gold += oro;
     }
 
-    public void LoseMoney(int oro) {
+    public void LoseMoney(int oro)
+    {
         if (this.gold - oro < 0)
         {
-            this.gold=0;
+            this.gold = 0;
         }
-        else {
-            this.gold =this.gold - oro;
+        else
+        {
+            this.gold = this.gold - oro;
         }
     }
 
@@ -197,5 +260,35 @@ public class Game : MonoBehaviour
         notEnoughGoldText.SetActive(true);
         yield return new WaitForSeconds(1f);
         notEnoughGoldText.SetActive(false);
+    }
+
+    private void increaseEnemyPoints()
+    {
+        this.enemyPoints += this.enemyPoints / 2;
+        if (this.enemyPoints % 2 != 0)
+        {
+            this.enemyPoints++;
+        }
+    }
+
+    public void beginDefensePhase()
+    {
+        if (this.gameState == PossibleGameStates.Building)
+        {
+            this.roundTimer = 0;
+            this.timerMesh.SetText(String.Empty);
+        }
+    }
+
+    public IEnumerator reduceTime()
+    {
+        while (this.roundTimer > 0)
+        {
+            this.timerMesh.SetText(roundTimer.ToString());
+            yield return new WaitForSeconds(1);
+            this.roundTimer--;
+        }
+        this.gameState = PossibleGameStates.Defending;
+        yield return null;
     }
 }
