@@ -7,8 +7,9 @@ using UnityEngine;
 public class EnemySummoner : MonoBehaviour
 {
     public GameObject[] enemies;
-    public int[] enemiesCost;
-
+    private int[] enemiesCost;
+    public GameObject cell;
+    private int counter;
     public void Start()
     {
         //Sort the enemies by cost, the first one will be the most expensive
@@ -29,25 +30,33 @@ public class EnemySummoner : MonoBehaviour
     //Tambien si sobran puntos deberia de rellenar con enemigos de bajo coste
     public void spawnEnemies(Vector3 enemyBase, int roundPoints)
     {
-        int points = roundPoints;
         int index = 0;
-        while (points > 0)
+        if (enemiesCost.Length != 0 || enemies.Length != 0)
         {
-            if (points >= enemiesCost[index])
+            while (roundPoints > 0)
             {
-                Instantiate(enemies[index], enemyBase, Quaternion.identity);
-                points -= enemiesCost[index];
-            }
-            else
-            {
-                index++;
+                if (roundPoints >= enemiesCost[index])
+                {
+                    Instantiate(enemies[index], enemyBase, Quaternion.identity, gameObject.transform);
+                    roundPoints -= enemiesCost[index];
+                    counter++;
+                }
+                else
+                {
+                    index++;
+                }
             }
         }
     }
 
-    public void Update()
-    {   
-        if (Input.GetKeyDown(KeyCode.X))
-            spawnEnemies(new Vector3(0, 0, 0), 20);
+    public void enemyDied()
+    {
+        this.counter--;
     }
+
+    public int getEnemyAmount()
+    {
+        return this.counter;
+    }
+    
 }

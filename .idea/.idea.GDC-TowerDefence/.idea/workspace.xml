@@ -9,9 +9,10 @@
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Graph.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Graph.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/WallBreaker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/WallBreaker.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Cell.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Cell.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Tower.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Tower.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/TowerCreate.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/TowerCreate.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cell.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cell.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/GridManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GridManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Sprite/Muros 3.0/Muro en T abajo.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprite/Muros 3.0/Muro en T abajo.png.meta" afterDir="false" />
@@ -77,8 +78,25 @@
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+    }
   }
-}</component>
+  <component name="PropertiesComponent">
+  <![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "RoundManagement",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.build.unityPlugin",
+    "vue.rearranger.settings.migration": "true"
+  }
+  }]]>
+  </component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="$PROJECT_DIR$/../build/BEA TD.x86_64" />
@@ -164,8 +182,7 @@
       <workItem from="1695756567241" duration="6158000" />
       <workItem from="1695239274432" duration="4272000" />
       <workItem from="1695251752791" duration="3615000" />
-      <workItem from="1695669684232" duration="4396000" />
-      <workItem from="1695759552338" duration="7753000" />
+      <workItem from="1694634418083" duration="4262000" />
     </task>
     <servers />
   </component>
