@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class ToroPJ : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class ToroPJ : MonoBehaviour
     {
         e = this.GetComponent<Enemy>();
         anim = this.GetComponent<Animator>();
+        this.GetComponent<SpriteRenderer>().sortingOrder = Random.Range(10, 25);
     }
 
     void Update()
