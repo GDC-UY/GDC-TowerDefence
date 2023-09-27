@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6256414364644046804}
   m_Layer: 0
   m_Name: Tower
-  m_TagString: Untagged
+  m_TagString: Tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  cost: 3000
+  cost: 100
 --- !u!58 &8491289007853288625
 CircleCollider2D:
   m_ObjectHideFlags: 0
