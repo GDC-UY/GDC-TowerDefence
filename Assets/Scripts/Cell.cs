@@ -60,7 +60,7 @@ public class Cell : MonoBehaviour
     [SerializeField] private Sprite TUp;
     [SerializeField] private Sprite TDown;
 
-    [SerializeField] private Sprite CenterNoConectionsOfTheWallForTheEnemiesToNotPassRightThroughBecauseThatWouldBeBadAndWeDontWantThatSoWeHaveToMakeSureThatTheEnemiesDontPassThroughTheWallsBecauseThatWouldBeBadAndWeDontWantThatSoWeHaveToMakeSureThatTheEnemiesDontPassThroughTheWalls;
+    [SerializeField] private Sprite CenterNoConnections;
 
     [SerializeField] private Sprite EnemyPathSprite;
 
@@ -91,8 +91,6 @@ public class Cell : MonoBehaviour
 
     public void UpdateNeighborTexture(int x, int y)
     {
-        //EN TEORIA SI ESTE METODO SE EJECUTA ESTOY PARADO EN UN NODO QUE TIENE UNA CELDA QUE TIENE UNA PARED Y NO ES NULL
-        //PORQUE CARAJOS DAS ERROR AAAAAAAAAAAAAAAAAAAAAAAYUUUUUUUUUUDDDDDDDDDAAAAAAAAAAAAAAA
         spriteRenderer.sprite = SpriteChooser(x,y);
     }
     
@@ -181,7 +179,7 @@ public class Cell : MonoBehaviour
                 return Left;
             
             else
-                return CenterNoConectionsOfTheWallForTheEnemiesToNotPassRightThroughBecauseThatWouldBeBadAndWeDontWantThatSoWeHaveToMakeSureThatTheEnemiesDontPassThroughTheWallsBecauseThatWouldBeBadAndWeDontWantThatSoWeHaveToMakeSureThatTheEnemiesDontPassThroughTheWalls;
+                return CenterNoConnections;
             
         }
         
