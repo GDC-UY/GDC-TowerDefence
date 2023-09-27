@@ -29,7 +29,6 @@ public class GridManager : MonoBehaviour
             if (instance == null)
             {
                 instance = FindObjectOfType<GridManager>();
-                DontDestroyOnLoad(instance.gameObject);
             }
 
             return instance;
@@ -41,11 +40,10 @@ public class GridManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(this.gameObject);
         }
         else
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
     }
 
@@ -93,7 +91,8 @@ public class GridManager : MonoBehaviour
             {
                 if (!j.GetUsed())
                 {
-                    j.GetValue().GetComponent<Cell>().RemoveColor();
+                    j.GetCell().RemoveSprite();
+                    j.GetCell().cellIsPath = false;
                 }
             }
         }
@@ -128,7 +127,8 @@ public class GridManager : MonoBehaviour
         {
             foreach (Node j in path)
             {
-                j.GetCell().ChangeColor(Color.yellow);
+                j.GetCell().MakeEnemyPath();
+                j.GetCell().cellIsPath = true;
                 j.SetUsed(false);
             }
         }

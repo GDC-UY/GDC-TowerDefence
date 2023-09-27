@@ -119,7 +119,6 @@ public class Game : MonoBehaviour
                         Debug.Log("Oro restante:  " + this.gold);
                     }
                 }
-
             }
 
             // Check for Control + Z or right-click
@@ -180,12 +179,15 @@ public class Game : MonoBehaviour
     {
         Cell cellToChange = cell.GetComponent<Cell>();
         cellToChange.node.SetUsed(true);
+        
         cellToChange.buildWall();
 
         if (!gm.updatePath(cellToChange))
         {
+            LoseMoney(cell.GetComponent<Cell>().getCost());
             StackCZ.Push(cell);
-        }
+            cellToChange.WallBuilded();
+        }       
     }
 
     public void DestroyCell()
@@ -200,7 +202,7 @@ public class Game : MonoBehaviour
                 this.RecieveMoney(cell.getCost() / 2);
 
                 cell.node.SetUsed(false);
-                cell.ChangeColor(Color.magenta);
+                cell.RemoveWall();
                 gm.updatePath(cell);
             }
             else

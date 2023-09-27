@@ -212,8 +212,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 500
-  m_fontSizeBase: 500
+  m_fontSize: 21
+  m_fontSizeBase: 21
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -954,7 +954,7 @@ RectTransform:
   m_GameObject: {fileID: 1524200198}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 90}
-  m_LocalScale: {x: 0.038939998, y: 0.038939998, z: 0.038939998}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 230441576}
@@ -964,7 +964,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -103.609985, y: -29.600006}
-  m_SizeDelta: {x: 1641.78, y: 1492.3}
+  m_SizeDelta: {x: 69.97, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1524200200
 MonoBehaviour:
@@ -1163,7 +1163,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemies:
   - {fileID: 104020759841555626, guid: d9c20aa723c58b14aba1bdfbbdfb0b40, type: 3}
-  - {fileID: 104020759841555626, guid: 69db44fc1e3886f808067383c2a62fbb, type: 3}
   enemiesCost: 
 --- !u!4 &1893390320
 Transform:

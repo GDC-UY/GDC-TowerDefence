@@ -14,7 +14,34 @@
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cell.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cell.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GridManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GridManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprite/Muros 3.0/Muro en T abajo.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprite/Muros 3.0/Muro en T abajo.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprite/Muros 3.0/Muro en T arriba.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprite/Muros 3.0/Muro en T arriba.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprite/Muros 3.0/Muro en T derecha.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprite/Muros 3.0/Muro en T derecha.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprite/Muros 3.0/Muro en T izquierda .png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprite/Muros 3.0/Muro en T izquierda .png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprite/Muros 3.0/Muro en cruz.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprite/Muros 3.0/Muro en cruz.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprite/Walls 2.0/Camino vertical .png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprite/Walls 2.0/Camino vertical .png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprite/Walls 2.0/Esquina derecha arriba 100px 2.0.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprite/Walls 2.0/Esquina derecha arriba 100px 2.0.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprite/Walls 2.0/Esquina izquierda abajo 100px 2.0.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprite/Walls 2.0/Esquina izquierda abajo 100px 2.0.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprite/Walls 2.0/Muro 1 100px.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprite/Walls 2.0/Muro 1 100px.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprite/Walls 2.0/Muro 2 100px.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprite/Walls 2.0/Muro 2 100px.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprite/Walls 2.0/Muro 3 100px.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprite/Walls 2.0/Muro 3 100px.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprite/Walls 2.0/Muro en T abajo.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprite/Walls 2.0/Muro en T abajo.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprite/Walls 2.0/Muro en T izquierda .png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprite/Walls 2.0/Muro en T izquierda .png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprite/Walls 2.0/Muro en cruz.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprite/Walls 2.0/Muro en cruz.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprite/Walls 2.0/centerxdxd.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprite/Walls 2.0/centerxdxd.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprite/Walls 2.0/copis1.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprite/Walls 2.0/copis1.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprite/Walls 2.0/copis2.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprite/Walls 2.0/copis2.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprite/Walls/Left1.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprite/Walls/Left1.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprite/Walls/LeftDown1.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprite/Walls/LeftDown1.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprite/Walls/LeftUp1.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprite/Walls/LeftUp1.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprite/Walls/Muro 2 100px.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprite/Walls/Muro 2 100px.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprite/Walls/Muro 3 100px.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprite/Walls/Muro 3 100px.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprite/Walls/RightDown1.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprite/Walls/RightDown1.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprite/Walls/RightUp1.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprite/Walls/RightUp1.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprite/Walls/Up.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprite/Walls/Up.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ToroPJ.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ToroPJ.cs.meta" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,6 +53,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/EnemySummoner.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/ToroPJ.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
@@ -41,7 +69,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;WallBreaker&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;ToroPJ&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -79,7 +107,7 @@
       <method v="2" />
     </configuration>
     <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2021.3.25f1\Editor\Unity.exe" />
+      <option name="EXE_PATH" value="$USER_HOME$/Unity/Hub/Editor/2021.3.25f1/Editor/Unity" />
       <option name="PROGRAM_PARAMETERS" value="-projectPath $PROJECT_DIR$ -debugCodeOptimization" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -87,7 +115,7 @@
       <method v="2" />
     </configuration>
     <configuration name="Unit Tests (batch mode)" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2021.3.25f1\Editor\Unity.exe" />
+      <option name="EXE_PATH" value="$USER_HOME$/Unity/Hub/Editor/2021.3.25f1/Editor/Unity" />
       <option name="PROGRAM_PARAMETERS" value="-runTests -batchmode -projectPath $PROJECT_DIR$ -testResults Logs/results.xml -testPlatform EditMode -debugCodeOptimization" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="PASS_PARENT_ENVS" value="1" />
