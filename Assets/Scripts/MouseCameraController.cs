@@ -40,10 +40,10 @@ public class MouseCameraController : MonoBehaviour
         boundY = cam.orthographicSize;
         boundX = boundY * Screen.width / Screen.height;
         
-        MaxY = (gm.Width/2) - boundY;
-        MinY = -(gm.Width/2) + boundY;
-        MaxX = gm.Height/2 - boundX;
-        MinX = -(gm.Width/2) + boundX;
+        //MaxY = (gm.Width/2) - boundY;
+        //MinY = -(gm.Width/2) + boundY;
+        //MaxX = gm.Height/2 - boundX;
+        //MinX = -(gm.Width/2) + boundX;
     }
 
     void Update()
