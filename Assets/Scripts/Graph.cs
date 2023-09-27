@@ -68,5 +68,18 @@ namespace Scenes
 
             return unusedNodes;
         }
+        public LinkedList<Node> GetFreeWalls()
+        {
+            LinkedList<Node> usedNodes = new LinkedList<Node>();
+            foreach (Node node in nodes)
+            {
+                if (node.GetUsed() && !node.GetCell().HasAttachedTurret())
+                {
+                    usedNodes.AddLast(node);
+                }
+            }
+
+            return usedNodes;
+        }
     }
 }
