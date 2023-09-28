@@ -54,10 +54,11 @@ public class GridManager : MonoBehaviour
         nodes = new Node[Width, Height];
         GridCreate();
         CreateGraphConnections();
-        this.enemySummoner.transform.position = nodes[0,0].GetCell().transform.position;
+        this.enemySummoner.transform.position = nodes[0,12].GetCell().transform.position;
     }
 
     
+
 
     private LinkedList<Node> path = null;
     private LinkedList<Node> prevSecurePath = null;

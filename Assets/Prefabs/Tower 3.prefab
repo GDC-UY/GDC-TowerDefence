@@ -14,13 +14,8 @@ GameObject:
   - component: {fileID: 8491289007853288625}
   - component: {fileID: 6256414364644046804}
   m_Layer: 0
-<<<<<<<< HEAD:Assets/Prefabs/Tower 1.prefab
-  m_Name: Tower 1
+  m_Name: Tower 3
   m_TagString: Untagged
-========
-  m_Name: Tower
-  m_TagString: Tower
->>>>>>>> 53ee45472b6d9387857c7334b4a9c25d55463a95:Assets/Scenes/Prefabs/Tower.prefab
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -82,7 +77,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 0, b: 0.025458813, a: 1}
+  m_Color: {r: 0.041627884, g: 1, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -105,7 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  cost: 100
+  cost: 3000
 --- !u!58 &8491289007853288625
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -2,11 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor.Experimental;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using TMPro;
 
 public class Game : MonoBehaviour
 {
@@ -14,23 +13,24 @@ public class Game : MonoBehaviour
     public GridManager gm;
     public GameObject cellSelected;
     public Button activateBuildModeButton;
-    public Button activateTowerBuildModeButton;
     public Button undoBuildButton;
     public Button endBuildingPhaseButton;
     public bool isBuildModeOn;
-    public bool isTowerBuildModeOn;
     public GameObject Enemy;
     public int gold;
     private Stack<GameObject> StackCZ = new Stack<GameObject>();
-    [SerializeField] private GameObject[] towers;
-    private TowerType towerType;
+    public GameObject notEnoughGoldText;
+    public TMP_Dropdown dropdown;
+    Ray TouchRay => Camera.main.ScreenPointToRay(Input.mousePosition);
+    public GameObject[] towers;
     private int enemyPoints;
     private int roundCounter;
     private IEnumerator roundTimerCoroutine;
     [SerializeField] private int roundTimer;
     private bool enemiesSpawned;
     public EnemySummoner summoner;
-    public TextMeshProUGUI timerMesh, roundMesh;
+    public TextMeshProUGUI timerMesh, roundMesh, goldText;
+    GameObject towerToSpawn;
 
     private enum PossibleGameStates
     {
@@ -39,8 +39,6 @@ public class Game : MonoBehaviour
     }
 
     private PossibleGameStates gameState;
-    public GameObject tower;
-    Ray TouchRay => Camera.main.ScreenPointToRay(Input.mousePosition);
 
     public static Game Instance
     {
@@ -71,7 +69,12 @@ public class Game : MonoBehaviour
     {
         undoBuildButton.onClick.AddListener(DestroyCell);
         activateBuildModeButton.onClick.AddListener(EnableBuildMode);
-        activateTowerBuildModeButton.onClick.AddListener(EnableTowerBuildMode);
+        gm.previewPath();
+
+        dropdown.onValueChanged.AddListener(delegate
+        {
+            EnableTowerBuildMode();
+        });
         endBuildingPhaseButton.onClick.AddListener(beginDefensePhase);
         gm.previewPath();
         this.enemyPoints = 20;
@@ -82,7 +85,6 @@ public class Game : MonoBehaviour
         StartCoroutine(roundTimerCoroutine);
         enemiesSpawned = false;
     }
-
     // Game encarga de los inputs
     void Update()
     {
@@ -97,30 +99,33 @@ public class Game : MonoBehaviour
                 {
                     BuildOnCell(hit.collider.gameObject);
                     this.LoseMoney(hitCell.getCost());
-                    Debug.Log("Oro restante: " + this.gold);
                 }
             }
-
-            if (isTowerBuildModeOn && Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())
+            if (!isBuildModeOn && Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
             {
-                towerType = TowerType.Tower0;
                 RaycastHit2D hit = Physics2D.Raycast(TouchRay.origin, TouchRay.direction, Mathf.Infinity, LayerMask.GetMask("Cell"));
                 Cell hitCell = hit.collider.gameObject.GetComponent<Cell>();
-                Tower tower = towers[(int)towerType].gameObject.GetComponent<Tower>();
+                //Tower tower = towers[(int)towerType].gameObject.GetComponent<Tower>();
                 if (hitCell != null) //Para que no de null reference exeption
                 {
-                    if (hit.collider != null && hitCell.node.GetUsed() && !hitCell.HasAttachedTurret() && (this.gold >= tower.getCost())) //Esta es la linea de error null reference exeption
+                    if (hit.collider != null && hitCell.node.GetUsed() && !hitCell.HasAttachedTurret()) //&& (this.gold >= tower.getCost())) //Esta es la linea de error null reference exeption
                     {
-                        // Se instancia y pone la torreta
-                        GameObject turret = Instantiate(towers[(int)towerType], hit.collider.gameObject.transform.position, Quaternion.identity);
-                        hitCell.AttachTurret(turret);
-                        StackCZ.Push(turret);
-                        this.LoseMoney(tower.getCost());
-                        Debug.Log("Oro restante:  " + this.gold);
+                        if ((this.gold >= 3000))
+                        {
+                            GameObject turret = Instantiate(towerToSpawn, hit.collider.gameObject.transform.position, Quaternion.identity);
+                            // Se instancia y pone la torreta
+                            hitCell.AttachTurret(turret);
+                            StackCZ.Push(turret);
+                            // El jugador pierde 3000 en la construccion.
+                            this.LoseMoney(3000);
+                        }
+                        else
+                        {
+                            StartCoroutine(NotEnoughGoldText());
+                        }
                     }
                 }
             }
-
             // Check for Control + Z or right-click
             if ((Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)) && Input.GetKeyDown(KeyCode.Z) || Input.GetMouseButtonDown(1))
             {
@@ -132,21 +137,25 @@ public class Game : MonoBehaviour
             if (!enemiesSpawned)
             {
                 enemiesSpawned = true;
-                summoner.spawnEnemies(summoner.gameObject.transform.position,this.enemyPoints);
-                Debug.Log(summoner.getEnemyAmount().ToString());
+                summoner.spawnEnemies(summoner.gameObject.transform.position, this.enemyPoints);
             }
             else if (summoner.getEnemyAmount() == 0 && enemiesSpawned)
             {
                 enemiesSpawned = false;
-                this.gameState = PossibleGameStates.Building;
                 this.roundCounter++;
+                this.roundTimer = 90;
                 this.roundMesh.SetText(roundCounter.ToString());
                 this.increaseEnemyPoints();
-                StartCoroutine(roundTimerCoroutine);
+                this.gameState = PossibleGameStates.Building;
+                StartCoroutine(reduceTime());
             }
         }
     }
 
+    private void LateUpdate()
+    {
+        goldText.text = this.gold.ToString();
+    }
 
     public void EnableBuildMode()
     {
@@ -157,23 +166,23 @@ public class Game : MonoBehaviour
         else
         {
             isBuildModeOn = true;
-            isTowerBuildModeOn = false;
         }
+
+        dropdown.value = 0;
     }
 
     public void EnableTowerBuildMode()
     {
-        if (isTowerBuildModeOn)
+        isBuildModeOn = false;
+        if (dropdown.value > 0)
         {
-            isTowerBuildModeOn = false;
+            towerToSpawn = towers[dropdown.value - 1]; //el dropdown tiene como valor 0 el cartel que dice "torres"
         }
         else
         {
-            isTowerBuildModeOn = true;
-            isBuildModeOn = false;
+            towerToSpawn = null;
         }
     }
-
 
     private void BuildOnCell(GameObject cell)
     {
@@ -229,9 +238,12 @@ public class Game : MonoBehaviour
             this.gold = this.gold - oro;
         }
     }
-    private enum TowerType
+
+    IEnumerator NotEnoughGoldText()
     {
-        Tower0,
+        notEnoughGoldText.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        notEnoughGoldText.SetActive(false);
     }
 
     private void increaseEnemyPoints()
@@ -241,7 +253,6 @@ public class Game : MonoBehaviour
         {
             this.enemyPoints++;
         }
-        Debug.Log(enemyPoints);
     }
 
     public void beginDefensePhase()

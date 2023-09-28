@@ -50,7 +50,7 @@ public class Enemy : MonoBehaviour
     
     private void Update()
     {
-        if(health <= 0)
+        if(health <= 0 )
             death();
         
         if (isWalking && next != null)
@@ -73,7 +73,7 @@ public class Enemy : MonoBehaviour
                 }
                 else
                 {
-                    Destroy(gameObject);
+                    death();
                 }
             }
             else
