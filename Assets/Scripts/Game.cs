@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
-using UnityEditor.Experimental;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -17,36 +16,26 @@ public class Game : MonoBehaviour
     public Button undoBuildButton;
     public Button endBuildingPhaseButton;
     public bool isBuildModeOn;
-    public bool isTowerBuildModeOn;
     public GameObject Enemy;
     public int gold;
     private Stack<GameObject> StackCZ = new Stack<GameObject>();
     public GameObject notEnoughGoldText;
     public TMP_Dropdown dropdown;
-
-    public GameObject tower1, tower2, tower3;
     Ray TouchRay => Camera.main.ScreenPointToRay(Input.mousePosition);
-    [SerializeField] private GameObject[] towers;
-    private TowerType towerType;
+    public GameObject[] towers;
     private int enemyPoints;
     private int roundCounter;
     private IEnumerator roundTimerCoroutine;
     [SerializeField] private int roundTimer;
     private bool enemiesSpawned;
     public EnemySummoner summoner;
-    public TextMeshProUGUI timerMesh, roundMesh;
+    public TextMeshProUGUI timerMesh, roundMesh, goldText;
+    GameObject towerToSpawn;
 
     private enum PossibleGameStates
     {
         Building,
         Defending
-    }
-
-    private enum TowerType
-    {
-        Tower1,
-        Tower2,
-        Tower3
     }
 
     private PossibleGameStates gameState;
@@ -110,14 +99,10 @@ public class Game : MonoBehaviour
                 {
                     BuildOnCell(hit.collider.gameObject);
                     this.LoseMoney(hitCell.getCost());
-                    Debug.Log("Oro restante: " + this.gold);
                 }
             }
-            Debug.Log(isTowerBuildModeOn);
             if (!isBuildModeOn && Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
             {
-                Debug.Log("torreta");
-                //towerType = TowerType.Tower1;
                 RaycastHit2D hit = Physics2D.Raycast(TouchRay.origin, TouchRay.direction, Mathf.Infinity, LayerMask.GetMask("Cell"));
                 Cell hitCell = hit.collider.gameObject.GetComponent<Cell>();
                 //Tower tower = towers[(int)towerType].gameObject.GetComponent<Tower>();
@@ -125,28 +110,14 @@ public class Game : MonoBehaviour
                 {
                     if (hit.collider != null && hitCell.node.GetUsed() && !hitCell.HasAttachedTurret()) //&& (this.gold >= tower.getCost())) //Esta es la linea de error null reference exeption
                     {
-                        Debug.Log("hola");
                         if ((this.gold >= 3000))
                         {
-                            GameObject turret = null;
-                            switch (dropdown.value)
-                            {
-                                case 1:
-                                    turret = Instantiate(tower1, hit.collider.gameObject.transform.position, Quaternion.identity);
-                                    break;
-                                case 2:
-                                    turret = Instantiate(tower2, hit.collider.gameObject.transform.position, Quaternion.identity);
-                                    break;
-                                case 3:
-                                    turret = Instantiate(tower3, hit.collider.gameObject.transform.position, Quaternion.identity);
-                                    break;
-                            }
+                            GameObject turret = Instantiate(towerToSpawn, hit.collider.gameObject.transform.position, Quaternion.identity);
                             // Se instancia y pone la torreta
                             hitCell.AttachTurret(turret);
                             StackCZ.Push(turret);
                             // El jugador pierde 3000 en la construccion.
                             this.LoseMoney(3000);
-                            Debug.Log("Oro restante:  " + this.gold);
                         }
                         else
                         {
@@ -180,6 +151,12 @@ public class Game : MonoBehaviour
             }
         }
     }
+
+    private void LateUpdate()
+    {
+        goldText.text = this.gold.ToString();
+    }
+
     public void EnableBuildMode()
     {
         if (isBuildModeOn)
@@ -189,7 +166,6 @@ public class Game : MonoBehaviour
         else
         {
             isBuildModeOn = true;
-            isTowerBuildModeOn = false;
         }
 
         dropdown.value = 0;
@@ -198,6 +174,14 @@ public class Game : MonoBehaviour
     public void EnableTowerBuildMode()
     {
         isBuildModeOn = false;
+        if (dropdown.value > 0)
+        {
+            towerToSpawn = towers[dropdown.value - 1]; //el dropdown tiene como valor 0 el cartel que dice "torres"
+        }
+        else
+        {
+            towerToSpawn = null;
+        }
     }
 
     private void BuildOnCell(GameObject cell)
