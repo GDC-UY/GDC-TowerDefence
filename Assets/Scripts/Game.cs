@@ -31,6 +31,8 @@ public class Game : MonoBehaviour
     public EnemySummoner summoner;
     public TextMeshProUGUI timerMesh, roundMesh, goldText;
     GameObject towerToSpawn;
+    
+    [SerializeField] private Button SkipWaveButton;
 
     private enum PossibleGameStates
     {
@@ -69,6 +71,7 @@ public class Game : MonoBehaviour
     {
         undoBuildButton.onClick.AddListener(DestroyCell);
         activateBuildModeButton.onClick.AddListener(EnableBuildMode);
+        
         gm.previewPath();
 
         dropdown.onValueChanged.AddListener(delegate
@@ -79,11 +82,12 @@ public class Game : MonoBehaviour
         gm.previewPath();
         this.enemyPoints = 20;
         this.roundCounter = 1;
-        this.roundMesh.SetText(roundCounter.ToString());
+        this.roundMesh.SetText("Wave " + roundCounter.ToString());
         this.gameState = PossibleGameStates.Building;
         roundTimerCoroutine = reduceTime();
         StartCoroutine(roundTimerCoroutine);
         enemiesSpawned = false;
+        this.SkipWaveButton.interactable = true;
     }
     // Game encarga de los inputs
     void Update()
@@ -144,10 +148,11 @@ public class Game : MonoBehaviour
                 enemiesSpawned = false;
                 this.roundCounter++;
                 this.roundTimer = 90;
-                this.roundMesh.SetText(roundCounter.ToString());
+                this.roundMesh.SetText("Wave " + roundCounter.ToString());
                 this.increaseEnemyPoints();
                 this.gameState = PossibleGameStates.Building;
                 StartCoroutine(reduceTime());
+                this.SkipWaveButton.interactable = true;
             }
         }
     }
@@ -159,27 +164,40 @@ public class Game : MonoBehaviour
 
     public void EnableBuildMode()
     {
+        if (dropdown.value > 0)
+        {
+            dropdown.value = 0;
+            dropdown.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+        }
+        
         if (isBuildModeOn)
         {
             isBuildModeOn = false;
+            activateBuildModeButton.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+            
         }
         else
         {
             isBuildModeOn = true;
+            activateBuildModeButton.GetComponent<Image>().color = new Color32(0, 255, 0, 255);
+            
         }
-
-        dropdown.value = 0;
     }
 
     public void EnableTowerBuildMode()
     {
         isBuildModeOn = false;
+        activateBuildModeButton.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+        
+        dropdown.GetComponent<Image>().color = new Color32(0, 255, 0, 255);
+        
         if (dropdown.value > 0)
         {
             towerToSpawn = towers[dropdown.value - 1]; //el dropdown tiene como valor 0 el cartel que dice "torres"
         }
         else
         {
+            dropdown.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
             towerToSpawn = null;
         }
     }
@@ -201,24 +219,27 @@ public class Game : MonoBehaviour
 
     public void DestroyCell()
     {
-        if (StackCZ.Any())
+        if (this.gameState == PossibleGameStates.Building)
         {
-            GameObject gamePop = StackCZ.Pop();
-            if (gamePop.tag == "Cell")
+            if (StackCZ.Any())
             {
-                // El jugador recupera 50% de la plata que le costo hacer la torre, por ahora 1500
-                Cell cell = gamePop.gameObject.GetComponent<Cell>();
-                this.RecieveMoney(cell.getCost() / 2);
+                GameObject gamePop = StackCZ.Pop();
+                if (gamePop.tag == "Cell")
+                {
+                    // El jugador recupera 50% de la plata que le costo hacer la torre, por ahora 1500
+                    Cell cell = gamePop.gameObject.GetComponent<Cell>();
+                    this.RecieveMoney(cell.getCost() / 2);
 
-                cell.node.SetUsed(false);
-                cell.RemoveWall();
-                gm.updatePath(cell);
-            }
-            else
-            {
-                Cell cell = gamePop.transform.parent.gameObject.GetComponent<Cell>();
-                cell.DeatachTurret();
-                this.RecieveMoney(gamePop.GetComponent<Tower>().getCost() / 2);
+                    cell.node.SetUsed(false);
+                    cell.RemoveWall();
+                    gm.updatePath(cell);
+                }
+                else
+                {
+                    Cell cell = gamePop.transform.parent.gameObject.GetComponent<Cell>();
+                    cell.DeatachTurret();
+                    this.RecieveMoney(gamePop.GetComponent<Tower>().getCost() / 2);
+                }
             }
         }
     }
@@ -260,7 +281,10 @@ public class Game : MonoBehaviour
         if (this.gameState == PossibleGameStates.Building)
         {
             this.roundTimer = 0;
-            this.timerMesh.SetText(String.Empty);
+            this.timerMesh.SetText("Wave in : NOW!");
+            this.SkipWaveButton.interactable = false;
+            isBuildModeOn = false;
+            activateBuildModeButton.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
         }
     }
 
@@ -268,7 +292,7 @@ public class Game : MonoBehaviour
     {
         while (this.roundTimer > 0)
         {
-            this.timerMesh.SetText(roundTimer.ToString());
+            this.timerMesh.SetText("Wave in : " + roundTimer.ToString() + "s");
             yield return new WaitForSeconds(1);
             this.roundTimer--;
         }
