@@ -37,6 +37,7 @@ public class GridManager : MonoBehaviour
 
     private void Awake()
     {
+        this.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0);
         if (instance == null)
         {
             instance = this;
