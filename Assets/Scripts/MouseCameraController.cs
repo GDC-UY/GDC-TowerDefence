@@ -29,6 +29,8 @@ public class MouseCameraController : MonoBehaviour
     [SerializeField] Vector3 hitPosition = Vector3.zero;
     [SerializeField] Vector3 currentPosition = Vector3.zero;
     [SerializeField] Vector3 cameraPosition = Vector3.zero;
+
+    [SerializeField] GameObject towerDropdown;
     
     private void Start()
     {
@@ -57,45 +59,48 @@ public class MouseCameraController : MonoBehaviour
         Debug.DrawLine(new Vector2(MaxX, MinY), new Vector2(MinX, MinY));
         Debug.DrawLine(new Vector2(MinX, MaxY), new Vector2(MinX, MinY));
         Debug.DrawLine(new Vector2(MaxX, MinY), new Vector2(MaxX, MaxY));
-
-        var wheelValue = Input.GetAxis("Mouse ScrollWheel");
-        if (wheelValue < 0)
+        
+        if (towerDropdown.transform.childCount != 5) //no mover la camara ni hacer zoom mientras esta el dropdown de las torres abierto
         {
-            if (!(cam.orthographicSize >= maxZoom))
+            var wheelValue = Input.GetAxis("Mouse ScrollWheel");
+            if (wheelValue < 0)
             {
-                cam.orthographicSize = cam.orthographicSize + mouseSpeed;
-                if (cam.orthographicSize >= maxZoom)
+                if (!(cam.orthographicSize >= maxZoom))
                 {
-                    cam.orthographicSize = maxZoom;
+                    cam.orthographicSize = cam.orthographicSize + mouseSpeed;
+                    if (cam.orthographicSize >= maxZoom)
+                    {
+                        cam.orthographicSize = maxZoom;
+                    }
+                    GetBounds();
                 }
-                GetBounds();
             }
-        }
-        else if(wheelValue > 0)
-        {
-            if(!(cam.orthographicSize <= minZoom))
+            else if (wheelValue > 0)
             {
-                cam.orthographicSize = cam.orthographicSize - mouseSpeed;
-                if (cam.orthographicSize <= minZoom)
+                if (!(cam.orthographicSize <= minZoom))
                 {
-                    cam.orthographicSize = minZoom;
+                    cam.orthographicSize = cam.orthographicSize - mouseSpeed;
+                    if (cam.orthographicSize <= minZoom)
+                    {
+                        cam.orthographicSize = minZoom;
+                    }
+                    GetBounds();
                 }
-                GetBounds();
             }
-        }
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            hitPosition = Input.mousePosition;
-            cameraPosition = transform.position;
-
-        }
-        if (Input.GetMouseButton(0))
-        {
-            currentPosition = Input.mousePosition;
-            if (this.transform.position.y < MaxY && this.transform.position.y > MinY && this.transform.position.x > MinX && this.transform.position.x < MaxX)
+            if (Input.GetMouseButtonDown(0))
             {
-                LeftMouseDrag();
+                hitPosition = Input.mousePosition;
+                cameraPosition = transform.position;
+
+            }
+            if (Input.GetMouseButton(0))
+            {
+                currentPosition = Input.mousePosition;
+                if (this.transform.position.y < MaxY && this.transform.position.y > MinY && this.transform.position.x > MinX && this.transform.position.x < MaxX)
+                {
+                    LeftMouseDrag();
+                }
             }
         }
 

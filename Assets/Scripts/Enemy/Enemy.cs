@@ -12,15 +12,29 @@ public class Enemy : MonoBehaviour
     public int damage = 1; //Daño que hace el enemigo a la base del jugador
     public int cost = 11; //Costo de invocación del enemigo (USO INTERNO)
 
-    public string WalkingDirection = "UP";
     public int gold = 10; //Oro que deja al morir
-    
+
     public bool isWalking = false; // Cambia "Walk" a "isWalking"
-    
+
     private GridManager manager;
     private LinkedList<Node> enemyPath;
     private LinkedListNode<Node> next;
     private GameObject nextGO;
+    public WalkingDirection walkDirection;
+
+    public Sprite walk1, walk2, walk3, up1, up2, up3, down1, down2, down3;
+
+    private SpriteRenderer spriteRenderer;
+
+    bool walkRight = true;
+
+    public enum WalkingDirection
+    {
+        Up,
+        Down, 
+        Left,
+        Right
+    }
     
     public void death()
     {
@@ -40,6 +54,13 @@ public class Enemy : MonoBehaviour
         // Genera un offset aleatorio
         offSetX = Random.Range(-0.25f, 0.25f);
         offSetY = Random.Range(-0.25f, 0.25f);
+
+        walkDirection = WalkingDirection.Right;
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        if (!gameObject.name.Contains("Toro"))
+        {
+            StartCoroutine(WalkAnimation());
+        }
     }
     
     private float deltaX;
@@ -99,19 +120,71 @@ public class Enemy : MonoBehaviour
         
         if (x > 0)
         {
-            WalkingDirection = "RIGHT";
+            walkDirection = WalkingDirection.Right;
         }
         else if (x < 0)
         {
-            WalkingDirection = "LEFT";
+            walkDirection = WalkingDirection.Left;
         }
         else if (y > 0)
         {
-            WalkingDirection = "UP";
+            walkDirection = WalkingDirection.Up;
         }
         else if (y < 0)
         {
-            WalkingDirection = "DOWN";
+            walkDirection = WalkingDirection.Down;
+        }
+    }
+
+    IEnumerator WalkAnimation()
+    {
+        while (true)
+        {
+            switch (walkDirection)
+            {
+                case WalkingDirection.Right:
+                    if (!walkRight)
+                    {
+                        walkRight = true;
+                        gameObject.transform.Rotate(0, 180, 0);
+                    }
+                    spriteRenderer.sprite = walk1;
+                    yield return new WaitForSeconds(0.2f);
+                    spriteRenderer.sprite = walk2;
+                    yield return new WaitForSeconds(0.1f);
+                    spriteRenderer.sprite = walk3;
+                    yield return new WaitForSeconds(0.2f);
+                    break;
+                case WalkingDirection.Left:
+                    if (walkRight)
+                    {
+                        walkRight = false;
+                        gameObject.transform.Rotate(0, 180, 0);
+                    }
+                    spriteRenderer.sprite = walk1;
+                    yield return new WaitForSeconds(0.2f);
+                    spriteRenderer.sprite = walk2;
+                    yield return new WaitForSeconds(0.1f);
+                    spriteRenderer.sprite = walk3;
+                    yield return new WaitForSeconds(0.2f);
+                    break;
+                case WalkingDirection.Up:
+                    spriteRenderer.sprite = up1;
+                    yield return new WaitForSeconds(0.2f);
+                    spriteRenderer.sprite = up2;
+                    yield return new WaitForSeconds(0.2f);
+                    spriteRenderer.sprite = up3;
+                    yield return new WaitForSeconds(0.2f);
+                    break;
+                case WalkingDirection.Down:
+                    spriteRenderer.sprite = down1;
+                    yield return new WaitForSeconds(0.2f);
+                    spriteRenderer.sprite = down2;
+                    yield return new WaitForSeconds(0.2f);
+                    spriteRenderer.sprite = down3;
+                    yield return new WaitForSeconds(0.2f);
+                    break;
+            }
         }
     }
 }

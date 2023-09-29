@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 104020759841555624}
   - component: {fileID: 104020759841555627}
   - component: {fileID: -4155555621812833070}
+  - component: {fileID: 5883600381031253133}
   m_Layer: 0
-  m_Name: defaultEnemy 1
+  m_Name: Samurai2
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 104020759841555626}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -10, y: 4, z: 0}
-  m_LocalScale: {x: 0.25, y: 0.25, z: 1}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -75,8 +76,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0, g: 1, b: 0.95873094, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 01e06deb8c15bf34ea45637b63431b57, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -99,10 +100,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
-  speed: 3
+  speed: 1
   damage: 1
   cost: 1
+  gold: 10
   isWalking: 1
+  walkDirection: 0
+  walk1: {fileID: 21300000, guid: 01e06deb8c15bf34ea45637b63431b57, type: 3}
+  walk2: {fileID: 21300000, guid: 18baf111036de5048a06e71738a9fc28, type: 3}
+  walk3: {fileID: 21300000, guid: 17487e1712b6d9b49928d856ab3f4102, type: 3}
+  up1: {fileID: 21300000, guid: c3559573d8a82304eb88794536517a19, type: 3}
+  up2: {fileID: 21300000, guid: b83dba20d3021da43b8114f54ce63862, type: 3}
+  up3: {fileID: 21300000, guid: fca303d67b0335a4d86fa14807ff0a34, type: 3}
+  down1: {fileID: 21300000, guid: 0738772e485fb6b42abffb996251d083, type: 3}
+  down2: {fileID: 21300000, guid: 8de1e833ef3ea1a4e8d73787e6c3463d, type: 3}
+  down3: {fileID: 21300000, guid: 1437b7ea89a0e404e9b9a9487cd9ff4e, type: 3}
 --- !u!58 &-4155555621812833070
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -119,3 +131,24 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!95 &5883600381031253133
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 104020759841555626}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

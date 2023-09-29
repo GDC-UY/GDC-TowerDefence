@@ -101,11 +101,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
-  speed: 3
+  speed: 2
   damage: 1
-  cost: 1
-  WalkingDirection: UP
+  cost: 6
+  gold: 10
   isWalking: 1
+  walkDirection: 0
+  walk1: {fileID: 0}
+  walk2: {fileID: 0}
+  walk3: {fileID: 0}
+  up1: {fileID: 0}
+  up2: {fileID: 0}
+  up3: {fileID: 0}
+  down1: {fileID: 0}
+  down2: {fileID: 0}
+  down3: {fileID: 0}
 --- !u!58 &-4155555621812833070
 CircleCollider2D:
   m_ObjectHideFlags: 0

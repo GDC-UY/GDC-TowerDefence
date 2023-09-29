@@ -17,21 +17,21 @@ public class ToroPJ : MonoBehaviour
 
     void Update()
     {
-        if (e.WalkingDirection == "RIGHT")
+        if (e.walkDirection.Equals(Enemy.WalkingDirection.Right))
         {
-            anim.SetInteger("Direction", 0);
+            anim.SetTrigger("Right");
         }
-        else if (e.WalkingDirection == "DOWN")
+        else if (e.walkDirection.Equals(Enemy.WalkingDirection.Down))
         {
-            anim.SetInteger("Direction", 1);
+            anim.SetTrigger("Down");
         }
-        else if (e.WalkingDirection == "LEFT")
+        else if (e.walkDirection.Equals(Enemy.WalkingDirection.Left))
         {
-            anim.SetInteger("Direction", 2);
+            anim.SetTrigger("Left");
         }
         else
         {
-            anim.SetInteger("Direction", 3);
+            anim.SetTrigger("Up");
         }
         
     }
