@@ -1,8 +1,6 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class EnemySummoner : MonoBehaviour
 {
@@ -28,16 +26,18 @@ public class EnemySummoner : MonoBehaviour
 
     //El codigo deberia de spawnear los enemigos con mas coste primero y luego ir bajando asi rellenar con enemigos de bajo coste hasta ser 0
     //Tambien si sobran puntos deberia de rellenar con enemigos de bajo coste
-    public void spawnEnemies(Vector3 enemyBase, int roundPoints)
+    public void spawnEnemies(int roundPoints)
     {
         int index = 0;
         if (enemiesCost.Length != 0 || enemies.Length != 0)
         {
             while (roundPoints > 0)
             {
+                Vector2 v = new Vector2(Random.Range(-20.5f, -30.5f), 0.5f);
+                
                 if (roundPoints >= enemiesCost[index])
                 {
-                    Instantiate(enemies[index], enemyBase, Quaternion.identity, gameObject.transform);
+                    Instantiate(enemies[index], v, Quaternion.identity, gameObject.transform);
                     roundPoints -= enemiesCost[index];
                     counter++;
                 }

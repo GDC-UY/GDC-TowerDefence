@@ -113,7 +113,7 @@ MonoBehaviour:
   TUp: {fileID: 21300000, guid: 847f1ad154d4b6a74ba516c0840e0064, type: 3}
   TDown: {fileID: 21300000, guid: 1d4ee247dac78442894ac5390209aae1, type: 3}
   CenterNoConnections: {fileID: 21300000, guid: b2ba6cd258374ea2f91afa409d85ef5c, type: 3}
-  EnemyPathSprite: {fileID: 21300000, guid: a0b414f4807c8d94a91d286b3c2e228e, type: 3}
+  EnemyPathSprite: {fileID: 1408552424, guid: 11d1ba7118fd14f4493fe15a3b83b1b2, type: 3}
 --- !u!61 &-7451650621165598817
 BoxCollider2D:
   m_ObjectHideFlags: 0

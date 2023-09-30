@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class Game : MonoBehaviour
 {
@@ -90,13 +91,32 @@ public class Game : MonoBehaviour
         this.SkipWaveButton.interactable = true;
     }
     // Game encarga de los inputs
+    
+    bool preventDrag = false;
+    Vector2 prevPos = Vector2.zero;
+    float dragThreshold = 25.0f;
+
     void Update()
     {
         if (this.gameState.Equals(PossibleGameStates.Building))
         {
-            if (isBuildModeOn && Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+            if (Input.GetMouseButtonDown(0))
             {
-                //Para evitar errores de null reference exeption debido a la hitbox de la torreta, el raycast solo detecta objetos de la capa Cell
+                preventDrag = false;
+                prevPos = Input.mousePosition;
+            }
+
+            if (Vector2.Distance(prevPos, Input.mousePosition) > dragThreshold && Input.GetMouseButton(0))
+            {
+                if (preventDrag)
+                {
+                    return;
+                }
+                preventDrag = true;
+            }
+
+            if (isBuildModeOn && Input.GetMouseButtonUp(0) && !EventSystem.current.IsPointerOverGameObject() && !preventDrag)
+            {
                 RaycastHit2D hit = Physics2D.Raycast(TouchRay.origin, TouchRay.direction, Mathf.Infinity, LayerMask.GetMask("Cell"));
                 Cell hitCell = hit.collider.gameObject.GetComponent<Cell>();
                 if (hit.collider.gameObject != null && (this.gold >= hitCell.getCost()) && !hitCell.node.GetUsed())
@@ -105,7 +125,7 @@ public class Game : MonoBehaviour
                     this.LoseMoney(hitCell.getCost());
                 }
             }
-            if (!isBuildModeOn && Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+            if (!isBuildModeOn && Input.GetMouseButtonUp(0) && !EventSystem.current.IsPointerOverGameObject() && !preventDrag)
             {
                 RaycastHit2D hit = Physics2D.Raycast(TouchRay.origin, TouchRay.direction, Mathf.Infinity, LayerMask.GetMask("Cell"));
                 Cell hitCell = hit.collider.gameObject.GetComponent<Cell>();
@@ -141,7 +161,7 @@ public class Game : MonoBehaviour
             if (!enemiesSpawned)
             {
                 enemiesSpawned = true;
-                summoner.spawnEnemies(summoner.gameObject.transform.position, this.enemyPoints);
+                summoner.spawnEnemies(this.enemyPoints);
             }
             else if (summoner.getEnemyAmount() == 0 && enemiesSpawned)
             {
