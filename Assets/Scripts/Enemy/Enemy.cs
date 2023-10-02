@@ -149,4 +149,9 @@ public class Enemy : MonoBehaviour
             }
         }
     }
+
+    public void ReceiveDamage(int damage)
+    {
+        health -= damage;
+    }
 }

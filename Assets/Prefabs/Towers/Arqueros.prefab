@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 3980668479387134963}
   - component: {fileID: 3980668479387134962}
-  - component: {fileID: 8078558059529034996}
   - component: {fileID: 8491289007853288625}
   - component: {fileID: 6256414364644046804}
+  - component: {fileID: 5027795791454424112}
   m_Layer: 0
-  m_Name: Tower 3
+  m_Name: Arqueros
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -87,20 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8078558059529034996
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3980668479387134960}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7a92a2f37c700f419ea9cef3943d232, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  cost: 3000
 --- !u!58 &8491289007853288625
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -138,3 +124,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &5027795791454424112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3980668479387134960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1340772b5bd98e24db0296882a2d3366, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  cost: 3000
+  projectile: {fileID: 4604469828766432079, guid: 6dd98a6ac7aacc24f9920036ffe84666, type: 3}

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tower : MonoBehaviour
+public class Aceite : MonoBehaviour
 {
     [SerializeField] Transform target;
     GameObject playerBase;
@@ -12,9 +12,10 @@ public class Tower : MonoBehaviour
 
     public GameObject projectile;
 
-    private float attackSpeed = 1;
+    private float attackSpeed = 5;
 
-    public int getCost() {
+    public int getCost()
+    {
         return cost;
     }
 
@@ -26,14 +27,8 @@ public class Tower : MonoBehaviour
         playerBase = GameObject.Find("19x19");
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     /// <summary>
-    /// De todos los enemigos, encuentra el m√°s cercano a la torre y lo targetea. Si no hay ninguno, el target es null
+    /// De todos los enemigos, encuentra el m·s cercano a la torre y lo targetea. Si no hay ninguno, el target es null
     /// </summary>
     void UpdateTarget()
     {
@@ -43,7 +38,7 @@ public class Tower : MonoBehaviour
         foreach (GameObject enemy in enemiesInRange)
         {
             float distanceEnemyToBase = Vector3.Distance(playerBase.transform.position, enemy.transform.position);
-            
+
             if (distanceEnemyToBase < shortestDistance)
             {
                 shortestDistance = distanceEnemyToBase;
@@ -65,8 +60,7 @@ public class Tower : MonoBehaviour
     {
         if (target != null)
         {
-            GameObject projectileToShoot = Instantiate(projectile, gameObject.transform.position, Quaternion.identity);
-            projectileToShoot.GetComponent<Flecha>().SetTarget(target);
+            GameObject projectileToShoot = Instantiate(projectile, target.position, Quaternion.identity);
         }
     }
 
