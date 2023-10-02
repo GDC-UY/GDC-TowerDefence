@@ -12,10 +12,9 @@ GameObject:
   - component: {fileID: 104020759841555624}
   - component: {fileID: 104020759841555627}
   - component: {fileID: -4155555621812833070}
-  - component: {fileID: -558677363903435931}
-  - component: {fileID: 5104380733622298405}
+  - component: {fileID: 5975020683857204124}
   m_Layer: 0
-  m_Name: ToroPJ
+  m_Name: Samurai2
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 104020759841555626}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -10, y: 4, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -77,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 21300000, guid: 08e3aa89c5d7dd23983a75147c7b9384, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1164e1d2fe6b9ad4b97ac33fe9365f6c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -101,10 +100,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
-  speed: 3
+  speed: 1
   damage: 1
   cost: 1
   WalkingDirection: UP
+  gold: 10
   isWalking: 1
 --- !u!58 &-4155555621812833070
 CircleCollider2D:
@@ -122,7 +122,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!95 &-558677363903435931
+--- !u!95 &5975020683857204124
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -132,7 +132,7 @@ Animator:
   m_GameObject: {fileID: 104020759841555626}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 4c8b712e5abd3847e9bd1b581b7da97b, type: 2}
+  m_Controller: {fileID: 9100000, guid: 3358d591d5313854da0cbf682b35ad7a, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -143,15 +143,3 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &5104380733622298405
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 104020759841555626}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 144c6750323f3002a8be3b3c930c91c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

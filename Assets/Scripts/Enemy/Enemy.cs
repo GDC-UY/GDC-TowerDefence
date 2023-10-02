@@ -21,6 +21,10 @@ public class Enemy : MonoBehaviour
     private LinkedList<Node> enemyPath;
     private LinkedListNode<Node> next;
     private GameObject nextGO;
+
+    private Animator anim;
+
+    private bool walk = true, up = true, down = true;
     
     public void death()
     {
@@ -40,6 +44,8 @@ public class Enemy : MonoBehaviour
         // Genera un offset aleatorio
         offSetX = Random.Range(-0.25f, 0.25f);
         offSetY = Random.Range(-0.25f, 0.25f);
+
+        anim = gameObject.GetComponent<Animator>();
     }
     
     private float deltaX;
@@ -100,18 +106,47 @@ public class Enemy : MonoBehaviour
         if (x > 0)
         {
             WalkingDirection = "RIGHT";
+            if (walk)
+            {
+                walk = false;
+                up = true;
+                down = true;
+                anim.SetTrigger("Walk");
+            }
+            
         }
         else if (x < 0)
         {
             WalkingDirection = "LEFT";
+            if (walk)
+            {
+                walk = false;
+                up = true;
+                down = true;
+                anim.SetTrigger("Walk");
+            }
         }
         else if (y > 0)
         {
             WalkingDirection = "UP";
+            if (up)
+            {
+                walk = true;
+                up = false;
+                down = true;
+                anim.SetTrigger("Up");
+            }
         }
         else if (y < 0)
         {
             WalkingDirection = "DOWN";
+            if (down)
+            {
+                walk = true;
+                up = true;
+                down = false;
+                anim.SetTrigger("Down");
+            }
         }
     }
 }

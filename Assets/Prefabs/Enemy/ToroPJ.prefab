@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 21300000, guid: 08e3aa89c5d7dd23983a75147c7b9384, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e7edea18a84604850a9c1f4a6f5d3f12, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -101,10 +101,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
-  speed: 3
+  speed: 1.5
   damage: 1
-  cost: 1
+  cost: 6
   WalkingDirection: UP
+  gold: 10
   isWalking: 1
 --- !u!58 &-4155555621812833070
 CircleCollider2D:
@@ -150,7 +151,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 104020759841555626}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 144c6750323f3002a8be3b3c930c91c2, type: 3}
   m_Name: 
