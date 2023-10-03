@@ -5,12 +5,6 @@ public class MouseCameraController : MonoBehaviour
 {
     private Camera cam;
 
-    [Header("Puntos Límite del Mapa")]
-    [SerializeField] private Transform topLeftPoint;
-    [SerializeField] private Transform topRightPoint;
-    [SerializeField] private Transform bottomLeftPoint;
-    [SerializeField] private Transform bottomRightPoint;
-
     public float boundX;
     public float boundY;
 
@@ -40,11 +34,41 @@ public class MouseCameraController : MonoBehaviour
     {
         boundX = this.GetComponent<Camera>().orthographicSize * Screen.width / Screen.height;
         boundY = this.GetComponent<Camera>().orthographicSize;
+    }
+
+    private void mouseWheelFactor(float num)
+    {
+        if (num == 100)
+        {
+            MaxY = 6.5f;
+            MinY = -5.5f;
+            MaxX = 7;
+            MinX = -7;
+        }
+        else if (num == -100)
+        {
+            MaxY = 17;
+            MinY = -16;
+            MaxX = 28f;
+            MinX = -28f;
+        }
+        else if (num < 0)
+        {
+            MaxY = MaxY - 0.5f;
+            MinY = MinY + 0.5f;
+            
+            MaxX = MaxX - 1;
+            MinX = MinX + 1;
+        }
         
-        MaxY = topLeftPoint.position.y;
-        MinY = bottomLeftPoint.position.y;
-        MaxX = topRightPoint.position.x;
-        MinX = topLeftPoint.position.x;
+        else if (num > 0)
+        {
+            MaxY = MaxY + 0.5f;
+            MinY = MinY - 0.5f;
+            
+            MaxX = MaxX + 1;
+            MinX = MinX - 1;
+        }
     }
 
     void Update()
@@ -66,9 +90,11 @@ public class MouseCameraController : MonoBehaviour
             if (!(cam.orthographicSize >= maxZoom))
             {
                 cam.orthographicSize = cam.orthographicSize + mouseSpeed;
+                mouseWheelFactor(-1);
                 if (cam.orthographicSize >= maxZoom)
                 {
                     cam.orthographicSize = maxZoom;
+                    mouseWheelFactor(100);
                 }
                 getBounds();
             }
@@ -78,9 +104,11 @@ public class MouseCameraController : MonoBehaviour
             if(!(cam.orthographicSize <= minZoom))
             {
                 cam.orthographicSize = cam.orthographicSize - mouseSpeed;
+                mouseWheelFactor(1);
                 if (cam.orthographicSize <= minZoom)
                 {
                     cam.orthographicSize = minZoom;
+                    mouseWheelFactor(-100);
                 }
                 getBounds();
             }

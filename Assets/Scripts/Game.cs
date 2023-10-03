@@ -19,6 +19,7 @@ public class Game : MonoBehaviour
     public bool isBuildModeOn;
     public GameObject Enemy;
     public int gold;
+    public int health = 100;
     private Stack<GameObject> StackCZ = new Stack<GameObject>();
     public GameObject notEnoughGoldText;
     public TMP_Dropdown dropdown;
