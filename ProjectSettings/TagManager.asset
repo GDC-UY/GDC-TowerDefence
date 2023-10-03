@@ -8,6 +8,7 @@ TagManager:
   - Cell
   - Enemy
   - Tower
+  - AllyBase
   layers:
   - Default
   - TransparentFX
