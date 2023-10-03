@@ -7,7 +7,7 @@ public class Lanza : MonoBehaviour
     GameObject abajo, costado;
 
     [SerializeField] private int cost;
-
+    [SerializeField] private float attackSpeed;
     private int damage = 20;
 
     private void Start()
@@ -35,7 +35,7 @@ public class Lanza : MonoBehaviour
         abajo.transform.localScale = new Vector3(0.2f, 3.6f, 0);
         costado.transform.localScale = new Vector3(3.6f, 0.2f, 0);
 
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(attackSpeed);
 
         abajo.transform.localScale = new Vector3(0.2f, 0.2f, 0);
         costado.transform.localScale = new Vector3(0.2f, 0.2f, 0);

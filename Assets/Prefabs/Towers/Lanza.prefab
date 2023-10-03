@@ -260,6 +260,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cost: 3000
+  attackSpeed: 3
 --- !u!1 &6975394627854634121
 GameObject:
   m_ObjectHideFlags: 0

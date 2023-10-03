@@ -29,8 +29,8 @@ public class Enemy : MonoBehaviour
     public void death()
     {
         this.gameObject.transform.parent.GetComponent<EnemySummoner>().enemyDied();
+        GameObject.FindGameObjectWithTag("Game").gameObject.GetComponent<Game>().RecieveMoney(gold);
         Destroy(this.gameObject);
-        //return gold -/- game.RecieveMoney(gold) //Cuando muere debe retornar o llamar al metodo para que el jugador reciba oro. Por ahora no estan vinculados los archivos.
     }
     
     private void Start()

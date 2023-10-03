@@ -12,7 +12,7 @@ public class Arqueros : MonoBehaviour
 
     public GameObject projectile;
 
-    private float attackSpeed = 1;
+    [SerializeField] private float attackSpeed;
 
     public int getCost()
     {
@@ -34,7 +34,7 @@ public class Arqueros : MonoBehaviour
     }
 
     /// <summary>
-    /// De todos los enemigos, encuentra el más cercano a la torre y lo targetea. Si no hay ninguno, el target es null
+    /// De todos los enemigos, encuentra el mï¿½s cercano a la torre y lo targetea. Si no hay ninguno, el target es null
     /// </summary>
     void UpdateTarget()
     {
@@ -64,10 +64,13 @@ public class Arqueros : MonoBehaviour
 
     private void Shoot()
     {
-        if (target != null)
+        if (target != null && this.GetComponent<CircleCollider2D>().radius > Vector3.Distance(target.position, transform.position))
         {
             GameObject projectileToShoot = Instantiate(projectile, gameObject.transform.position, Quaternion.identity);
+            Vector3 directionToEnemy = (target.position - projectileToShoot.gameObject.transform.position).normalized;
+            projectileToShoot.transform.rotation = Quaternion.LookRotation(Vector3.forward, directionToEnemy);
             projectileToShoot.GetComponent<Flecha>().SetTarget(target);
+            
         }
     }
 
