@@ -5,6 +5,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -19,7 +20,6 @@ public class Game : MonoBehaviour
     public bool isBuildModeOn;
     public GameObject Enemy;
     public int gold;
-    public int health = 100;
     private Stack<GameObject> StackCZ = new Stack<GameObject>();
     public GameObject notEnoughGoldText;
     public TMP_Dropdown dropdown;
@@ -33,6 +33,10 @@ public class Game : MonoBehaviour
     public EnemySummoner summoner;
     public TextMeshProUGUI timerMesh, roundMesh, goldText;
     GameObject towerToSpawn;
+
+    [SerializeField] public TMP_Text HealthText;
+    public int health = 100;
+
     
     [SerializeField] private Button SkipWaveButton;
 
@@ -40,6 +44,16 @@ public class Game : MonoBehaviour
     {
         Building,
         Defending
+    }
+
+    public void UpdateHealth(int cant)
+    {
+        health = health - cant;
+        HealthText.text = "Health: " + health;
+        if (health <= 0)
+        {
+            Debug.Log("RELOAD SCENE");
+        }
     }
 
     private PossibleGameStates gameState;
@@ -57,7 +71,7 @@ public class Game : MonoBehaviour
         }
     }
 
-    private void Awake()
+void Start()
     {
         if (instance == null)
         {
@@ -67,10 +81,7 @@ public class Game : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-    }
-
-    void Start()
-    {
+        
         undoBuildButton.onClick.AddListener(DestroyCell);
         activateBuildModeButton.onClick.AddListener(EnableBuildMode);
         

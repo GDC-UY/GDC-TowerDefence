@@ -76,6 +76,7 @@ public class Enemy : MonoBehaviour
             if (Mathf.Abs(deltaX) < speed * Time.deltaTime && Mathf.Abs(deltaY) < speed * Time.deltaTime)
             {
                 transform.position = new Vector2(targetPosition.x, targetPosition.y);
+                Game.Instance.UpdateHealth(this.damage);
                 death();
             }
             else
@@ -113,6 +114,7 @@ public class Enemy : MonoBehaviour
                 }
                 else
                 {
+                    WalkingDirection = "RIGHT";
                     goToBase = true;
                 }
             }
@@ -187,13 +189,5 @@ public class Enemy : MonoBehaviour
     public void ReceiveDamage(int damage)
     {
         health -= damage;
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.tag == "AllyBase")
-        {
-            death();
-        }
     }
 }
