@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 3980668479387134963}
   - component: {fileID: 3980668479387134962}
-  - component: {fileID: 8078558059529034996}
   - component: {fileID: 8491289007853288625}
   - component: {fileID: 6256414364644046804}
+  - component: {fileID: 7968573561021313572}
   m_Layer: 0
-  m_Name: Tower 1
+  m_Name: TorreAceite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 21300000, guid: 13084c4115d77a845b8e7fb6349527fc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7010323b8b9edae489d2e9a8e0af1244, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -87,20 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8078558059529034996
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3980668479387134960}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7a92a2f37c700f419ea9cef3943d232, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  cost: 3000
 --- !u!58 &8491289007853288625
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -138,3 +124,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &7968573561021313572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3980668479387134960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d6ae61fb66fe494aa19f3059f543ad5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  cost: 3000
+  projectile: {fileID: 160845165910118594, guid: 9e723e5e6d18d48448d6f3a308ccb5fa, type: 3}
