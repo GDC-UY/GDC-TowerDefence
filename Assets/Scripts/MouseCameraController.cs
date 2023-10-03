@@ -1,14 +1,9 @@
 using UnityEngine;
 using System.Collections;
-using UnityEngine.Serialization;
 
 public class MouseCameraController : MonoBehaviour
 {
-    public Camera cam;
-    [SerializeField] private GridManager gm;
-
-    [Header("Mapa objeto")]
-    Vector2[] vertices;
+    private Camera cam;
 
     public float boundX;
     public float boundY;
@@ -24,28 +19,56 @@ public class MouseCameraController : MonoBehaviour
     [SerializeField] private float minZoom;
     [SerializeField] private float maxZoom;
 
-    [FormerlySerializedAs("hit_position")]
     [Header("Movimiento del mouse")]
-    [SerializeField] Vector3 hitPosition = Vector3.zero;
-    [SerializeField] Vector3 currentPosition = Vector3.zero;
-    [SerializeField] Vector3 cameraPosition = Vector3.zero;
-
-    public GameObject towerDropdown;
+    [SerializeField] Vector3 hit_position = Vector3.zero;
+    [SerializeField] Vector3 current_position = Vector3.zero;
+    [SerializeField] Vector3 camera_position = Vector3.zero;
     
     private void Start()
     {
-        GetBounds();
+        getBounds();
+        cam = this.GetComponent<Camera>();
     }
 
-    private void GetBounds()
+    private void getBounds()
     {
-        boundY = cam.orthographicSize;
-        boundX = boundY * Screen.width / Screen.height;
+        boundX = this.GetComponent<Camera>().orthographicSize * Screen.width / Screen.height;
+        boundY = this.GetComponent<Camera>().orthographicSize;
+    }
+
+    private void mouseWheelFactor(float num)
+    {
+        if (num == 100)
+        {
+            MaxY = 6.5f;
+            MinY = -5.5f;
+            MaxX = 7;
+            MinX = -7;
+        }
+        else if (num == -100)
+        {
+            MaxY = 17;
+            MinY = -16;
+            MaxX = 28f;
+            MinX = -28f;
+        }
+        else if (num < 0)
+        {
+            MaxY = MaxY - 0.5f;
+            MinY = MinY + 0.5f;
+            
+            MaxX = MaxX - 1;
+            MinX = MinX + 1;
+        }
         
-        //MaxY = (gm.Width/2) - boundY;
-        //MinY = -(gm.Width/2) + boundY;
-        //MaxX = gm.Height/2 - boundX;
-        //MinX = -(gm.Width/2) + boundX;
+        else if (num > 0)
+        {
+            MaxY = MaxY + 0.5f;
+            MinY = MinY - 0.5f;
+            
+            MaxX = MaxX + 1;
+            MinX = MinX - 1;
+        }
     }
 
     void Update()
@@ -60,47 +83,49 @@ public class MouseCameraController : MonoBehaviour
         Debug.DrawLine(new Vector2(MinX, MaxY), new Vector2(MinX, MinY));
         Debug.DrawLine(new Vector2(MaxX, MinY), new Vector2(MaxX, MaxY));
 
-        if (towerDropdown.transform.childCount != 5)
+        
+        var wheelValue = Input.GetAxis("Mouse ScrollWheel");
+        if (wheelValue < 0)
         {
-            var wheelValue = Input.GetAxis("Mouse ScrollWheel");
-            if (wheelValue < 0)
+            if (!(cam.orthographicSize >= maxZoom))
             {
-                if (!(cam.orthographicSize >= maxZoom))
+                cam.orthographicSize = cam.orthographicSize + mouseSpeed;
+                mouseWheelFactor(-1);
+                if (cam.orthographicSize >= maxZoom)
                 {
-                    cam.orthographicSize = cam.orthographicSize + mouseSpeed;
-                    if (cam.orthographicSize >= maxZoom)
-                    {
-                        cam.orthographicSize = maxZoom;
-                    }
-                    GetBounds();
+                    cam.orthographicSize = maxZoom;
+                    mouseWheelFactor(100);
                 }
+                getBounds();
             }
-            else if (wheelValue > 0)
+        }
+        else if(wheelValue > 0)
+        {
+            if(!(cam.orthographicSize <= minZoom))
             {
-                if (!(cam.orthographicSize <= minZoom))
+                cam.orthographicSize = cam.orthographicSize - mouseSpeed;
+                mouseWheelFactor(1);
+                if (cam.orthographicSize <= minZoom)
                 {
-                    cam.orthographicSize = cam.orthographicSize - mouseSpeed;
-                    if (cam.orthographicSize <= minZoom)
-                    {
-                        cam.orthographicSize = minZoom;
-                    }
-                    GetBounds();
+                    cam.orthographicSize = minZoom;
+                    mouseWheelFactor(-100);
                 }
+                getBounds();
             }
+        }
 
-            if (Input.GetMouseButtonDown(0))
-            {
-                hitPosition = Input.mousePosition;
-                cameraPosition = transform.position;
+        if (Input.GetMouseButtonDown(0))
+        {
+            hit_position = Input.mousePosition;
+            camera_position = transform.position;
 
-            }
-            if (Input.GetMouseButton(0))
+        }
+        if (Input.GetMouseButton(0))
+        {
+            current_position = Input.mousePosition;
+            if (this.transform.position.y < MaxY && this.transform.position.y > MinY && this.transform.position.x > MinX && this.transform.position.x < MaxX)
             {
-                currentPosition = Input.mousePosition;
-                if (this.transform.position.y < MaxY && this.transform.position.y > MinY && this.transform.position.x > MinX && this.transform.position.x < MaxX)
-                {
-                    LeftMouseDrag();
-                }
+                LeftMouseDrag();
             }
         }
 
@@ -133,10 +158,10 @@ public class MouseCameraController : MonoBehaviour
 
     void LeftMouseDrag()
     {
-        currentPosition.z = hitPosition.z = cameraPosition.y;
-        Vector3 direction = Camera.main.ScreenToWorldPoint(currentPosition) - Camera.main.ScreenToWorldPoint(hitPosition);
+        current_position.z = hit_position.z = camera_position.y;
+        Vector3 direction = Camera.main.ScreenToWorldPoint(current_position) - Camera.main.ScreenToWorldPoint(hit_position);
         direction = direction * -1;
-        Vector3 position = cameraPosition + direction;
+        Vector3 position = camera_position + direction;
         transform.position = position;
     }
 }

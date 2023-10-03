@@ -33,7 +33,7 @@ public class EnemySummoner : MonoBehaviour
         {
             while (roundPoints > 0)
             {
-                Vector2 v = new Vector2(Random.Range(-20.5f, -30.5f), 0.5f);
+                Vector2 v = new Vector2(Random.Range(-30.5f, -37f), 0.5f);
                 
                 if (roundPoints >= enemiesCost[index])
                 {
