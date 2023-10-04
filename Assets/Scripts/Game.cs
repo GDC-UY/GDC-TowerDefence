@@ -11,6 +11,8 @@ using Random = UnityEngine.Random;
 
 public class Game : MonoBehaviour
 {
+    public static bool CameraShouldMove = true;
+    
     private static Game instance;
     public GridManager gm;
     public GameObject cellSelected;
@@ -26,7 +28,7 @@ public class Game : MonoBehaviour
     Ray TouchRay => Camera.main.ScreenPointToRay(Input.mousePosition);
     public GameObject[] towers;
     private int enemyPoints;
-    private int roundCounter;
+    public int roundCounter;
     private IEnumerator roundTimerCoroutine;
     [SerializeField] private int roundTimer;
     private bool enemiesSpawned;
@@ -46,13 +48,15 @@ public class Game : MonoBehaviour
         Defending
     }
 
-    public void UpdateHealth(int cant)
+    public void UpdateHealth(int cant, Enemy enemy)
     {
         health = health - cant;
         HealthText.text = "Health: " + health;
+        enemy.death();
         if (health <= 0)
         {
-            Debug.Log("RELOAD SCENE");
+            HealthText.text = "";
+            ScoreBoard.instance.death();
         }
     }
 
@@ -196,16 +200,19 @@ void Start()
 
     public void EnableBuildMode()
     {
+        if(this.gameState == PossibleGameStates.Defending)
+            return;
+        
         if (dropdown.value > 0)
         {
             dropdown.value = 0;
-            dropdown.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+            dropdown.GetComponent<Image>().color = new Color32(255, 255, 255, 0);
         }
         
         if (isBuildModeOn)
         {
             isBuildModeOn = false;
-            activateBuildModeButton.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+            activateBuildModeButton.GetComponent<Image>().color = new Color32(255, 255, 255, 0);
             
         }
         else
@@ -219,7 +226,7 @@ void Start()
     public void EnableTowerBuildMode()
     {
         isBuildModeOn = false;
-        activateBuildModeButton.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+        activateBuildModeButton.GetComponent<Image>().color = new Color32(255, 255, 255, 0);
         
         dropdown.GetComponent<Image>().color = new Color32(0, 255, 0, 255);
         
@@ -229,7 +236,7 @@ void Start()
         }
         else
         {
-            dropdown.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+            dropdown.GetComponent<Image>().color = new Color32(255, 255, 255, 0);
             towerToSpawn = null;
         }
     }
@@ -315,8 +322,9 @@ void Start()
             this.roundTimer = 0;
             this.timerMesh.SetText("Wave in : NOW!");
             this.SkipWaveButton.interactable = false;
+            StackCZ.Clear();
             isBuildModeOn = false;
-            activateBuildModeButton.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+            activateBuildModeButton.GetComponent<Image>().color = new Color32(255, 255, 255, 0);
         }
     }
 
