@@ -10,6 +10,7 @@ public class Settings : MonoBehaviour
     public void OpenSettings() //Freno el tiempo para que nada se ejecute en el background
     {
         Time.timeScale = 0;
+        Game.CameraShouldMove = false;
         settingsCanvas.SetActive(true);
         STATUS = true;
     }
@@ -17,6 +18,7 @@ public class Settings : MonoBehaviour
     public void CloseSettings()
     {
         Time.timeScale = 1; 
+        Game.CameraShouldMove = true;
         settingsCanvas.SetActive(false);
         STATUS = false;
     }
