@@ -49,6 +49,8 @@ public class Enemy : MonoBehaviour
         offSetY = Random.Range(-0.25f, 0.25f);
 
         anim = gameObject.GetComponent<Animator>();
+        
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
     }
     
     private float deltaX;
@@ -133,6 +135,8 @@ public class Enemy : MonoBehaviour
             }
         }
     }
+
+    private SpriteRenderer spriteRenderer;
     
     private void MoveAdd(float x, float y)
     {
@@ -147,6 +151,7 @@ public class Enemy : MonoBehaviour
                 walk = false;
                 up = true;
                 down = true;
+                spriteRenderer.flipX = false;
                 anim.SetTrigger("Walk");
             }
             
@@ -159,6 +164,7 @@ public class Enemy : MonoBehaviour
                 walk = false;
                 up = true;
                 down = true;
+                spriteRenderer.flipX = true;
                 anim.SetTrigger("Walk");
             }
         }

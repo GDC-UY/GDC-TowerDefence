@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  cost: 150
+  cost: 60
   projectile: {fileID: 4604469828766432079, guid: 6dd98a6ac7aacc24f9920036ffe84666, type: 3}
   attackSpeed: 1
 --- !u!212 &3980668479387134962

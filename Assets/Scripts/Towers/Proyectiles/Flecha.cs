@@ -7,7 +7,7 @@ public class Flecha : MonoBehaviour
 {
     private Transform target;
     private float speed = 5;
-    private int damage = 10;
+    private int damage = 20;
 
     private void Start()
     {

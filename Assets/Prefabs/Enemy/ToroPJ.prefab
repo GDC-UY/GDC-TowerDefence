@@ -100,12 +100,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4919ed1bf2f120c4989bce6181b9fe7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
-  speed: 1.5
-  damage: 10
-  cost: 11
+  health: 400
+  speed: 1.1
+  damage: 15
+  cost: 41
   WalkingDirection: UP
-  gold: 10
+  gold: 75
   isWalking: 1
 --- !u!95 &-558677363903435931
 Animator:
