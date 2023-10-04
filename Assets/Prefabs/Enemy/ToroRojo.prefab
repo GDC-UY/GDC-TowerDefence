@@ -11,10 +11,11 @@ GameObject:
   - component: {fileID: 104020759841555625}
   - component: {fileID: 104020759841555624}
   - component: {fileID: 104020759841555627}
-  - component: {fileID: 5975020683857204124}
-  - component: {fileID: 4381623471100896200}
+  - component: {fileID: -558677363903435931}
+  - component: {fileID: 5104380733622298405}
+  - component: {fileID: 672533043780882412}
   m_Layer: 0
-  m_Name: Samurai2
+  m_Name: ToroRojo
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 104020759841555626}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -10, y: 4, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -76,8 +77,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 21300000, guid: 1164e1d2fe6b9ad4b97ac33fe9365f6c, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: e7edea18a84604850a9c1f4a6f5d3f12, type: 3}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -99,14 +100,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4919ed1bf2f120c4989bce6181b9fe7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
-  speed: 1
-  damage: 1
-  cost: 7
+  health: 300
+  speed: 1.5
+  damage: 10
+  cost: 6
   WalkingDirection: UP
   gold: 10
   isWalking: 1
---- !u!95 &5975020683857204124
+--- !u!95 &-558677363903435931
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -116,7 +117,7 @@ Animator:
   m_GameObject: {fileID: 104020759841555626}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 3358d591d5313854da0cbf682b35ad7a, type: 2}
+  m_Controller: {fileID: 9100000, guid: 4c8b712e5abd3847e9bd1b581b7da97b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -127,7 +128,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!61 &4381623471100896200
+--- !u!114 &5104380733622298405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 104020759841555626}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 144c6750323f3002a8be3b3c930c91c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!61 &672533043780882412
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -140,7 +153,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.032545835, y: 0.001848042}
+  m_Offset: {x: -0.051377296, y: -0.051377177}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -151,5 +164,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.4294896, y: 0.8428806}
+  m_Size: {x: 0.7842159, y: 0.35264754}
   m_EdgeRadius: 0

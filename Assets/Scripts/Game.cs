@@ -38,7 +38,6 @@ public class Game : MonoBehaviour
 
     [SerializeField] public TMP_Text HealthText;
     public int health = 100;
-
     
     [SerializeField] private Button SkipWaveButton;
 
@@ -112,6 +111,8 @@ void Start()
     Vector2 prevPos = Vector2.zero;
     float dragThreshold = 25.0f;
 
+    private int turretCost;
+
     void Update()
     {
         if (this.gameState.Equals(PossibleGameStates.Building))
@@ -138,7 +139,6 @@ void Start()
                 if (hit.collider.gameObject != null && (this.gold >= hitCell.getCost()) && !hitCell.node.GetUsed())
                 {
                     BuildOnCell(hit.collider.gameObject);
-                    this.LoseMoney(hitCell.getCost());
                 }
             }
             if (!isBuildModeOn && Input.GetMouseButtonUp(0) && !EventSystem.current.IsPointerOverGameObject() && !preventDrag)
@@ -150,14 +150,13 @@ void Start()
                 {
                     if (hit.collider != null && hitCell.node.GetUsed() && !hitCell.HasAttachedTurret()) //&& (this.gold >= tower.getCost())) //Esta es la linea de error null reference exeption
                     {
-                        if ((this.gold >= 3000))
+                        if ((this.gold >= turretCost))
                         {
-                            GameObject turret = Instantiate(towerToSpawn, hit.collider.gameObject.transform.position, Quaternion.identity);
                             // Se instancia y pone la torreta
+                            GameObject turret = Instantiate(towerToSpawn, hit.collider.gameObject.transform.position, Quaternion.identity);
                             hitCell.AttachTurret(turret);
                             StackCZ.Push(turret);
-                            // El jugador pierde 3000 en la construccion.
-                            this.LoseMoney(3000);
+                            this.LoseMoney(turretCost);
                         }
                         else
                         {
@@ -183,7 +182,7 @@ void Start()
             {
                 enemiesSpawned = false;
                 this.roundCounter++;
-                this.roundTimer = 90;
+                this.roundTimer = 30;
                 this.roundMesh.SetText("Wave " + roundCounter.ToString());
                 this.increaseEnemyPoints();
                 this.gameState = PossibleGameStates.Building;
@@ -233,6 +232,24 @@ void Start()
         if (dropdown.value > 0)
         {
             towerToSpawn = towers[dropdown.value - 1]; //el dropdown tiene como valor 0 el cartel que dice "torres"
+
+            switch (towerToSpawn.name)
+            {
+                case("Arqueros"):
+                    turretCost = towerToSpawn.GetComponent<Arqueros>().getCost();
+                    break;
+                
+                case("Lanza"):
+                    turretCost = towerToSpawn.GetComponent<Lanza>().getCost();
+                    break;
+                
+                case("TorreAceite"):
+                    turretCost = towerToSpawn.GetComponent<Aceite>().getCost();
+                    break;
+            }
+            
+            Debug.Log(turretCost);
+
         }
         else
         {
@@ -324,7 +341,9 @@ void Start()
             this.SkipWaveButton.interactable = false;
             StackCZ.Clear();
             isBuildModeOn = false;
+            dropdown.value = 0;
             activateBuildModeButton.GetComponent<Image>().color = new Color32(255, 255, 255, 0);
+            dropdown.GetComponent<Image>().color = new Color32(255, 255, 255, 0);
         }
     }
 

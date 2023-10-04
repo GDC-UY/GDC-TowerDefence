@@ -747,7 +747,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 163.55, y: -98.140015}
+  m_AnchoredPosition: {x: 163.54999, y: -98.140015}
   m_SizeDelta: {x: 253.114, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &121477693
@@ -1512,6 +1512,7 @@ MonoBehaviour:
   enemies:
   - {fileID: 104020759841555626, guid: d9c20aa723c58b14aba1bdfbbdfb0b40, type: 3}
   - {fileID: 104020759841555626, guid: 187b7d21d93bb08cfa8c63ff29cf7568, type: 3}
+  - {fileID: 104020759841555626, guid: 0299af77713a9de17ab7002fb6493356, type: 3}
   cell: {fileID: 0}
 --- !u!4 &355476388
 Transform:
@@ -1775,8 +1776,8 @@ RectTransform:
   m_Father: {fileID: 2096587574}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 0.99998975}
+  m_AnchorMin: {x: 0, y: 0.87454104}
+  m_AnchorMax: {x: 1, y: 0.9999999}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -3867,8 +3868,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 408622051}
   m_HandleRect: {fileID: 408622050}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 0.99998975
+  m_Value: 0.9999999
+  m_Size: 0.12545887
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4460,7 +4461,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 14.099998, y: 0}
+  m_AnchoredPosition: {x: -15.000008, y: 0}
   m_SizeDelta: {x: 30, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1283723090
@@ -51092,7 +51093,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 160.23, y: -193.33}
+  m_AnchoredPosition: {x: 160.22998, y: -193.33002}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1749400429
@@ -51988,7 +51989,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0.00020751444}
-  m_SizeDelta: {x: 0, y: 300}
+  m_SizeDelta: {x: 0, y: 2463.58}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &2035616045
 GameObject:
@@ -52155,8 +52156,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 44.69, y: -1.5000142}
-  m_SizeDelta: {x: 152.91, y: 24.84}
+  m_AnchoredPosition: {x: 38.62, y: -1.5000142}
+  m_SizeDelta: {x: 165.05, y: 24.84}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2070333359
 MonoBehaviour:
@@ -52212,7 +52213,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -52328,7 +52329,7 @@ MonoBehaviour:
   endBuildingPhaseButton: {fileID: 1375176281}
   isBuildModeOn: 0
   Enemy: {fileID: 104020759841555626, guid: d9c20aa723c58b14aba1bdfbbdfb0b40, type: 3}
-  gold: 1000000
+  gold: 550
   notEnoughGoldText: {fileID: 507616744}
   dropdown: {fileID: 1677685155}
   towers:

@@ -103,7 +103,7 @@ MonoBehaviour:
   health: 100
   speed: 1.5
   damage: 10
-  cost: 6
+  cost: 11
   WalkingDirection: UP
   gold: 10
   isWalking: 1
