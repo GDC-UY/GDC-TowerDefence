@@ -58,7 +58,7 @@ public class Aceite : MonoBehaviour
 
     private void Shoot()
     {
-        if (target != null)
+        if (target != null && this.GetComponent<CircleCollider2D>().radius > Vector3.Distance(target.position, transform.position))
         {
             GameObject projectileToShoot = Instantiate(projectile, target.position, Quaternion.identity);
         }
