@@ -8,6 +8,7 @@ TagManager:
   - Cell
   - Enemy
   - Tower
+  - Game
   - AllyBase
   layers:
   - Default

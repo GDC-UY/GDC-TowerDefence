@@ -139,3 +139,4 @@ MonoBehaviour:
   target: {fileID: 0}
   cost: 3000
   projectile: {fileID: 160845165910118594, guid: 9e723e5e6d18d48448d6f3a308ccb5fa, type: 3}
+  attackSpeed: 5
