@@ -1,8 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Scenes;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 public class Enemy : MonoBehaviour
 {
@@ -54,14 +57,46 @@ public class Enemy : MonoBehaviour
     private float offSetX;
     private float offSetY;
     
+    bool goToBase = false;
+    
     private void Update()
     {
         if(health <= 0 )
             death();
+
+        if (goToBase)
+        {
+            //Goto x:30 y:0.5
+
+            Vector3 targetPosition = new Vector3(30, 0.5f, 0);
+            Vector3 currentPosition = transform.position;
+            
+            deltaX = targetPosition.x - currentPosition.x;
+            deltaY = targetPosition.y - currentPosition.y;
+            
+            if (Mathf.Abs(deltaX) < speed * Time.deltaTime && Mathf.Abs(deltaY) < speed * Time.deltaTime)
+            {
+                transform.position = new Vector2(targetPosition.x, targetPosition.y);
+                Game.Instance.UpdateHealth(this.damage, this);
+            }
+            else
+            {
+                Vector3 moveDirection = new Vector3(Mathf.Sign(deltaX), Mathf.Sign(deltaY), 0);
+                if (Mathf.Abs(deltaY) >= speed * Time.deltaTime)
+                {
+                    moveDirection.x = 0;
+                }
+                else
+                {
+                    moveDirection.y = 0;
+                }
+                MoveAdd((moveDirection.x * speed * Time.deltaTime), (moveDirection.y * speed * Time.deltaTime));
+            }
+        }
+        
         
         if (isWalking && next != null)
         {
-            // Obtiene la posición objetivo con un desplazamiento aleatorio
             Vector3 targetPosition = nextGO.transform.position + new Vector3(offSetX, offSetY, 0);
             
             Vector3 currentPosition = transform.position;
@@ -79,7 +114,8 @@ public class Enemy : MonoBehaviour
                 }
                 else
                 {
-                    death();
+                    WalkingDirection = "RIGHT";
+                    goToBase = true;
                 }
             }
             else

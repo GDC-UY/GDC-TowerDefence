@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - Tower
   - Game
+  - AllyBase
   layers:
   - Default
   - TransparentFX
