@@ -70,7 +70,7 @@ public class MouseCameraController : MonoBehaviour
             MinX = MinX - 1;
         }
     }
-
+    
     void Update()
     {
         Debug.DrawLine(new Vector2(MinX - boundX, MaxY + boundY), new Vector2(MaxX + boundX, MaxY + boundY), Color.red);
@@ -83,8 +83,9 @@ public class MouseCameraController : MonoBehaviour
         Debug.DrawLine(new Vector2(MinX, MaxY), new Vector2(MinX, MinY));
         Debug.DrawLine(new Vector2(MaxX, MinY), new Vector2(MaxX, MaxY));
 
-        
-        var wheelValue = Input.GetAxis("Mouse ScrollWheel");
+        if (Game.CameraShouldMove)
+        {
+            var wheelValue = Input.GetAxis("Mouse ScrollWheel");
         if (wheelValue < 0)
         {
             if (!(cam.orthographicSize >= maxZoom))
@@ -153,6 +154,7 @@ public class MouseCameraController : MonoBehaviour
             {
                 this.transform.position = new Vector3(MinX + 0.1f, this.transform.position.y, -10);
             }
+        }
         }
     }
 
