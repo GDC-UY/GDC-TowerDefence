@@ -32,6 +32,7 @@ public class Enemy : MonoBehaviour
     public void death()
     {
         this.gameObject.transform.parent.GetComponent<EnemySummoner>().enemyDied();
+        GameObject.FindGameObjectWithTag("Game").gameObject.GetComponent<Game>().RecieveMoney(gold);
         Destroy(this.gameObject);
     }
     

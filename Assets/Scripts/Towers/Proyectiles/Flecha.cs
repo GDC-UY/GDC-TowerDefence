@@ -17,8 +17,12 @@ public class Flecha : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (target == null)
+        {
+            Destroy(gameObject);
+            return;
+        }
         transform.position = Vector3.MoveTowards(transform.localPosition, target.position, speed * Time.deltaTime);
-        //falta rotar la flecha para que apunte al enemigo
     }
 
     public void SetTarget(Transform target)
