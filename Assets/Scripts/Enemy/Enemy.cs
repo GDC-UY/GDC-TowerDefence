@@ -28,12 +28,15 @@ public class Enemy : MonoBehaviour
     private Animator anim;
 
     private bool walk = true, up = true, down = true;
-    
+
+    //Esto es para que espere x tiempo antes de morir para darle tiempo a la animación de muerte
+    private bool deathAnimation;
     public void death()
     {
         this.gameObject.transform.parent.GetComponent<EnemySummoner>().enemyDied();
         GameObject.FindGameObjectWithTag("Game").gameObject.GetComponent<Game>().RecieveMoney(gold);
-        Destroy(this.gameObject);
+        anim.SetTrigger("Death");
+        StartCoroutine(waitForDeathAnimation());
     }
     
     private void Start()
@@ -49,8 +52,8 @@ public class Enemy : MonoBehaviour
         offSetY = Random.Range(-0.25f, 0.25f);
 
         anim = gameObject.GetComponent<Animator>();
-        
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        deathAnimation = false;
     }
     
     private float deltaX;
@@ -66,7 +69,7 @@ public class Enemy : MonoBehaviour
         if(health <= 0 )
             death();
 
-        if (goToBase)
+        if (goToBase && !deathAnimation)
         {
             //Goto x:30 y:0.5
 
@@ -191,7 +194,16 @@ public class Enemy : MonoBehaviour
             }
         }
     }
-
+    IEnumerator waitForDeathAnimation()
+    {
+        isWalking = false;
+        deathAnimation = true;
+        yield return new WaitForSeconds(3);
+        if (deathAnimation)
+        {
+            Destroy(this.gameObject);
+        }
+    }
     public void ReceiveDamage(int damage)
     {
         health -= damage;
