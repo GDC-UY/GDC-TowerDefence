@@ -4,10 +4,6 @@ using System.Collections;
 public class MouseCameraController : MonoBehaviour
 {
     private Camera cam;
-    [SerializeField] private GridManager gm;
-
-    [Header("Mapa objeto")]
-    Vector2[] vertices;
 
     public float boundX;
     public float boundY;
@@ -28,27 +24,53 @@ public class MouseCameraController : MonoBehaviour
     [SerializeField] Vector3 current_position = Vector3.zero;
     [SerializeField] Vector3 camera_position = Vector3.zero;
     
-
-
-    //https://media.discordapp.net/attachments/699277437439311962/1052420002332033104/image.png
-
     private void Start()
     {
         getBounds();
-        cam = GetComponent<Camera>();
+        cam = this.GetComponent<Camera>();
     }
 
     private void getBounds()
     {
-        boundX = GetComponent<Camera>().orthographicSize * Screen.width / Screen.height;
-        boundY = GetComponent<Camera>().orthographicSize;
-        
-        MaxY = (gm.Width/2) - boundY;
-        MinY = -(gm.Width/2) + boundY;
-        MaxX = gm.Height/2 - boundX;
-        MinX = -(gm.Width/2) + boundX;
+        boundX = this.GetComponent<Camera>().orthographicSize * Screen.width / Screen.height;
+        boundY = this.GetComponent<Camera>().orthographicSize;
     }
 
+    private void mouseWheelFactor(float num)
+    {
+        if (num == 100)
+        {
+            MaxY = 6.5f;
+            MinY = -5.5f;
+            MaxX = 7;
+            MinX = -7;
+        }
+        else if (num == -100)
+        {
+            MaxY = 17;
+            MinY = -16;
+            MaxX = 28f;
+            MinX = -28f;
+        }
+        else if (num < 0)
+        {
+            MaxY = MaxY - 0.5f;
+            MinY = MinY + 0.5f;
+            
+            MaxX = MaxX - 1;
+            MinX = MinX + 1;
+        }
+        
+        else if (num > 0)
+        {
+            MaxY = MaxY + 0.5f;
+            MinY = MinY - 0.5f;
+            
+            MaxX = MaxX + 1;
+            MinX = MinX - 1;
+        }
+    }
+    
     void Update()
     {
         Debug.DrawLine(new Vector2(MinX - boundX, MaxY + boundY), new Vector2(MaxX + boundX, MaxY + boundY), Color.red);
@@ -61,15 +83,19 @@ public class MouseCameraController : MonoBehaviour
         Debug.DrawLine(new Vector2(MinX, MaxY), new Vector2(MinX, MinY));
         Debug.DrawLine(new Vector2(MaxX, MinY), new Vector2(MaxX, MaxY));
 
-        var wheelValue = Input.GetAxis("Mouse ScrollWheel");
+        if (Game.CameraShouldMove)
+        {
+            var wheelValue = Input.GetAxis("Mouse ScrollWheel");
         if (wheelValue < 0)
         {
             if (!(cam.orthographicSize >= maxZoom))
             {
                 cam.orthographicSize = cam.orthographicSize + mouseSpeed;
+                mouseWheelFactor(-1);
                 if (cam.orthographicSize >= maxZoom)
                 {
                     cam.orthographicSize = maxZoom;
+                    mouseWheelFactor(100);
                 }
                 getBounds();
             }
@@ -79,9 +105,11 @@ public class MouseCameraController : MonoBehaviour
             if(!(cam.orthographicSize <= minZoom))
             {
                 cam.orthographicSize = cam.orthographicSize - mouseSpeed;
+                mouseWheelFactor(1);
                 if (cam.orthographicSize <= minZoom)
                 {
                     cam.orthographicSize = minZoom;
+                    mouseWheelFactor(-100);
                 }
                 getBounds();
             }
@@ -126,6 +154,7 @@ public class MouseCameraController : MonoBehaviour
             {
                 this.transform.position = new Vector3(MinX + 0.1f, this.transform.position.y, -10);
             }
+        }
         }
     }
 

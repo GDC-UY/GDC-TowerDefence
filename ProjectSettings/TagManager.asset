@@ -6,6 +6,10 @@ TagManager:
   tags:
   - GridManager
   - Cell
+  - Enemy
+  - Tower
+  - Game
+  - AllyBase
   layers:
   - Default
   - TransparentFX
@@ -15,7 +19,7 @@ TagManager:
   - UI
   - GridManager
   - Cell
-  - 
+  - Tower
   - 
   - 
   - 
