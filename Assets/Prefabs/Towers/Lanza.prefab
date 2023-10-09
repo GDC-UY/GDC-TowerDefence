@@ -162,7 +162,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 98
   m_Sprite: {fileID: 21300000, guid: 13084c4115d77a845b8e7fb6349527fc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -260,6 +260,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cost: 3000
+  attackSpeed: 3
 --- !u!1 &6975394627854634121
 GameObject:
   m_ObjectHideFlags: 0

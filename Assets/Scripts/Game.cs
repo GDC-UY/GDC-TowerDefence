@@ -5,11 +5,14 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class Game : MonoBehaviour
 {
+    public static bool CameraShouldMove = true;
+    
     private static Game instance;
     public GridManager gm;
     public GameObject cellSelected;
@@ -25,13 +28,17 @@ public class Game : MonoBehaviour
     Ray TouchRay => Camera.main.ScreenPointToRay(Input.mousePosition);
     public GameObject[] towers;
     private int enemyPoints;
-    private int roundCounter;
+    public int roundCounter;
     private IEnumerator roundTimerCoroutine;
     [SerializeField] private int roundTimer;
     private bool enemiesSpawned;
     public EnemySummoner summoner;
     public TextMeshProUGUI timerMesh, roundMesh, goldText;
     GameObject towerToSpawn;
+
+    [SerializeField] public TMP_Text HealthText;
+    public int health = 100;
+
     
     [SerializeField] private Button SkipWaveButton;
 
@@ -39,6 +46,18 @@ public class Game : MonoBehaviour
     {
         Building,
         Defending
+    }
+
+    public void UpdateHealth(int cant, Enemy enemy)
+    {
+        health = health - cant;
+        HealthText.text = "Health: " + health;
+        enemy.death();
+        if (health <= 0)
+        {
+            HealthText.text = "";
+            ScoreBoard.instance.death();
+        }
     }
 
     private PossibleGameStates gameState;
@@ -56,7 +75,7 @@ public class Game : MonoBehaviour
         }
     }
 
-    private void Awake()
+void Start()
     {
         if (instance == null)
         {
@@ -66,10 +85,7 @@ public class Game : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-    }
-
-    void Start()
-    {
+        
         undoBuildButton.onClick.AddListener(DestroyCell);
         activateBuildModeButton.onClick.AddListener(EnableBuildMode);
         
@@ -184,16 +200,19 @@ public class Game : MonoBehaviour
 
     public void EnableBuildMode()
     {
+        if(this.gameState == PossibleGameStates.Defending)
+            return;
+        
         if (dropdown.value > 0)
         {
             dropdown.value = 0;
-            dropdown.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+            dropdown.GetComponent<Image>().color = new Color32(255, 255, 255, 0);
         }
         
         if (isBuildModeOn)
         {
             isBuildModeOn = false;
-            activateBuildModeButton.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+            activateBuildModeButton.GetComponent<Image>().color = new Color32(255, 255, 255, 0);
             
         }
         else
@@ -207,7 +226,7 @@ public class Game : MonoBehaviour
     public void EnableTowerBuildMode()
     {
         isBuildModeOn = false;
-        activateBuildModeButton.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+        activateBuildModeButton.GetComponent<Image>().color = new Color32(255, 255, 255, 0);
         
         dropdown.GetComponent<Image>().color = new Color32(0, 255, 0, 255);
         
@@ -217,7 +236,7 @@ public class Game : MonoBehaviour
         }
         else
         {
-            dropdown.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+            dropdown.GetComponent<Image>().color = new Color32(255, 255, 255, 0);
             towerToSpawn = null;
         }
     }
@@ -303,8 +322,9 @@ public class Game : MonoBehaviour
             this.roundTimer = 0;
             this.timerMesh.SetText("Wave in : NOW!");
             this.SkipWaveButton.interactable = false;
+            StackCZ.Clear();
             isBuildModeOn = false;
-            activateBuildModeButton.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+            activateBuildModeButton.GetComponent<Image>().color = new Color32(255, 255, 255, 0);
         }
     }
 

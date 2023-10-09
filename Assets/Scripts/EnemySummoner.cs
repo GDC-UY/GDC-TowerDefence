@@ -33,11 +33,12 @@ public class EnemySummoner : MonoBehaviour
         {
             while (roundPoints > 0)
             {
-                Vector2 v = new Vector2(Random.Range(-20.5f, -30.5f), 0.5f);
+                Vector2 v = new Vector2(Random.Range(-30.5f, -40.5f), 0.5f);
                 
                 if (roundPoints >= enemiesCost[index])
                 {
-                    Instantiate(enemies[index], v, Quaternion.identity, gameObject.transform);
+                    GameObject enemy = Instantiate(enemies[index], v, Quaternion.identity, gameObject.transform);
+                    enemy.GetComponent<SpriteRenderer>().sortingOrder = Random.Range(1, 90);
                     roundPoints -= enemiesCost[index];
                     counter++;
                 }

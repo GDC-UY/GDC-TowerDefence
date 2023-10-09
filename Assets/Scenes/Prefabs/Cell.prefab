@@ -103,7 +103,7 @@ MonoBehaviour:
   cellIsPath: 0
   LeftUp: {fileID: 21300000, guid: f24b2e37bc6b5fc98a4d084c23c25d51, type: 3}
   LeftDown: {fileID: 21300000, guid: 7574dc72753e05e4fbdec20ee1737abd, type: 3}
-  RightUp: {fileID: 21300000, guid: a507878915740794a99e31bc0a3e34e5, type: 3}
+  RightUp: {fileID: 21300000, guid: 4f84284eb48b32f43b342b0ee2eb0c54, type: 3}
   RightDown: {fileID: 21300000, guid: 77a6a397c649b5331a45e8a2ea41129d, type: 3}
   Left: {fileID: 21300000, guid: 3940021e6a03c814299cde643b5464b3, type: 3}
   Up: {fileID: 21300000, guid: 21040e6a750818e47a9693d35903ad1b, type: 3}
