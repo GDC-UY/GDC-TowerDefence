@@ -31,6 +31,11 @@ public class Cell : MonoBehaviour
     {
         return attachedTurret != null;
     }
+    
+    public GameObject GetAttachedTurret()
+    {
+        return attachedTurret;
+    }
 
     public void DeatachTurret()
     {

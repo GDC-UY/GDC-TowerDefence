@@ -27,7 +27,7 @@ public class Game : MonoBehaviour
     public TMP_Dropdown dropdown;
     Ray TouchRay => Camera.main.ScreenPointToRay(Input.mousePosition);
     public GameObject[] towers;
-    private int enemyPoints;
+    [SerializeField] private int enemyPoints;
     public int roundCounter;
     private IEnumerator roundTimerCoroutine;
     [SerializeField] private int roundTimer;
@@ -38,7 +38,6 @@ public class Game : MonoBehaviour
 
     [SerializeField] public TMP_Text HealthText;
     public int health = 100;
-
     
     [SerializeField] private Button SkipWaveButton;
 
@@ -97,7 +96,6 @@ void Start()
         });
         endBuildingPhaseButton.onClick.AddListener(beginDefensePhase);
         gm.previewPath();
-        this.enemyPoints = 20;
         this.roundCounter = 1;
         this.roundMesh.SetText("Wave " + roundCounter.ToString());
         this.gameState = PossibleGameStates.Building;
@@ -111,6 +109,8 @@ void Start()
     bool preventDrag = false;
     Vector2 prevPos = Vector2.zero;
     float dragThreshold = 25.0f;
+
+    private int turretCost;
 
     void Update()
     {
@@ -138,7 +138,6 @@ void Start()
                 if (hit.collider.gameObject != null && (this.gold >= hitCell.getCost()) && !hitCell.node.GetUsed())
                 {
                     BuildOnCell(hit.collider.gameObject);
-                    this.LoseMoney(hitCell.getCost());
                 }
             }
             if (!isBuildModeOn && Input.GetMouseButtonUp(0) && !EventSystem.current.IsPointerOverGameObject() && !preventDrag)
@@ -150,14 +149,13 @@ void Start()
                 {
                     if (hit.collider != null && hitCell.node.GetUsed() && !hitCell.HasAttachedTurret()) //&& (this.gold >= tower.getCost())) //Esta es la linea de error null reference exeption
                     {
-                        if ((this.gold >= 3000))
+                        if ((this.gold >= turretCost))
                         {
-                            GameObject turret = Instantiate(towerToSpawn, hit.collider.gameObject.transform.position, Quaternion.identity);
                             // Se instancia y pone la torreta
+                            GameObject turret = Instantiate(towerToSpawn, hit.collider.gameObject.transform.position, Quaternion.identity);
                             hitCell.AttachTurret(turret);
                             StackCZ.Push(turret);
-                            // El jugador pierde 3000 en la construccion.
-                            this.LoseMoney(3000);
+                            this.LoseMoney(turretCost);
                         }
                         else
                         {
@@ -183,7 +181,7 @@ void Start()
             {
                 enemiesSpawned = false;
                 this.roundCounter++;
-                this.roundTimer = 90;
+                this.roundTimer = 30;
                 this.roundMesh.SetText("Wave " + roundCounter.ToString());
                 this.increaseEnemyPoints();
                 this.gameState = PossibleGameStates.Building;
@@ -218,7 +216,7 @@ void Start()
         else
         {
             isBuildModeOn = true;
-            activateBuildModeButton.GetComponent<Image>().color = new Color32(0, 255, 0, 255);
+            activateBuildModeButton.GetComponent<Image>().color = new Color32(103, 103, 103, 100);
             
         }
     }
@@ -228,11 +226,26 @@ void Start()
         isBuildModeOn = false;
         activateBuildModeButton.GetComponent<Image>().color = new Color32(255, 255, 255, 0);
         
-        dropdown.GetComponent<Image>().color = new Color32(0, 255, 0, 255);
+        dropdown.GetComponent<Image>().color = new Color32(103, 103, 103, 100);
         
         if (dropdown.value > 0)
         {
             towerToSpawn = towers[dropdown.value - 1]; //el dropdown tiene como valor 0 el cartel que dice "torres"
+
+            switch (towerToSpawn.name)
+            {
+                case("Arqueros"):
+                    turretCost = towerToSpawn.GetComponent<Arqueros>().getCost();
+                    break;
+                
+                case("Lanza"):
+                    turretCost = towerToSpawn.GetComponent<Lanza>().getCost();
+                    break;
+                
+                case("TorreAceite"):
+                    turretCost = towerToSpawn.GetComponent<Aceite>().getCost();
+                    break;
+            }
         }
         else
         {
@@ -267,7 +280,7 @@ void Start()
                 {
                     // El jugador recupera 50% de la plata que le costo hacer la torre, por ahora 1500
                     Cell cell = gamePop.gameObject.GetComponent<Cell>();
-                    this.RecieveMoney(cell.getCost() / 2);
+                    this.RecieveMoney(cell.getCost() /* / 2 */);
 
                     cell.node.SetUsed(false);
                     cell.RemoveWall();
@@ -276,8 +289,25 @@ void Start()
                 else
                 {
                     Cell cell = gamePop.transform.parent.gameObject.GetComponent<Cell>();
+                    
+                    GameObject turret = cell.GetAttachedTurret();
+                    
+                    if (turret.name.Contains("Arqueros"))
+                    {
+                        this.RecieveMoney(gamePop.GetComponent<Arqueros>().getCost() /* / 2 */);
+                    }else if (turret.name.Contains("Lanza"))
+                    {
+                        this.RecieveMoney(gamePop.GetComponent<Lanza>().getCost() /* / 2 */);
+                    }else if (turret.name.Contains("Aceite"))
+                    {
+                        this.RecieveMoney(gamePop.GetComponent<Aceite>().getCost() /* / 2 */);
+                    }
+
+
                     cell.DeatachTurret();
-                    this.RecieveMoney(gamePop.GetComponent<Tower>().getCost() / 2);
+                    
+                    
+                    
                 }
             }
         }
@@ -308,7 +338,7 @@ void Start()
 
     private void increaseEnemyPoints()
     {
-        this.enemyPoints += this.enemyPoints / 2;
+        this.enemyPoints += (this.enemyPoints / 2);
         if (this.enemyPoints % 2 != 0)
         {
             this.enemyPoints++;
@@ -324,7 +354,9 @@ void Start()
             this.SkipWaveButton.interactable = false;
             StackCZ.Clear();
             isBuildModeOn = false;
+            dropdown.value = 0;
             activateBuildModeButton.GetComponent<Image>().color = new Color32(255, 255, 255, 0);
+            dropdown.GetComponent<Image>().color = new Color32(255, 255, 255, 0);
         }
     }
 
