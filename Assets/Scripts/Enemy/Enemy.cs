@@ -19,7 +19,7 @@ public class Enemy : MonoBehaviour
     public int gold = 10; //Oro que deja al morir
     
     public bool isWalking = false; // Cambia "Walk" a "isWalking"
-    
+    public bool isSlowed = false;
     private GridManager manager;
     private LinkedList<Node> enemyPath;
     private LinkedListNode<Node> next;

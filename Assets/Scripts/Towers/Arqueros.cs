@@ -36,7 +36,7 @@ public class Arqueros : MonoBehaviour
     /// <summary>
     /// De todos los enemigos, encuentra el m�s cercano a la torre y lo targetea. Si no hay ninguno, el target es null
     /// </summary>
-    void UpdateTarget()
+    public void UpdateTarget()
     {
         float shortestDistance = Mathf.Infinity;
         GameObject nearestEnemy = null;
@@ -51,7 +51,7 @@ public class Arqueros : MonoBehaviour
                 nearestEnemy = enemy;
             }
 
-            if (nearestEnemy != null)
+            if (nearestEnemy != null && nearestEnemy.GetComponent<Enemy>().health > 0)
             {
                 target = nearestEnemy.transform;
             }

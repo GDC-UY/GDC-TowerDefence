@@ -9,16 +9,18 @@ public class CharcoAceite : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(TiempoDeVida());
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Enemy")
+        Enemy  enemy = collision.gameObject.GetComponent<Enemy>();
+        if (collision.gameObject.tag == "Enemy" && !enemy.isSlowed)
         {
             enemiesInRange.AddLast(collision.gameObject);
-            collision.GetComponent<Enemy>().speed /= 2;
+            enemy.speed /= 2;
+            enemy.isSlowed = true;
         }
+        StartCoroutine(TiempoDeVida());
     }
 
     IEnumerator TiempoDeVida()
@@ -31,7 +33,13 @@ public class CharcoAceite : MonoBehaviour
     {
         foreach (var item in enemiesInRange)
         {
-            item.GetComponent<Enemy>().speed *= 2;
+            Enemy enemy = item.GetComponent<Enemy>();
+            if (enemy.isSlowed)
+            {
+                enemy.speed*=2;
+                enemy.isSlowed = false;
+            }
+            Debug.Log(enemy.name);
         }
         Destroy(gameObject);
     }
