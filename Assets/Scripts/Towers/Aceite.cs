@@ -45,7 +45,7 @@ public class Aceite : MonoBehaviour
                 nearestEnemy = enemy;
             }
 
-            if (nearestEnemy != null)
+            if (nearestEnemy != null && nearestEnemy.GetComponent<Enemy>().health > 0)
             {
                 target = nearestEnemy.transform;
             }

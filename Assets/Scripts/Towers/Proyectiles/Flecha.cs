@@ -34,7 +34,12 @@ public class Flecha : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy")
         {
-            collision.gameObject.GetComponent<Enemy>().ReceiveDamage(damage);
+            Enemy enemy = collision.gameObject.GetComponent<Enemy>();
+            enemy.ReceiveDamage(damage);
+            if (enemy.health <= 0)
+            {
+                gameObject.transform.parent.gameObject.GetComponent<Arqueros>().UpdateTarget();
+            }
             Destroy(gameObject);
         }
     }
