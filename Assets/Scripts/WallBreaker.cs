@@ -22,7 +22,7 @@ public class WallBreaker: MonoBehaviour
         if (Input.GetKeyDown(KeyCode.B)) 
         {
             Debug.Log("tecla peruana apretada");
-            pelela();
+            DestroyWalls();
         }
     }
 
@@ -89,7 +89,7 @@ public class WallBreaker: MonoBehaviour
 
     }
 
-    private void pelela()
+    private void DestroyWalls()
     {
         LinkedList<Node> muritos = GridManager.Instance.graph.GetFreeWalls();
         if (muritos.Count > 5)

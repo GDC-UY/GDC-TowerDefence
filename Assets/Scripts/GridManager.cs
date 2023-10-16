@@ -71,7 +71,7 @@ public class GridManager : MonoBehaviour
             if (path != null)
                 prevSecurePath = new LinkedList<Node>(path);
 
-            path = graph.EnemyPathFinding(EnemySpawn, EnemyTarget);
+            path = graph.AStarPathFinding(EnemySpawn, EnemyTarget);
 
             if (path == null)
             {

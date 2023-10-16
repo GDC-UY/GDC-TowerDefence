@@ -198,7 +198,6 @@ public class Cell : MonoBehaviour
     {
         spriteRenderer.sprite = null;
     }
-
     public void RemoveWall()
     {
         RemoveSprite();
