@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections.Generic;
 
 namespace Scenes
@@ -135,7 +136,7 @@ namespace Scenes
                             continue;
                         }
                         float tentativeGScore = gScore[current] + DistanceBetween(current, neighbor);
-                        if (tentativeGScore < gScore[neighbor] || !neighbor.GetUsed())
+                        if (tentativeGScore < gScore[neighbor] || !neighbor.GetVisited())
                         {
                             cameFrom[neighbor] = current;
                             gScore[neighbor] = tentativeGScore;
@@ -155,15 +156,21 @@ namespace Scenes
 
         private float HeuristicCostEstimate(Node node, Node end)
         {
-            Vector3 pos1 = node.GetValue().transform.position;
+            /*Vector3 pos1 = node.GetValue().transform.position;
             Vector3 pos2 = end.GetValue().transform.position;
-            return Vector3.Distance(pos1, pos2);
+            return Vector3.Distance(pos1, pos2);*/
+            float x = Math.Abs(node.GetValue().transform.position.x - end.GetValue().transform.position.x);
+            float y = Math.Abs(node.GetValue().transform.position.y - end.GetValue().transform.position.y);
+            return x + y;
         }
         private float DistanceBetween(Node node1, Node node2)
         {
-            Vector3 pos1 = node1.GetValue().transform.position;
+            /*Vector3 pos1 = node1.GetValue().transform.position;
             Vector3 pos2 = node2.GetValue().transform.position;
-            return Vector3.Distance(pos1, pos2);
+            return Vector3.Distance(pos1, pos2);*/
+            float x = Math.Abs(node1.GetValue().transform.position.x - node2.GetValue().transform.position.x);
+            float y = Math.Abs(node1.GetValue().transform.position.y - node2.GetValue().transform.position.y);
+            return x + y;
         }
         private LinkedList<Node> ReconstructPath(Node start, Node current, Dictionary<Node, Node> cameFrom)
         {
